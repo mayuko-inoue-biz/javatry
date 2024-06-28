@@ -47,7 +47,14 @@ public class Step01VariableTest extends PlainTestCase {
         String piari = null;
         String dstore = "mai";
         sea = sea + land + piari + ":" + dstore;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 47行目でエラー吐きそう（理由：String 型に null を代入しているから）
+        // 答え：mystic8null:mai
+        // そもそも String は型ではなく、クラスだった。
+        // Java にはプリミティブ型と参照型(この中に String が含まれる)があるらしい。
+        // null とは：参照型変数に値が何も格納されていない状態らしい。参照矢印が何も指していない的な？ https://qiita.com/e99h2121/items/46a624e0fe74e80c3b79
+        // → 参照型は null 代入 OK。逆に、プリミティブ型に null 代入 NG（「 <nulltype>を ... に変換できません。」と出てくる）。
+        // + でどちらかが String 型の場合、片方も String 型に変換されるらしい。https://docs.oracle.com/javase/specs/jls/se11/html/jls-15.html#jls-15.18.1
+        // null も、"null" として変換されるらしい。https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html#jls-5.1.11:~:text=If%20the%20reference%20is%20null%2C%20it%20is%20converted%20to%20the%20string%20%22null%22
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
