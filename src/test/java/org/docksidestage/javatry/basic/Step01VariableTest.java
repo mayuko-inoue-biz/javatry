@@ -90,7 +90,12 @@ public class Step01VariableTest extends PlainTestCase {
         sea = land;
         sea = land.add(new BigDecimal(1));
         sea.add(new BigDecimal(1));
-        log(sea); // your answer? => 
+        log(sea); // your answer? =>  417（理由：85行目で 416 の BigDecimal を参照し直し、86行目で +1 で 417 になるから）
+        // 答え：416
+        // BigDecimal クラスの add method は、val が +1 になった BigDecimalインスタンスを返すっぽい（非破壊的変更的なやつ？）自身の値を+1するわけではない。
+        // BigDecimal クラスの add メソッドは、非破壊的変更のやつだよと覚えている必要はない気がする。
+        // add にカーソルをかざすと @Contract(pure=true)と出てくる。
+        // 「@Contract(pure=true)の場合非破壊的変更を表している」ということさえ覚えておけば、他でも応用できるはず。
     }
 
     // ===================================================================================
