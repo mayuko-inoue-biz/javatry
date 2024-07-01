@@ -79,7 +79,8 @@ public class Step01VariableTest extends PlainTestCase {
         int land = 415;
         sea = land;
         land++;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 415（理由：int はプリミティブ型なので、75行目でlandが416になっても、seaに格納されている数値は415のままだから）
+        // 答え：415 (2024/07/01)
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
