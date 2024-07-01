@@ -55,7 +55,7 @@ public class Step01VariableTest extends PlainTestCase {
         // → 参照型は null 代入 OK。逆に、プリミティブ型に null 代入 NG（「 <nulltype>を ... に変換できません。」と出てくる）。
         // + でどちらかが String 型の場合、片方も String 型に変換されるらしい。https://docs.oracle.com/javase/specs/jls/se11/html/jls-15.html#jls-15.18.1
         // null も、"null" として変換されるらしい。https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html#jls-5.1.11:~:text=If%20the%20reference%20is%20null%2C%20it%20is%20converted%20to%20the%20string%20%22null%22
-        // TODO mayukorin 素晴らしい学びですね。参照型は別名「ラッパー型」とも呼ばれます (プリミティブをwrapしてるということで) by jflute (2024/06/30)
+        // TODO done mayukorin 素晴らしい学びですね。参照型は別名「ラッパー型」とも呼ばれます (プリミティブをwrapしてるということで) by jflute (2024/06/30)
         // nullを状態と捉えるのは大事なことですね。ついつい、みんな「nullが入ってる」とか「nullを入れる」とか言っちゃうんですけど、
         // 厳密にはnullは入ってるものではなく、中身が空っぽの状態を指しているだけです。でもぼくも「nullを入れる」って言っちゃうんです。
         // そこはあえてわかった上で便宜上言ってるという感じですね。
