@@ -123,7 +123,12 @@ public class Step01VariableTest extends PlainTestCase {
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_variable_instance_variable_default_Integer() {
         Integer sea = instanceHangar;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => null（理由：参照型なため、初期値は何も指してないnullが入りそう）. Integer ってラッパークラスとか呼ばれる気がするけど忘れた
+        // 答え：null
+        // Integer は、ラッパークラス. https://qiita.com/KenyaSaitoh/items/fff28b132c7e1048ca97#%E3%83%A9%E3%83%83%E3%83%91%E3%83%BC%E3%82%AF%E3%83%A9%E3%82%B9%E3%81%A8%E3%81%AF
+        // ラッパークラス：プリミティブ型をオブジェクトとして扱うためのクラス。
+        // なぜラッパークラスが必要？：プリミティブ型のままでは、格納している値を変換したりができないから。
+        // TODO jflute ラッパークラスとラッパー型は同じものを指しているのでしょうか？ by mayukorin
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
