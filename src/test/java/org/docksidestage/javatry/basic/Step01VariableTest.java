@@ -137,7 +137,18 @@ public class Step01VariableTest extends PlainTestCase {
         instanceMagiclamp = "magician";
         helpInstanceVariableViaMethod(instanceMagiclamp);
         String sea = instanceBroadway + "|" + instanceDockside + "|" + instanceHangar + "|" + instanceMagiclamp;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => bbb|1|null|burn
+        // 理由：
+        // ① sea は、本関数内のinstanceBroadway変数を使用している & 本関数内のinstanceBroadway変数は、helpInstanceVariableViaMethodで更新されない。
+        // ② sea は、本関数外で定義された instanceDockside を使用している & 本関数外で定義された instanceDockside は、helpInstanceVariableViaMethodで更新される
+        // ③ sea は、本関数外で定義された instanceHangar を使用している & 本関数外で定義された instanceHangar = null で、<String型> + で "null" に変換される。
+        // ④ sea は、本関数内のinstanceMagiclamp変数を使用している & 本関数内のinstanceMagiclamp変数は、helpInstanceVariableViaMethodで更新される...？本関数内のinstanceMagiclamp変数とhelpInstanceVariableViaMethodは同じ値を参照していて、151行目で参照先の値が変わるから。
+        // 解答：bigband|1|null|magician
+        // 間違えたポイント
+        // ・本関数内の instanceBroadwayは、本関数外で定義された変数と同じ（理由：136行目で型で宣言されたわけではないため。）
+        // ・「instanceMagiclamp = "burn";」で、本関数内の instanceMagiclamp 変数の参照先の値は変わらない。
+        // 「instanceMagiclamp = "burn";」では、メモリ上で新しく "burn" を確保して、それを helpInstanceVariableViaMethod 内の instanceMagiclamp が参照し直す。
+        // イメージ図：https://docs.google.com/presentation/d/1J8le87HoefiA3gyiwai2y92ov6hYKtRotXOMuMwLjO0/edit?usp=sharing（2024/07/01）
     }
 
     private void helpInstanceVariableViaMethod(String instanceMagiclamp) {
