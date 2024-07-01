@@ -55,7 +55,7 @@ public class Step01VariableTest extends PlainTestCase {
         // → 参照型は null 代入 OK。逆に、プリミティブ型に null 代入 NG（「 <nulltype>を ... に変換できません。」と出てくる）。
         // + でどちらかが String 型の場合、片方も String 型に変換されるらしい。https://docs.oracle.com/javase/specs/jls/se11/html/jls-15.html#jls-15.18.1
         // null も、"null" として変換されるらしい。https://docs.oracle.com/javase/specs/jls/se11/html/jls-5.html#jls-5.1.11:~:text=If%20the%20reference%20is%20null%2C%20it%20is%20converted%20to%20the%20string%20%22null%22
-        // TODO done mayukorin 素晴らしい学びですね。参照型は別名「ラッパー型」とも呼ばれます (プリミティブをwrapしてるということで) by jflute (2024/06/30)
+        // done mayukorin 素晴らしい学びですね。参照型は別名「ラッパー型」とも呼ばれます (プリミティブをwrapしてるということで) by jflute (2024/06/30)
         // nullを状態と捉えるのは大事なことですね。ついつい、みんな「nullが入ってる」とか「nullを入れる」とか言っちゃうんですけど、
         // 厳密にはnullは入ってるものではなく、中身が空っぽの状態を指しているだけです。でもぼくも「nullを入れる」って言っちゃうんです。
         // そこはあえてわかった上で便宜上言ってるという感じですね。
@@ -96,6 +96,15 @@ public class Step01VariableTest extends PlainTestCase {
         // BigDecimal クラスの add メソッドは、非破壊的変更のやつだよと覚えている必要はない気がする。
         // add にカーソルをかざすと @Contract(pure=true)と出てくる。
         // 「@Contract(pure=true)の場合非破壊的変更を表している」ということさえ覚えておけば、他でも応用できるはず (2024/07/01)。
+
+        // TODO mayukorin おおぉ、素晴らしい気付きですね。IDEが出すヒントやjavadocを見る習慣を付ける付けないで大きな差になります by jflute (2024/07/01)
+        // と言いつつ、ぼくは普段IntelliJを使ってないので@Contractの表示は知らなかったので今度見せてください(^^。
+        // 一方で、IntelliJはメソッド補完時のJavaDoc表示は、勝手に出てこなくてショートカットキーが必要だったはずです。
+        // twitterで啓蒙してたこともありました。
+        // https://twitter.com/jflute/status/877828346070970370
+        // ぜひ、普段からcontrol+Jを使ってみてください。
+
+        // TODO jflute 1on1にてImmutableの話をする予定 (2024/07/01)
     }
 
     // ===================================================================================
@@ -128,7 +137,17 @@ public class Step01VariableTest extends PlainTestCase {
         // Integer は、ラッパークラス. https://qiita.com/KenyaSaitoh/items/fff28b132c7e1048ca97#%E3%83%A9%E3%83%83%E3%83%91%E3%83%BC%E3%82%AF%E3%83%A9%E3%82%B9%E3%81%A8%E3%81%AF
         // ラッパークラス：プリミティブ型をオブジェクトとして扱うためのクラス。
         // なぜラッパークラスが必要？：プリミティブ型のままでは、格納している値を変換したりができないから。
-        // TODO jflute ラッパークラスとラッパー型は同じものを指しているのでしょうか？ by mayukorin
+        // TODO done jflute ラッパークラスとラッパー型は同じものを指しているのでしょうか？ by mayukorin
+        // TODO mayukorin [へんじ] 同じものと捉えてOKです。要は「クラスと型という言葉が同じものを指すか？」って話になります by jflute (2024/07/01)
+        // クラスは、Javaにおけるオブジェクトの定義を表現する文法表現で...
+        // 型は、Javaの変数に代入されるインスタンスの種類に制限を掛ける制約のようなもので...
+        // そして、型として利用されるものが(Javaでは)クラスなので、指し示すものは実質的に同じとなります。
+        // 視点の違う別用語だけど、たまたま指し示すものが同じであると。
+        // 結構入り乱れて使われてしまうものなので、ちょっとややこしいですよね。
+        // ちなみに、Integerとかをオブジェクト型と表現することもあります。
+        // オブジェクト型は、厳密には広い言葉で、StringもObjectもプリミティブ型以外は全部プリミティブ型です。
+        // ラッパー型はオブジェクト型の一部で、プリミティブ型をラップ(wrap)したものをラッパー型と呼びます。
+        // 最近は、あまりラッパー型と呼ぶ人は現場では少ないような印象ではありますね。
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -149,6 +168,9 @@ public class Step01VariableTest extends PlainTestCase {
         // ・「instanceMagiclamp = "burn";」で、本関数内の instanceMagiclamp 変数の参照先の値は変わらない。
         // 「instanceMagiclamp = "burn";」では、メモリ上で新しく "burn" を確保して、それを helpInstanceVariableViaMethod 内の instanceMagiclamp が参照し直す。
         // イメージ図：https://docs.google.com/presentation/d/1J8le87HoefiA3gyiwai2y92ov6hYKtRotXOMuMwLjO0/edit?usp=sharing（2024/07/01）
+        // TODO mayukorin ↑イメージ図の3ページ目、instanceBroadwayじゃなくてinstanceMagiclampの間違いですよね？ by jflute (2024/07/01)
+
+        // TODO jflute 学びが素晴らしすぎるので1on1の時にフォロー予定 (2024/07/01)
     }
 
     private void helpInstanceVariableViaMethod(String instanceMagiclamp) {
