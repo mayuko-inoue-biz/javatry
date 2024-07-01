@@ -95,7 +95,7 @@ public class Step01VariableTest extends PlainTestCase {
         // BigDecimal クラスの add method は、val が +1 になった BigDecimalインスタンスを返すっぽい（非破壊的変更的なやつ？）自身の値を+1するわけではない。
         // BigDecimal クラスの add メソッドは、非破壊的変更のやつだよと覚えている必要はない気がする。
         // add にカーソルをかざすと @Contract(pure=true)と出てくる。
-        // 「@Contract(pure=true)の場合非破壊的変更を表している」ということさえ覚えておけば、他でも応用できるはず。
+        // 「@Contract(pure=true)の場合非破壊的変更を表している」ということさえ覚えておけば、他でも応用できるはず (2024/07/01)。
     }
 
     // ===================================================================================
@@ -110,14 +110,14 @@ public class Step01VariableTest extends PlainTestCase {
     public void test_variable_instance_variable_default_String() {
         String sea = instanceBroadway;
         log(sea); // your answer? =>  null(理由：参照型なため、初期値は何も指してないnullが入りそう)
-        //答え：null
+        //答え：null (2024/07/01)
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_variable_instance_variable_default_int() {
         int sea = instanceDockside;
         log(sea); // your answer? =>  0（理由：プリミティブ型のため、初期値は0が入りそう）
-        //答え：0
+        //答え：0 (2024/07/01)
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
