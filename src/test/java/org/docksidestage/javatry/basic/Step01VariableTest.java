@@ -97,7 +97,7 @@ public class Step01VariableTest extends PlainTestCase {
         // add にカーソルをかざすと @Contract(pure=true)と出てくる。
         // 「@Contract(pure=true)の場合非破壊的変更を表している」ということさえ覚えておけば、他でも応用できるはず (2024/07/01)。
 
-        // TODO mayukorin おおぉ、素晴らしい気付きですね。IDEが出すヒントやjavadocを見る習慣を付ける付けないで大きな差になります by jflute (2024/07/01)
+        // TODO done mayukorin おおぉ、素晴らしい気付きですね。IDEが出すヒントやjavadocを見る習慣を付ける付けないで大きな差になります by jflute (2024/07/01)
         // と言いつつ、ぼくは普段IntelliJを使ってないので@Contractの表示は知らなかったので今度見せてください(^^。
         // 一方で、IntelliJはメソッド補完時のJavaDoc表示は、勝手に出てこなくてショートカットキーが必要だったはずです。
         // twitterで啓蒙してたこともありました。
@@ -138,7 +138,7 @@ public class Step01VariableTest extends PlainTestCase {
         // ラッパークラス：プリミティブ型をオブジェクトとして扱うためのクラス。
         // なぜラッパークラスが必要？：プリミティブ型のままでは、格納している値を変換したりができないから。
         // TODO done jflute ラッパークラスとラッパー型は同じものを指しているのでしょうか？ by mayukorin
-        // TODO mayukorin [へんじ] 同じものと捉えてOKです。要は「クラスと型という言葉が同じものを指すか？」って話になります by jflute (2024/07/01)
+        // TODO done mayukorin [へんじ] 同じものと捉えてOKです。要は「クラスと型という言葉が同じものを指すか？」って話になります by jflute (2024/07/01)
         // クラスは、Javaにおけるオブジェクトの定義を表現する文法表現で...
         // 型は、Javaの変数に代入されるインスタンスの種類に制限を掛ける制約のようなもので...
         // そして、型として利用されるものが(Javaでは)クラスなので、指し示すものは実質的に同じとなります。
@@ -168,7 +168,8 @@ public class Step01VariableTest extends PlainTestCase {
         // ・「instanceMagiclamp = "burn";」で、本関数内の instanceMagiclamp 変数の参照先の値は変わらない。
         // 「instanceMagiclamp = "burn";」では、メモリ上で新しく "burn" を確保して、それを helpInstanceVariableViaMethod 内の instanceMagiclamp が参照し直す。
         // イメージ図：https://docs.google.com/presentation/d/1J8le87HoefiA3gyiwai2y92ov6hYKtRotXOMuMwLjO0/edit?usp=sharing（2024/07/01）
-        // TODO mayukorin ↑イメージ図の3ページ目、instanceBroadwayじゃなくてinstanceMagiclampの間違いですよね？ by jflute (2024/07/01)
+        // TODO done mayukorin ↑イメージ図の3ページ目、instanceBroadwayじゃなくてinstanceMagiclampの間違いですよね？ by jflute (2024/07/01)
+        // 間違いでした！instanceMagiclamp に直しました。教えていただきありがとうございます！by mayukorin（2024/07/02）
 
         // TODO jflute 学びが素晴らしすぎるので1on1の時にフォロー予定 (2024/07/01)
     }
