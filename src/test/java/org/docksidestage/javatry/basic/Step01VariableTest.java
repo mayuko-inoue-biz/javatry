@@ -196,13 +196,14 @@ public class Step01VariableTest extends PlainTestCase {
 
         // done jflute 学びが素晴らしすぎるので1on1の時にフォロー予定 (2024/07/01)
 
-        // TODO mayukorin [読み物課題]図を使って理解を深めようとするのとても素敵です！ by jflute (2024/07/03)
+        // TODO done mayukorin [読み物課題]図を使って理解を深めようとするのとても素敵です！ by jflute (2024/07/03)
         // ぼくもよく図を描いて表現すること多いし、みなさんにオススメをしています。
         // ちょっとお時間ある時に以下のブログをぜひ読んでみてください。(これもjavatryの一環として)
         // 実際はホワイトボードじゃなくてもPC上で気軽に図を描くツールがあればそれで良いですが、コンセプトはこういうこってところです。
         //
         // ホワイトボードを買ってこよう | jfluteの日記
         // https://jflute.hatenadiary.jp/entry/20110607/1307440686
+        // ありがとうございます！家に電子メモパッドがあったと思うので、持っていこうと思います(2024/07/03)！
     }
 
     private void helpInstanceVariableViaMethod(String instanceMagiclamp) {
