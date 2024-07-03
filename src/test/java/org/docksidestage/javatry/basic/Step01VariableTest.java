@@ -60,7 +60,27 @@ public class Step01VariableTest extends PlainTestCase {
         // 厳密にはnullは入ってるものではなく、中身が空っぽの状態を指しているだけです。でもぼくも「nullを入れる」って言っちゃうんです。
         // そこはあえてわかった上で便宜上言ってるという感じですね。
 
-        // TODO jflute 1on1でもうちょいだけフォロー予定 (他の言語では？とかnull事件とか) (2024/06/30)
+        // [memo]
+        // オブジェクト型 => 広い
+        // ラッパー型 => プリミティブ対応のもの
+        // 参照型 => 変数の中はアドレスが入ってるだけ (オブジェクト型が全部そう)
+
+        // [質問] オブジェクト型のメリットなに？
+        // オブジェクト指向の思想を取り入れて、そのメリットを享受できるもの
+        //
+        //int kubo = 3;
+        //betunohito.convert(kubo);
+        //
+        //Integer mayukorin = new Integer(3);
+        //double doubleValue = mayukorin.doubleValue();
+        //String string = mayukorin.toString();
+        //String replaced = sea.replace("a", "b");
+        // step5で実感しましょう
+
+        // [質問] オブジェクトの値と振る舞いを一緒にできる仕組みは、参照型だから？
+        // yes, そういうイメージでOK
+
+        // done jflute 1on1でもうちょいだけフォロー予定 (他の言語では？とかnull事件とか) (2024/06/30)
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -89,6 +109,9 @@ public class Step01VariableTest extends PlainTestCase {
         BigDecimal land = new BigDecimal(415);
         sea = land;
         sea = land.add(new BigDecimal(1));
+        // [memo] javadocを読むと良い
+        // Returns a BigDecimal whose value is (this + augend),
+        // and whose scale is max(this.scale(), augend.scale()).
         sea.add(new BigDecimal(1));
         log(sea); // your answer? =>  417（理由：85行目で 416 の BigDecimal を参照し直し、86行目で +1 で 417 になるから）
         // 答え：416
@@ -104,7 +127,7 @@ public class Step01VariableTest extends PlainTestCase {
         // https://twitter.com/jflute/status/877828346070970370
         // ぜひ、普段からcontrol+Jを使ってみてください。
 
-        // TODO jflute 1on1にてImmutableの話をする予定 (2024/07/01)
+        // done jflute 1on1にてImmutableの話をする予定 (2024/07/01)
     }
 
     // ===================================================================================
@@ -171,7 +194,15 @@ public class Step01VariableTest extends PlainTestCase {
         // done mayukorin ↑イメージ図の3ページ目、instanceBroadwayじゃなくてinstanceMagiclampの間違いですよね？ by jflute (2024/07/01)
         // 間違いでした！instanceMagiclamp に直しました。教えていただきありがとうございます！by mayukorin（2024/07/02）
 
-        // TODO jflute 学びが素晴らしすぎるので1on1の時にフォロー予定 (2024/07/01)
+        // done jflute 学びが素晴らしすぎるので1on1の時にフォロー予定 (2024/07/01)
+
+        // TODO mayukorin [読み物課題]図を使って理解を深めようとするのとても素敵です！ by jflute (2024/07/03)
+        // ぼくもよく図を描いて表現すること多いし、みなさんにオススメをしています。
+        // ちょっとお時間ある時に以下のブログをぜひ読んでみてください。(これもjavatryの一環として)
+        // 実際はホワイトボードじゃなくてもPC上で気軽に図を描くツールがあればそれで良いですが、コンセプトはこういうこってところです。
+        //
+        // ホワイトボードを買ってこよう | jfluteの日記
+        // https://jflute.hatenadiary.jp/entry/20110607/1307440686
     }
 
     private void helpInstanceVariableViaMethod(String instanceMagiclamp) {
