@@ -241,7 +241,9 @@ public class Step01VariableTest extends PlainTestCase {
         StringBuilder sea = new StringBuilder("harbor");
         int land = 415;
         helpMethodArgumentMethodcall(sea, land);
-        log(sea); // your answer? => 
+        log(sea); // your answer? => harbor416（理由：sea.append は mutable っぽい (append の javaDoc を見ても特に return とか書かれていないため) ので Methodcall 内の sea の参照先の値が harbor416になる && Methodcall 内の sea と methodcall 内の sea は同じ値を参照している）
+        // 答え：harbor416
+        // sea.append は mutable なのは、append の javadoc を見て 「return this.object」という部分からも分かりそう。もしimmutableだったら、return this.object しても値が変わらない this.object が返ってきて意味がない。(2024/07/04)
     }
 
     private void helpMethodArgumentMethodcall(StringBuilder sea, int land) {
