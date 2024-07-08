@@ -313,11 +313,21 @@ public class Step01VariableTest extends PlainTestCase {
      * <pre>
      * _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
      * your question here (ここにあなたの質問を):
-     * 
+     * o ローカル変数、名前はearth, 型はString, 初期値は "blue"
+     * o ローカル変数、名前はmars, 型はBigDecimal, 初期値は 1
+     * o mars を 4 に更新
+     * o グローバル変数、名前はjupiter, 型はint, 初期値は 5
+     * o すべての変数をlog()でカンマ区切りの文字列で表示
      * _/_/_/_/_/_/_/_/_/_/
      * </pre>
      */
+    int jupiter = 5;
     public void test_variable_yourExercise() {
         // write your code here
+        String earth = "blue";
+        BigDecimal mars = new BigDecimal(1);
+        mars = mars.add(new BigDecimal(3));
+        earth = earth + "," + mars + "," + jupiter;
+        log(earth); // blue,4,5 (2024/07/08)
     }
 }
