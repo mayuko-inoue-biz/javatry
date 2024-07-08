@@ -259,7 +259,8 @@ public class Step01VariableTest extends PlainTestCase {
         StringBuilder sea = new StringBuilder("harbor");
         int land = 415;
         helpMethodArgumentVariable(sea, land);
-        log(sea); // your answer? => 
+        log(sea); // your answer? => harbor（理由：sea = new StringBuilder(seaStr).append(land); では、Variable method 内の sea 変数の参照先が変わるだけで、assignment 内の sea が参照している文字列の値は変わらないから）
+        // harbor
     }
 
     private void helpMethodArgumentVariable(StringBuilder sea, int land) {
