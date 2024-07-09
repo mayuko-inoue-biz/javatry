@@ -226,7 +226,7 @@ public class Step01VariableTest extends PlainTestCase {
         helpMethodArgumentImmutableMethodcall(sea, land);
         log(sea); // your answer? => harbor（理由：sea.concat(landStr) (immutable、concat の javaDoc で returns ... と書いてあるので分かる) の値を返していない && Methodcall の返り値に sea を代入しているわけではない）
         // 答え：harbor (2024/07/04)
-        // TODO mayukorin [いいね]完璧な説明素晴らしいです。javaDoc見てくれてるの嬉しいです^^ by jflute (2024/07/08)
+        // TODO done mayukorin [いいね]完璧な説明素晴らしいです。javaDoc見てくれてるの嬉しいです^^ by jflute (2024/07/08)
     }
 
     private void helpMethodArgumentImmutableMethodcall(String sea, int land) {
