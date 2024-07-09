@@ -204,7 +204,7 @@ public class Step01VariableTest extends PlainTestCase {
         // ホワイトボードを買ってこよう | jfluteの日記
         // https://jflute.hatenadiary.jp/entry/20110607/1307440686
         // ありがとうございます！家に電子メモパッドがあったと思うので、持っていこうと思います(2024/07/03)！
-        // TODO mayukorin [いいね]読んでくださり、ありがとうございます。電子メモパッド素晴らしいー(^^ by jflute (2024/07/08)
+        // TODO done mayukorin [いいね]読んでくださり、ありがとうございます。電子メモパッド素晴らしいー(^^ by jflute (2024/07/08)
     }
 
     private void helpInstanceVariableViaMethod(String instanceMagiclamp) {
