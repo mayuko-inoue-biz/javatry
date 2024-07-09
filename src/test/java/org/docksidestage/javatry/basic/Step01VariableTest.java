@@ -355,6 +355,7 @@ public class Step01VariableTest extends PlainTestCase {
         mars = mars.add(new BigDecimal(3));
         earth = earth + "," + mars + "," + jupiter;
         log(earth); // blue,4,5 (2024/07/08)
-        // TODO mayukorin [いいね]変数名がおしゃれ！ぼくのmaihama寄せとは大違い苦笑 by jflute (2024/07/08)
+        // TODO done mayukorin [いいね]変数名がおしゃれ！ぼくのmaihama寄せとは大違い苦笑 by jflute (2024/07/08)
+        // ありがとうございます！！笑 by mayukorin (2024/07/09)
     }
 }
