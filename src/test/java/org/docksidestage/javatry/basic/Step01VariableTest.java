@@ -266,8 +266,9 @@ public class Step01VariableTest extends PlainTestCase {
         helpMethodArgumentVariable(sea, land);
         log(sea); // your answer? => harbor（理由：sea = new StringBuilder(seaStr).append(land); では、Variable method 内の sea 変数の参照先が変わるだけで、assignment 内の sea が参照している文字列の値は変わらないから）
         // harbor
-        // TODO mayukorin [いいね]2つ罠があったみたいな感じですね by jflute (2024/07/08)
+        // TODO done mayukorin [いいね]2つ罠があったみたいな感じですね by jflute (2024/07/08)
         // append()してるのは新しいStringBuilderインスタンスだし、それをtest_側は受け取ってないしと
+        // ありがとうございます！確かに、append() しているのが sea であれば、答えは harbor416 になりますよね！ by mayukorin (2024/07/09)
     }
 
     private void helpMethodArgumentVariable(StringBuilder sea, int land) {
