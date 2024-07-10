@@ -204,7 +204,7 @@ public class Step01VariableTest extends PlainTestCase {
         // ホワイトボードを買ってこよう | jfluteの日記
         // https://jflute.hatenadiary.jp/entry/20110607/1307440686
         // ありがとうございます！家に電子メモパッドがあったと思うので、持っていこうと思います(2024/07/03)！
-        // TODO done mayukorin [いいね]読んでくださり、ありがとうございます。電子メモパッド素晴らしいー(^^ by jflute (2024/07/08)
+        // done mayukorin [いいね]読んでくださり、ありがとうございます。電子メモパッド素晴らしいー(^^ by jflute (2024/07/08)
     }
 
     private void helpInstanceVariableViaMethod(String instanceMagiclamp) {
@@ -226,7 +226,7 @@ public class Step01VariableTest extends PlainTestCase {
         helpMethodArgumentImmutableMethodcall(sea, land);
         log(sea); // your answer? => harbor（理由：sea.concat(landStr) (immutable、concat の javaDoc で returns ... と書いてあるので分かる) の値を返していない && Methodcall の返り値に sea を代入しているわけではない）
         // 答え：harbor (2024/07/04)
-        // TODO done mayukorin [いいね]完璧な説明素晴らしいです。javaDoc見てくれてるの嬉しいです^^ by jflute (2024/07/08)
+        // done mayukorin [いいね]完璧な説明素晴らしいです。javaDoc見てくれてるの嬉しいです^^ by jflute (2024/07/08)
     }
 
     private void helpMethodArgumentImmutableMethodcall(String sea, int land) {
@@ -246,9 +246,11 @@ public class Step01VariableTest extends PlainTestCase {
         log(sea); // your answer? => harbor416（理由：sea.append は mutable っぽい (append の javaDoc を見ても特に return とか書かれていないため) ので Methodcall 内の sea の参照先の値が harbor416になる && Methodcall 内の sea と methodcall 内の sea は同じ値を参照している）
         // 答え：harbor416
         // sea.append は mutable なのは、append の javadoc を見て 「return this.object」という部分からも分かりそう。もしimmutableだったら、return this.object しても値が変わらない this.object が返ってきて意味がない。(2024/07/04)
-        // TODO done mayukorin [いいね]That's right!  by jflute (2024/07/08)
+        // done mayukorin [いいね]That's right!  by jflute (2024/07/08)
 
-        // TODO jflute 1on1にてmutableなのにreturnを戻す理由について補足予定 (2024/07/08)
+        // done jflute 1on1にてmutableなのにreturnを戻す理由について補足予定 (2024/07/08)
+        // メソッドチェーンをしたいがためにreturn this;している
+        //  e.g. sea.append(land).append("a").append("b");
     }
 
     private void helpMethodArgumentMethodcall(StringBuilder sea, int land) {
@@ -266,7 +268,7 @@ public class Step01VariableTest extends PlainTestCase {
         helpMethodArgumentVariable(sea, land);
         log(sea); // your answer? => harbor（理由：sea = new StringBuilder(seaStr).append(land); では、Variable method 内の sea 変数の参照先が変わるだけで、assignment 内の sea が参照している文字列の値は変わらないから）
         // harbor
-        // TODO done mayukorin [いいね]2つ罠があったみたいな感じですね by jflute (2024/07/08)
+        // done mayukorin [いいね]2つ罠があったみたいな感じですね by jflute (2024/07/08)
         // append()してるのは新しいStringBuilderインスタンスだし、それをtest_側は受け取ってないしと
         // ありがとうございます！確かに、append() しているのが sea であれば、答えは harbor416 になりますよね！ by mayukorin (2024/07/09)
     }
@@ -299,6 +301,7 @@ public class Step01VariableTest extends PlainTestCase {
     class P {
         int piari;
     }
+
     public void test_variable_writing() {
         // define variables here
         String sea = "mystic";
@@ -310,12 +313,12 @@ public class Step01VariableTest extends PlainTestCase {
         // インスタンス変数：クラスの直下、メソッドの外に定義する変数。ローカル変数：メソッド内で宣言する変数（参考：https://qiita.com/Molly95554907/items/f5cfad8234e69ccfbeab#%E3%82%A4%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%B3%E3%82%B9%E5%A4%89%E6%95%B0）。
         // ローカル変数では初期化しないとコンパイルエラーになるが、インスタンス変数やグローバル変数では初期化しなくてもコンパイルエラーにならないらしい（参照：https://qiita.com/kumaGoro_95/items/3420cbb36f4e9edfcee1）。
         // 初期化せずに変数にアクセスしたいケースが色々ありそうなインスタンス変数・グローバル変数では、初期化しなくてもコンパイルエラーにならないようにデフォルト値を入れる。ローカル変数は初期化せずにアクセスしたいケースがあまりないような気がするので宣言時に初期値を入れないとエラーになるのか？（参考：https://teratail.com/questions/52814）
-        // TODO jflute インスタンス変数がクラスの直下でメソッドの外に定義する変数だとすると、writing() の下でインスタンス変数の piari を定義することはできない気がしました。この理解が正しいか、教えていただきたいです by m.inoue (2024/07/08)
-        // TODO done mayukorin [へんじ]その理解で大丈夫です。なので、piariだけはこのメソッド内では定義できないので外に定義します by jflute (2024/07/08)
+        // done jflute インスタンス変数がクラスの直下でメソッドの外に定義する変数だとすると、writing() の下でインスタンス変数の piari を定義することはできない気がしました。この理解が正しいか、教えていただきたいです by m.inoue (2024/07/08)
+        // done mayukorin [へんじ]その理解で大丈夫です。なので、piariだけはこのメソッド内では定義できないので外に定義します by jflute (2024/07/08)
         // でも確かに "define variables here" って書いてあるから「ここじゃないといけないのかな？」って疑問思うのは当然ですね、ごめんなさい（＞＜
-        // TODO jflute すみません、関数の外で宣言すれば良いのを忘れてました！教えていただきありがとうございます！解き直したので、もう一度見ていただきたいです！by mayukorin (2024/07/09)
-        // TODO jflute ローカル変数は初期化しないとコンパイルエラーになるが、インスタンス変数やグローバル変数は初期化しなくてもコンパイルエラーにならない背景について教えていただきたいです。私としては、2行上の理解 (「ローカル変数では...」) でいます by m.inoue (2024/07/08)
-        // TODO done mayukorin [へんじ]理解はその通りで素晴らしいです。厳密にはローカル変数は初期化しなくても使わなければコンパイルエラーにはならないです by jflute (2024/07/08)
+        // done jflute すみません、関数の外で宣言すれば良いのを忘れてました！教えていただきありがとうございます！解き直したので、もう一度見ていただきたいです！by mayukorin (2024/07/09)
+        // done jflute ローカル変数は初期化しないとコンパイルエラーになるが、インスタンス変数やグローバル変数は初期化しなくてもコンパイルエラーにならない背景について教えていただきたいです。私としては、2行上の理解 (「ローカル変数では...」) でいます by m.inoue (2024/07/08)
+        // done mayukorin [へんじ]理解はその通りで素晴らしいです。厳密にはローカル変数は初期化しなくても使わなければコンパイルエラーにはならないです by jflute (2024/07/08)
         // ただ、使わないローカル変数ってなんの意味もなく実際に使おうとしますから、まあそれでコンパイルエラーになるという感じですね。
         // ローカル変数とインスタンス変数の違いの背景としては、mayukorinさんの書いた通りで良いとは思います。厳密にはJavaの作者に聞いてみないとわからないところではありますが...
         //
@@ -355,7 +358,11 @@ public class Step01VariableTest extends PlainTestCase {
         mars = mars.add(new BigDecimal(3));
         earth = earth + "," + mars + "," + jupiter;
         log(earth); // blue,4,5 (2024/07/08)
-        // TODO done mayukorin [いいね]変数名がおしゃれ！ぼくのmaihama寄せとは大違い苦笑 by jflute (2024/07/08)
+        // done mayukorin [いいね]変数名がおしゃれ！ぼくのmaihama寄せとは大違い苦笑 by jflute (2024/07/08)
         // ありがとうございます！！笑 by mayukorin (2024/07/09)
     }
+
+    // TODO mayukorin [読み物課題]ちょっと「(仕事の)つまみ食い」の話が出たので、この記事をお時間ある時に読んでみると良いので、ぜひどうぞ(^^ by jflute (2024/07/10)
+    // 破片プログラマーの悲しみ
+    // https://jflute.hatenadiary.jp/entry/20160330/fragramming
 }
