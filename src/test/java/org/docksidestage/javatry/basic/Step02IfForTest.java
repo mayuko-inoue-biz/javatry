@@ -145,7 +145,8 @@ public class Step02IfForTest extends PlainTestCase {
                 break;
             }
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => hangar（理由：if (stage.contains("ga")) で break を見て、ga を含む hangar (= stage) を見てるときに break で for から抜けることが分かる。その上を見ると、sea = stage なので、sea = stage = hanger であることがわかる）
+        // hangar
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
