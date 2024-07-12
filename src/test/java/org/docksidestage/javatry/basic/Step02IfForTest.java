@@ -116,7 +116,8 @@ public class Step02IfForTest extends PlainTestCase {
                 sea = stage;
             }
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => dockside (理由：if (i==1) で stageList の 2 番目の要素が sea に入る && それ以降は if (i==1) に該当しないので、sea が更新されない)
+        // 答え：dockside
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
