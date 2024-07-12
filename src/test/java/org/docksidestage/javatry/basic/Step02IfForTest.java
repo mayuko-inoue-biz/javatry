@@ -99,7 +99,8 @@ public class Step02IfForTest extends PlainTestCase {
         if (land) {
             sea = 10;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 10（理由：sea >= 903 || land で、sea >= 903 が該当 & || (or) なのでそこで中に入り sea = 8, land = true となる。そして、land = true なので、sea = 10 になる. sea = 10 と代入しているので、96 行目は見なくても良い）
+        // 答え：10
     }
 
     // ===================================================================================
