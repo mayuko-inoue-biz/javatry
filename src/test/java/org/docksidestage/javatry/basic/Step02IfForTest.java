@@ -17,6 +17,7 @@ package org.docksidestage.javatry.basic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import org.docksidestage.unit.PlainTestCase;
 
@@ -162,7 +163,45 @@ public class Step02IfForTest extends PlainTestCase {
             }
         });
         String sea = sb.toString();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => docksidemagiclamp
+        // 自信ない
+        // 今回の forEach 内の 「return」 は、for文でいう continue を表しているのかな？
+        // （理由：この前の mutable なのに return する件のように、メソッドチェーンでforEachのそれぞれを後続の処理に回したいケースがある気がする。
+        // return は、メソッドチェーンで後続の処理にその値を送る役割があるのではないか？
+        // そのため、今回のような後続の処理がない場合の return は、for文でいう continue 的なことを表しているのでは？
+        // 答え：dockside
+        // forEach を javaDoc で見たが、引数の Consumer<? super T> の Consumer からわからないので調べる。
+        // Consumer.java を見ると、interface らしい。void accept(T t) がメソッドとして登録されている。
+        // Consumer を試しに使ってみた（下の test_use_of_consumer method）。
+        // accept(T t) の具体的な実装の中身が、Consumer<String> c = (s) -> log(s); の右辺（(s) -> log(s)）。
+        // forEach は、accept(T t) method を繰り返している。
+        // accept method の具体的な中身が、stage -> { ... 以下。
+        // そのため、上の 159行目の return; は、accept method 内で return してるだけで、後続の処理に値を送ったりはしていない。
+        // 1番目の broadway：sb.length() > 0 も stage.contains("i") も当てはまらないのでスルー。
+        // 2番目の dockside：sb.length() > 0 は当てはまらないが、stage.contains("i") で当てはまるので、sb に dockside append.
+        // 3, 4 番目：sb.length() > 0 が当てはまるので return
+        // 答え：dockside
+
+    }
+
+    interface Runnable {
+        void run();
+    }
+
+    public void test_local_class() {
+
+        Runnable lc = new Runnable() {
+            @Override
+            public void run() {
+                log("running!!");
+            }
+        };
+        lc.run();
+    }
+
+    public void test_use_of_consumer() {
+        Consumer<String> c = (s) -> log(s);
+        c.accept("Hello");
     }
 
     // ===================================================================================
