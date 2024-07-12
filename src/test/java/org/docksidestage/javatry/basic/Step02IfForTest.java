@@ -52,7 +52,8 @@ public class Step02IfForTest extends PlainTestCase {
         } else {
             sea = 7;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 7（理由：904以下の場合は、elseに行くため。
+        // 答え：7
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
