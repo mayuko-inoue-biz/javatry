@@ -127,7 +127,9 @@ public class Step02IfForTest extends PlainTestCase {
         for (String stage : stageList) {
             sea = stage;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => magiclamp（理由：for で stageList の各要素が順番に取り出されるごとに、 sea がその要素で代入されるから）
+        // 答え：magiclamp
+        // for (String stage : stageList) みたいな for の回し方、あったなー。名前までは知らない。
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
