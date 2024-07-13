@@ -362,7 +362,7 @@ public class Step01VariableTest extends PlainTestCase {
         // ありがとうございます！！笑 by mayukorin (2024/07/09)
     }
 
-    // TODO done mayukorin [読み物課題]ちょっと「(仕事の)つまみ食い」の話が出たので、この記事をお時間ある時に読んでみると良いので、ぜひどうぞ(^^ by jflute (2024/07/10)
+    // done mayukorin [読み物課題]ちょっと「(仕事の)つまみ食い」の話が出たので、この記事をお時間ある時に読んでみると良いので、ぜひどうぞ(^^ by jflute (2024/07/10)
     // 破片プログラマーの悲しみ
     // https://jflute.hatenadiary.jp/entry/20160330/fragramming
     // 記事がとても身に染みました。0から何も見ずに小さな画面を作ってみようかなと思いました！
