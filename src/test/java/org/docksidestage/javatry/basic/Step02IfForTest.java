@@ -17,6 +17,8 @@ package org.docksidestage.javatry.basic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 import org.docksidestage.unit.PlainTestCase;
@@ -238,17 +240,31 @@ public class Step02IfForTest extends PlainTestCase {
      */
     public void test_iffor_refactor_foreach_to_forEach() {
         List<String> stageList = prepareStageList();
-        String sea = null;
-        for (String stage : stageList) {
+        AtomicReference<String> sea = new AtomicReference<>();
+        String sea1 = null;
+        AtomicBoolean isGAComing = new AtomicBoolean(false);
+        stageList.forEach(stage -> {
+            if (isGAComing.get()) {
+                return;
+            }
             if (stage.startsWith("br")) {
-                continue;
+                return;
             }
-            sea = stage;
+            sea.set(stage);
             if (stage.contains("ga")) {
-                break;
+                isGAComing.set(true);
             }
-        }
+        });
         log(sea); // should be same as before-fix
+        // 一応同じ hangar にはなった。
+        // ただ、AtomicReference<String> sea や AtomicBoolean isGAComing は IntelliJ が自動生成してくれたもの
+        // String 型の sea で、forEach 内で sea = stage; をしたり、Boolean 型の isGAComing で isGAComing = false; とすると、
+        // 「Variable used in lambda expression should be final or effectively final」というエラーが出た。
+        // 「Convert to atomic」というボタンをクリックすると、AtomicReference<String> sea や AtomicBoolean isGAComing が自動生成された。
+        // forEach 内で、forEach 外の変数の値が変わるような処理をするのはダメらしい（例：String 型の sea で、forEach 内で sea = stage; をすると、sea に格納されてる変数のアドレス値が変わる）。
+        // 確かに、forEach はインスタンスメソッドで、インスタンスメソッドが引数なしでクラス外の変数を更新できるのは、変数管理の点で微妙そう。
+        // TODO mayukorin 「Convert to atomic」の atomic が何を表しているのかよく分からないので、後で調べる。
+        // ※ isGAComing で ga が含まれている単語が登場したかどうかを判定している意図：forEach で、 for 文中の 「stage.contains("ga") だったら break する」のと同等の処理を行うため。
     }
 
     /**
