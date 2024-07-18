@@ -104,7 +104,7 @@ public class Step02IfForTest extends PlainTestCase {
         }
         log(sea); // your answer? => 10（理由：sea >= 903 || land で、sea >= 903 が該当 & || (or) なのでそこで中に入り sea = 8, land = true となる。そして、land = true なので、sea = 10 になる. sea = 10 と代入しているので、96 行目は見なくても良い）
         // 答え：10
-        // TODO done mayukorin [いいね] "96 行目は見なくても良い" ってのは素晴らしい、そういう読み方大切です by jflute (2024/07/13)
+        // done mayukorin [いいね] "96 行目は見なくても良い" ってのは素晴らしい、そういう読み方大切です by jflute (2024/07/13)
         // TODO jflute 1on1にてコードリーディングのコツ補足 (2024/07/13)
     }
 
@@ -185,7 +185,7 @@ public class Step02IfForTest extends PlainTestCase {
         // 2番目の dockside：sb.length() > 0 は当てはまらないが、stage.contains("i") で当てはまるので、sb に dockside append.
         // 3, 4 番目：sb.length() > 0 が当てはまるので return
         // 答え：dockside
-        // TODO done mayukorin [いいね] forEach()のコードまで読んでいるのは素晴らしい by jflute (2024/07/13)
+        // done mayukorin [いいね] forEach()のコードまで読んでいるのは素晴らしい by jflute (2024/07/13)
         // TODO jflute 1on1にてコールバックの話を少し含めてforとforEach()の違いを (2024/07/13)
     }
 
@@ -193,7 +193,7 @@ public class Step02IfForTest extends PlainTestCase {
         void run();
     }
 
-    // TODO done mayukorin [いいね] すごい！もうコールバックのお試しを既にしている。こういう風にお試し実装とても良いです by jflute (2024/07/13)
+    // done mayukorin [いいね] すごい！もうコールバックのお試しを既にしている。こういう風にお試し実装とても良いです by jflute (2024/07/13)
     public void test_local_class() {
 
         Runnable lc = new Runnable() {
@@ -221,12 +221,12 @@ public class Step02IfForTest extends PlainTestCase {
         // write if-for here
         List<String> stageList = prepareStageList();
         List<String> onlyAList = new ArrayList<>();
-        for (String stage: stageList) {
+        for (String stage : stageList) {
             if (stage.contains("a")) {
                 onlyAList.add(stage);
             }
         }
-        for (String aStage: onlyAList) {
+        for (String aStage : onlyAList) {
             log(aStage);
         }
     }
@@ -265,6 +265,8 @@ public class Step02IfForTest extends PlainTestCase {
         // 確かに、forEach はインスタンスメソッドで、インスタンスメソッドが引数なしでクラス外の変数を更新できるのは、変数管理の点で微妙そう。
         // TODO mayukorin 「Convert to atomic」の atomic が何を表しているのかよく分からないので、後で調べる。
         // ※ isGAComing で ga が含まれている単語が登場したかどうかを判定している意図：forEach で、 for 文中の 「stage.contains("ga") だったら break する」のと同等の処理を行うため。
+        // TODO mayukorin [ははは] AtomicBooleanが出てきてビックリした(^^。すごいの使ってくるねっと by jflute (2024/07/19)
+        // TODO jflute 1on1にて変わっちゃうmutableのフォロー (2024/07/19)
     }
 
     /**
