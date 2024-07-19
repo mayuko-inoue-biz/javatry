@@ -105,7 +105,8 @@ public class Step02IfForTest extends PlainTestCase {
         log(sea); // your answer? => 10（理由：sea >= 903 || land で、sea >= 903 が該当 & || (or) なのでそこで中に入り sea = 8, land = true となる。そして、land = true なので、sea = 10 になる. sea = 10 と代入しているので、96 行目は見なくても良い）
         // 答え：10
         // done mayukorin [いいね] "96 行目は見なくても良い" ってのは素晴らしい、そういう読み方大切です by jflute (2024/07/13)
-        // TODO jflute 1on1にてコードリーディングのコツ補足 (2024/07/13)
+        // done jflute 1on1にてコードリーディングのコツ補足 (2024/07/13)
+        // まず漠然読みで全体構造を把握、すると当たりが見えてくる、そこから逆読みとかピンポイント読み
     }
 
     // ===================================================================================
@@ -145,6 +146,7 @@ public class Step02IfForTest extends PlainTestCase {
             if (stage.startsWith("br")) {
                 continue;
             }
+            stageList = null;
             sea = stage;
             if (stage.contains("ga")) {
                 break;
@@ -186,7 +188,9 @@ public class Step02IfForTest extends PlainTestCase {
         // 3, 4 番目：sb.length() > 0 が当てはまるので return
         // 答え：dockside
         // done mayukorin [いいね] forEach()のコードまで読んでいるのは素晴らしい by jflute (2024/07/13)
-        // TODO jflute 1on1にてコールバックの話を少し含めてforとforEach()の違いを (2024/07/13)
+        // done jflute 1on1にてコールバックの話を少し含めてforとforEach()の違いを (2024/07/13)
+        // forEach()は(極端な言い方をすると)単なるメソッド
+        // 機能が少ないほうが安全で使いやすいという考え方もある
     }
 
     interface Runnable {
@@ -267,6 +271,7 @@ public class Step02IfForTest extends PlainTestCase {
         // ※ isGAComing で ga が含まれている単語が登場したかどうかを判定している意図：forEach で、 for 文中の 「stage.contains("ga") だったら break する」のと同等の処理を行うため。
         // TODO mayukorin [ははは] AtomicBooleanが出てきてビックリした(^^。すごいの使ってくるねっと by jflute (2024/07/19)
         // TODO jflute 1on1にて変わっちゃうmutableのフォロー (2024/07/19)
+        // TODO mayukorin 修行++: Atomicなしでやってみましょう。今までjavatryで見たことのあるクラスで代用できます by jflute (2024/07/19)
     }
 
     /**
