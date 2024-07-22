@@ -23,6 +23,12 @@ import java.util.function.Consumer;
 
 import org.docksidestage.unit.PlainTestCase;
 
+// TODO mayukorin import文でunusedの警告が出ています。(ぼくのEclipse上ですが、IntelliJでも何かしらお知らせあるはず) by jflute (2024/07/22)
+// AtomicBooleanを消したからってことですが、試行錯誤の内にunusedのimportが溜まりがちなので、コミット前には警告ないか確認を。
+
+// TODO jflute 1on1にてimport文が意外に大事な理由について (2024/07/22)
+// TODO jflute 1on1にてIDEの自動フォーマットについて (2024/07/22)
+
 /**
  * The test of if-for. <br>
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
@@ -277,13 +283,21 @@ public class Step02IfForTest extends PlainTestCase {
         // TODO mayukorin 「Convert to atomic」の atomic が何を表しているのかよく分からないので、後で調べる。
         // ※ isGAComing で ga が含まれている単語が登場したかどうかを判定している意図：forEach で、 for 文中の 「stage.contains("ga") だったら break する」のと同等の処理を行うため。
         // TODO mayukorin [ははは] AtomicBooleanが出てきてビックリした(^^。すごいの使ってくるねっと by jflute (2024/07/19)
-        // TODO jflute 1on1にて変わっちゃうmutableのフォロー (2024/07/19)
-        // TODO done mayukorin 修行++: Atomicなしでやってみましょう。今までjavatryで見たことのあるクラスで代用できます by jflute (2024/07/19)
+        // done mayukorin 修行++: Atomicなしでやってみましょう。今までjavatryで見たことのあるクラスで代用できます by jflute (2024/07/19)
         // hanger になった （2024/07/22）。
         // 「sea が何になるのか知りたい」という目的で元のコードを読んでみると、sea = stage の後に、stage.contains("ga") だったら break しているので、最終的な sea は stageList の要素の中で "ga" が含まれる一番最初の要素になるはず。
         // それを forEach で表現すると、sea.indexOf("ga") != -1 だったら return 出いけるはず。
         // また、mutable な sea は forEach では使えることを知った。
         // sea.replace すると、アドレス先の文字列が mutable でそのまま変更されるが、sea に格納されたアドレス自体は変わらない = forEach 的にはローカル変数 sea は変わっていないので OK という扱いになるのだと思われる。
+        // TODO mayukorin [いいね] 完璧ですね、すごい！ by jflute (2024/07/22)
+        // 「sea に格納されたアドレス自体は変わらない」はその通りですね。
+        // コールバックの中ではseaの指し示すものを変えることはできないけど、
+        // seaの指し示すmutableなオブジェクトが管理している内部の変数がが変わるのは知ったこっちゃないという感じで。
+        // (あくまでローカル変数 (の指し示すもの) が変わっちゃいけないだけで、インスタンス自体の変化は気にしないと)
+
+        // TODO jflute 1on1にてAtomicのちょいフォロー(あんまり本質的なとこじゃないのでちょこっと) (2024/07/19)
+        // TODO jflute 1on1にて変わっちゃうmutableのフォロー (2024/07/19)
+        // TODO jflute 1on1にてstageListの中身の変化にも追従話、でもmayukorinさんは追従できてるからOKなんだけど (2024/07/19)
     }
 
     /**
@@ -319,6 +333,7 @@ public class Step02IfForTest extends PlainTestCase {
         }
         log(sea); // 5 (2024/07/22)
         // 色々書かれているが、sea を知りたいだけなので、最後に代入される i == stageList.size()-1 での sea = 5 を見れば良いだけ。
+        // TODO mayukorin [いいね] パッと見で「むずっ！」と思ったけど、最後見たら最後に5になるじゃんとわかってああ良かった(^^ by jflute (2024/07/22)
     }
 
     // ===================================================================================
