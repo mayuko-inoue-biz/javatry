@@ -26,7 +26,7 @@ import org.docksidestage.unit.PlainTestCase;
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りにエクササイズを実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author mayukorin
  */
 public class Step03DataTypeTest extends PlainTestCase {
 
@@ -54,7 +54,14 @@ public class Step03DataTypeTest extends PlainTestCase {
             BigDecimal addedDecimal = amba.add(new BigDecimal(land));
             sea = String.valueOf(addedDecimal);
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 18.4（2024/07/22）
+        // sea を知りたい目的で逆読みしていく。
+        // dstore = true 確定なので、addedDecimal が分かれば良い → amba と land が分かれば良い
+        // amba は 9.4 確定。land だけあとわかれば良い
+        // land は、bonvo の月-1
+        // bonvo は 9+1=10
+        // land = 10-1=9 なので、addedDecimal = 9.4 + 9 = 18.4
+        // 答え：18.4
     }
 
     // ===================================================================================
