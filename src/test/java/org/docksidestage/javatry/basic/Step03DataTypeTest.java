@@ -89,7 +89,24 @@ public class Step03DataTypeTest extends PlainTestCase {
         if ((int) dstore > piari) {
             sea = 0;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 2.23146？？（2024/07/22）
+        // sea を知りたい目的で逆読みしていく。
+        // (int) dstore > piari なのかを確かめる。dstore = 1.1f。piari は 1。
+        // (int)1.1f = 1 になる気がするので、(int) dstore > piari にはならなそう残念。
+        // 上を読んでいくと、dohotel && dstore >= piari かつ amba == 2.3D だったら sea が確定するので嬉しい。
+        // dohotel && dstore >= piar：dohotel は true（∵ dohotel = miraco == 'a'）。dstore >= piari も true？（∵ float と int で比較するときは、int が float に合わせて 1.1 > 1.0 の比較になりそう）
+        // 以上より dohotel && dstore >= piar は true
+        // amba == 2.3D：true になりそう（∵ 2.3d と 2.3D は同じ意味っぽい）
+        // よって、sea = (byte) amba 確定。
+        // ただ、(byte) amba が分からない。2.3 を8進数に変換したら 2.23146..の繰り返しになってしまう
+        // 答え：2
+        // byte の理解が間違っていた
+        // byte：全部で 8bit で構成される。整数を表す。最後の1ビットは符号に使うので、127（2^8-1）から -128 まで表現できる。小数点は表現できない。
+        // よって、(byte) amba は、0.3 を切り捨てて 2 になる。
+        // short は 16 bit で整数を表す。int は 32 bit で整数を表す。long は 64 bit で整数を表す。float は 32 bit で浮動小数点を表す。double は 64 bit で浮動小数点を表す。
+        // 表現に使う bit 数が異なる。
+        // 数値の最後の f, F, d, D はつけなくても良い。大文字と小文字は同じ。
+
     }
 
     // ===================================================================================
