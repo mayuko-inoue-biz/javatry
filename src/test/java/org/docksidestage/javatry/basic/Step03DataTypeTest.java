@@ -116,7 +116,9 @@ public class Step03DataTypeTest extends PlainTestCase {
     public void test_datatype_object() {
         St3ImmutableStage stage = new St3ImmutableStage("hangar");
         String sea = stage.getStageName();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => "hangar"（2024/07/22）
+        // St3ImmutableStage を new するときに、stageName インスタンス変数に hangar が代入される & getStageName() の返り値は stageName インスタンス変数 なため。
+        // 答え：hangar
     }
 
     private static class St3ImmutableStage {
