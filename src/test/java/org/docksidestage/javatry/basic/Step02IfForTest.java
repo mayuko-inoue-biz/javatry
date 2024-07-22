@@ -292,12 +292,33 @@ public class Step02IfForTest extends PlainTestCase {
      * <pre>
      * _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
      * your question here (ここにあなたの質問を):
-     * 
+     * What string is sea variable at the method end? <br>
+     * メソッド終了時の変数 sea の中身は？
      * _/_/_/_/_/_/_/_/_/_/
      * </pre>
      */
     public void test_iffor_yourExercise() {
         // write your code here
+        List<String> stageList = prepareStageList();
+        int sea = 1;
+        boolean land = false;
+        for (int i = 0; i < stageList.size(); i++) {
+            String stage = stageList.get(i);
+            if (stage.startsWith("br")) {
+                land = true;
+            } else if (land && stage.contains("ga")) {
+                land = false;
+                sea = 100;
+            }
+            if (sea == 100) {
+                sea = 50;
+            }
+            if (i == stageList.size()-1) {
+                sea = 5;
+            }
+        }
+        log(sea); // 5 (2024/07/22)
+        // 色々書かれているが、sea を知りたいだけなので、最後に代入される i == stageList.size()-1 での sea = 5 を見れば良いだけ。
     }
 
     // ===================================================================================
