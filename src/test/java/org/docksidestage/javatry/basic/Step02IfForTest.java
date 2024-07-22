@@ -244,22 +244,29 @@ public class Step02IfForTest extends PlainTestCase {
      */
     public void test_iffor_refactor_foreach_to_forEach() {
         List<String> stageList = prepareStageList();
-        AtomicReference<String> sea = new AtomicReference<>();
-        String sea1 = null;
-        AtomicBoolean isGAComing = new AtomicBoolean(false);
+        StringBuilder sea = new StringBuilder();
         stageList.forEach(stage -> {
-            if (isGAComing.get()) {
-                return;
-            }
             if (stage.startsWith("br")) {
                 return;
             }
-            sea.set(stage);
-            if (stage.contains("ga")) {
-                isGAComing.set(true);
+            if (sea.indexOf("ga") != -1) {
+                return;
             }
+            sea.replace(0, sea.length(), stage);
         });
-        log(sea); // should be same as before-fix
+        log(sea.toString());
+//        List<String> stageList = prepareStageList();
+//        String sea = null;
+//        for (String stage : stageList) {
+//            if (stage.startsWith("br")) {
+//                continue;
+//            }
+//            sea = stage;
+//            if (stage.contains("ga")) {
+//                break;
+//            }
+//        }
+        // log(sea); // should be same as before-fix
         // 一応同じ hangar にはなった。
         // ただ、AtomicReference<String> sea や AtomicBoolean isGAComing は IntelliJ が自動生成してくれたもの
         // String 型の sea で、forEach 内で sea = stage; をしたり、Boolean 型の isGAComing で isGAComing = false; とすると、
@@ -271,7 +278,12 @@ public class Step02IfForTest extends PlainTestCase {
         // ※ isGAComing で ga が含まれている単語が登場したかどうかを判定している意図：forEach で、 for 文中の 「stage.contains("ga") だったら break する」のと同等の処理を行うため。
         // TODO mayukorin [ははは] AtomicBooleanが出てきてビックリした(^^。すごいの使ってくるねっと by jflute (2024/07/19)
         // TODO jflute 1on1にて変わっちゃうmutableのフォロー (2024/07/19)
-        // TODO mayukorin 修行++: Atomicなしでやってみましょう。今までjavatryで見たことのあるクラスで代用できます by jflute (2024/07/19)
+        // TODO done mayukorin 修行++: Atomicなしでやってみましょう。今までjavatryで見たことのあるクラスで代用できます by jflute (2024/07/19)
+        // hanger になった （2024/07/22）。
+        // 「sea が何になるのか知りたい」という目的で元のコードを読んでみると、sea = stage の後に、stage.contains("ga") だったら break しているので、最終的な sea は stageList の要素の中で "ga" が含まれる一番最初の要素になるはず。
+        // それを forEach で表現すると、sea.indexOf("ga") != -1 だったら return 出いけるはず。
+        // また、mutable な sea は forEach では使えることを知った。
+        // sea.replace すると、アドレス先の文字列が mutable でそのまま変更されるが、sea に格納されたアドレス自体は変わらない = forEach 的にはローカル変数 sea は変わっていないので OK という扱いになるのだと思われる。
     }
 
     /**
