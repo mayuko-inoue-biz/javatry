@@ -26,8 +26,12 @@ import org.docksidestage.unit.PlainTestCase;
 // TODO mayukorin import文でunusedの警告が出ています。(ぼくのEclipse上ですが、IntelliJでも何かしらお知らせあるはず) by jflute (2024/07/22)
 // AtomicBooleanを消したからってことですが、試行錯誤の内にunusedのimportが溜まりがちなので、コミット前には警告ないか確認を。
 
-// TODO jflute 1on1にてimport文が意外に大事な理由について (2024/07/22)
-// TODO jflute 1on1にてIDEの自動フォーマットについて (2024/07/22)
+// done jflute 1on1にてimport文が意外に大事な理由について (2024/07/22)
+// o 漠然読みの精度を高める要素の一つになる
+// o まずimport文を見て関連性を把握して、そのクラスの役割をある程度推測してから細かいところを読む
+// done jflute 1on1にてIDEの自動フォーマットについて (2024/07/22)
+// o IntelliJでも明示的に自動で整理するコマンドがあるはず
+// o コードフォーマットに関しては、自分のさわったところ以外にも差分が出るので、チームのコンセンサスが必要
 
 /**
  * The test of if-for. <br>
@@ -255,6 +259,8 @@ public class Step02IfForTest extends PlainTestCase {
             if (stage.startsWith("br")) {
                 return;
             }
+            // TODO mayukorin != -1 よりは >= 0 とかの方が素直かも by jflute (2024/07/24)
+            // 含んでないときは分岐したいなら == -1 でもいい
             if (sea.indexOf("ga") != -1) {
                 return;
             }
@@ -280,24 +286,29 @@ public class Step02IfForTest extends PlainTestCase {
         // 「Convert to atomic」というボタンをクリックすると、AtomicReference<String> sea や AtomicBoolean isGAComing が自動生成された。
         // forEach 内で、forEach 外の変数の値が変わるような処理をするのはダメらしい（例：String 型の sea で、forEach 内で sea = stage; をすると、sea に格納されてる変数のアドレス値が変わる）。
         // 確かに、forEach はインスタンスメソッドで、インスタンスメソッドが引数なしでクラス外の変数を更新できるのは、変数管理の点で微妙そう。
-        // TODO mayukorin 「Convert to atomic」の atomic が何を表しているのかよく分からないので、後で調べる。
+        // done mayukorin 「Convert to atomic」の atomic が何を表しているのかよく分からないので、後で調べる。
         // ※ isGAComing で ga が含まれている単語が登場したかどうかを判定している意図：forEach で、 for 文中の 「stage.contains("ga") だったら break する」のと同等の処理を行うため。
-        // TODO mayukorin [ははは] AtomicBooleanが出てきてビックリした(^^。すごいの使ってくるねっと by jflute (2024/07/19)
+        // done mayukorin [ははは] AtomicBooleanが出てきてビックリした(^^。すごいの使ってくるねっと by jflute (2024/07/19)
         // done mayukorin 修行++: Atomicなしでやってみましょう。今までjavatryで見たことのあるクラスで代用できます by jflute (2024/07/19)
         // hanger になった （2024/07/22）。
         // 「sea が何になるのか知りたい」という目的で元のコードを読んでみると、sea = stage の後に、stage.contains("ga") だったら break しているので、最終的な sea は stageList の要素の中で "ga" が含まれる一番最初の要素になるはず。
         // それを forEach で表現すると、sea.indexOf("ga") != -1 だったら return 出いけるはず。
         // また、mutable な sea は forEach では使えることを知った。
         // sea.replace すると、アドレス先の文字列が mutable でそのまま変更されるが、sea に格納されたアドレス自体は変わらない = forEach 的にはローカル変数 sea は変わっていないので OK という扱いになるのだと思われる。
-        // TODO mayukorin [いいね] 完璧ですね、すごい！ by jflute (2024/07/22)
+        // done mayukorin [いいね] 完璧ですね、すごい！ by jflute (2024/07/22)
         // 「sea に格納されたアドレス自体は変わらない」はその通りですね。
         // コールバックの中ではseaの指し示すものを変えることはできないけど、
         // seaの指し示すmutableなオブジェクトが管理している内部の変数がが変わるのは知ったこっちゃないという感じで。
         // (あくまでローカル変数 (の指し示すもの) が変わっちゃいけないだけで、インスタンス自体の変化は気にしないと)
 
-        // TODO jflute 1on1にてAtomicのちょいフォロー(あんまり本質的なとこじゃないのでちょこっと) (2024/07/19)
-        // TODO jflute 1on1にて変わっちゃうmutableのフォロー (2024/07/19)
-        // TODO jflute 1on1にてstageListの中身の変化にも追従話、でもmayukorinさんは追従できてるからOKなんだけど (2024/07/19)
+        // done jflute 1on1にてAtomicのちょいフォロー(あんまり本質的なとこじゃないのでちょこっと) (2024/07/19)
+        // o Atomicなんちゃらは本来は別用途のクラス (concurrent)
+        // o まあJava標準クラスだからわりと安心して使えるけど...
+        // o 本来は目的違いのクラスを直接使うというのは互換性が崩れる将来のリスクを背負うことになる
+        // done jflute 1on1にて変わっちゃうmutableのフォロー (2024/07/19)
+        // o StringBuilderでOKです。
+        // done jflute 1on1にてstageListの中身の変化にも追従話、でもmayukorinさんは追従できてるからOKなんだけど (2024/07/19)
+        // o mayukorinさんは問題なし！
     }
 
     /**
@@ -333,7 +344,7 @@ public class Step02IfForTest extends PlainTestCase {
         }
         log(sea); // 5 (2024/07/22)
         // 色々書かれているが、sea を知りたいだけなので、最後に代入される i == stageList.size()-1 での sea = 5 を見れば良いだけ。
-        // TODO mayukorin [いいね] パッと見で「むずっ！」と思ったけど、最後見たら最後に5になるじゃんとわかってああ良かった(^^ by jflute (2024/07/22)
+        // done mayukorin [いいね] パッと見で「むずっ！」と思ったけど、最後見たら最後に5になるじゃんとわかってああ良かった(^^ by jflute (2024/07/22)
     }
 
     // ===================================================================================

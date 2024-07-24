@@ -62,7 +62,8 @@ public class Step03DataTypeTest extends PlainTestCase {
         // bonvo は 9+1=10
         // land = 10-1=9 なので、addedDecimal = 9.4 + 9 = 18.4
         // 答え：18.4
-        // TODO jflute 1on1にてplusDays()がimmutableかどうか判別する話 (2024/07/22)
+        // done jflute 1on1にてplusDays()がimmutableかどうか判別する話 (2024/07/22)
+        // o 漠然読みから逆読みが役に立つ
     }
 
     // ===================================================================================
