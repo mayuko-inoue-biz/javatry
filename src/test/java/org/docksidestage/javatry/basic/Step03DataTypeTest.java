@@ -109,7 +109,7 @@ public class Step03DataTypeTest extends PlainTestCase {
         // 表現に使う bit 数が異なる。
         // 数値の最後の f, F, d, D はつけなくても良い。大文字と小文字は同じ。
 
-        // TODO done mayukorin [読み物課題] プリミティブ型とラッパー型 by jflute (2024/07/22)
+        // done mayukorin [読み物課題] プリミティブ型とラッパー型 by jflute (2024/07/22)
         // https://dbflute.seasar.org/ja/manual/topic/programming/java/beginners.html#primitivewrapper
 
         // TODO jflute 1on1にてprimitiveの用途のお話 (2024/07/22)

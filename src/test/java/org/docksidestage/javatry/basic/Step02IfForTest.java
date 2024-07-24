@@ -21,7 +21,7 @@ import java.util.function.Consumer;
 
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO done mayukorin import文でunusedの警告が出ています。(ぼくのEclipse上ですが、IntelliJでも何かしらお知らせあるはず) by jflute (2024/07/22)
+// done mayukorin import文でunusedの警告が出ています。(ぼくのEclipse上ですが、IntelliJでも何かしらお知らせあるはず) by jflute (2024/07/22)
 // AtomicBooleanを消したからってことですが、試行錯誤の内にunusedのimportが溜まりがちなので、コミット前には警告ないか確認を。
 
 // done jflute 1on1にてimport文が意外に大事な理由について (2024/07/22)
@@ -257,7 +257,7 @@ public class Step02IfForTest extends PlainTestCase {
             if (stage.startsWith("br")) {
                 return;
             }
-            // TODO done mayukorin != -1 よりは >= 0 とかの方が素直かも by jflute (2024/07/24)
+            // done mayukorin != -1 よりは >= 0 とかの方が素直かも by jflute (2024/07/24)
             // 含んでないときは分岐したいなら == -1 でもいい
             if (sea.indexOf("ga") >= 0) {
                 return;
