@@ -257,9 +257,9 @@ public class Step02IfForTest extends PlainTestCase {
             if (stage.startsWith("br")) {
                 return;
             }
-            // TODO mayukorin != -1 よりは >= 0 とかの方が素直かも by jflute (2024/07/24)
+            // TODO done mayukorin != -1 よりは >= 0 とかの方が素直かも by jflute (2024/07/24)
             // 含んでないときは分岐したいなら == -1 でもいい
-            if (sea.indexOf("ga") != -1) {
+            if (sea.indexOf("ga") >= 0) {
                 return;
             }
             sea.replace(0, sea.length(), stage);
