@@ -17,13 +17,11 @@ package org.docksidestage.javatry.basic;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO mayukorin import文でunusedの警告が出ています。(ぼくのEclipse上ですが、IntelliJでも何かしらお知らせあるはず) by jflute (2024/07/22)
+// TODO done mayukorin import文でunusedの警告が出ています。(ぼくのEclipse上ですが、IntelliJでも何かしらお知らせあるはず) by jflute (2024/07/22)
 // AtomicBooleanを消したからってことですが、試行錯誤の内にunusedのimportが溜まりがちなので、コミット前には警告ないか確認を。
 
 // done jflute 1on1にてimport文が意外に大事な理由について (2024/07/22)
