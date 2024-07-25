@@ -168,12 +168,36 @@ public class Step04MethodTest extends PlainTestCase {
      */
     public void test_method_making() {
         // use after making these methods
-        //String replaced = replaceCwithB(replaceAwithB("ABC"));
-        //String sea = quote(replaced, "'");
-        //if (isAvailableLogging()) {
-        //    showSea(sea);
-        //}
+        String replaced = replaceCwithB(replaceAwithB("ABC"));
+        String sea = quote(replaced, "'");
+        if (isAvailableLogging()) {
+            showSea(sea); // 'BBB' と表示される。
+            // private boolean availableLogging = true; で以下 2 つの警告が出るが、仕方ないと思われる。
+            // 1. Field 'availableLogging' may be 'final'：availableLogging をどの関数でも更新してないため。
+            // 2. Field can be converted to a local variable ：availableLogging を isAvailableLogging 以外で使用していないため。
+        }
     }
 
     // write methods here
+    private String replaceAwithB(String sea) {
+        return sea.replace("A", "B");
+    }
+
+    private String replaceCwithB(String sea) {
+        return sea.replace("C", "B");
+    }
+
+    private String quote(String sea, String quotationMark) {
+        return quotationMark + sea + quotationMark;
+    }
+
+    private boolean availableLogging = true;
+
+    private boolean isAvailableLogging() {
+        return availableLogging;
+    }
+
+    private void showSea(String sea) {
+        log(sea);
+    }
 }
