@@ -45,7 +45,10 @@ public class Step04MethodTest extends PlainTestCase {
         String sea = functionSomething("mystic");
         consumeSomething(supplySomething());
         runnableSomething();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => mysmys（2024/07/25）
+        // sea は functionSomething() の戻り値(= 関数内の replaced 変数) & consumeSomething・runnableSomething の引数に sea は含まれていないので、consumeSomething 以降で sea の中身は変わらない
+        // replace 関数は immutable なので、mystic の tic を mys に置き換えた mysmys が返される。
+        // 答え：mysmys
     }
 
     private String functionSomething(String name) {
