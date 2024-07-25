@@ -126,7 +126,12 @@ public class Step04MethodTest extends PlainTestCase {
         }
         ++sea;
         sea = inParkCount;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 100（2024/07/25）
+        // 逆読みすると、inParkCount が分かれば良い。inParkCount は goToPark() で 100 回更新される可能性あり。
+        // for の時点で hasAnnualPassport は true である（∵ offAnnualPassportの引数に hasAnnualPassport を代入しても、hasAnnualPassport のコピーが更新されるだけで hasAnnualPassport 自体は更新されない）。
+        // また、goToPark では inParkCount の値は更新される（∵ goToPark では、引数を取らずにグローバル変数の inParkCount を直接更新する）
+        // よって、inParkCount = 100（0+1*100)
+        // 答え：100
     }
 
     private void offAnnualPassport(boolean hasAnnualPassport) {
