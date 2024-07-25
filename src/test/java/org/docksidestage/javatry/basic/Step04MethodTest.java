@@ -35,7 +35,9 @@ public class Step04MethodTest extends PlainTestCase {
      */
     public void test_method_call_basic() {
         String sea = supplySomething();
-        log(sea); // your answer? =>
+        log(sea); // your answer? => over（2024/07/25）
+        // sea は supplySomething() の戻り値(= 関数内の sea 変数) & log("in supply: {}", sea); しても sea の中身は変わらない
+        // 答え：over
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
