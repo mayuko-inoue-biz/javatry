@@ -17,6 +17,7 @@ package org.docksidestage.javatry.basic;
 
 import org.docksidestage.unit.PlainTestCase;
 
+// TODO mayukorin せっかく素敵な学びをされてるので、javadocにぜひ名前を刻んでください〜 by jflute (2024/07/25)
 /**
  * The test of method. <br>
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
@@ -49,6 +50,8 @@ public class Step04MethodTest extends PlainTestCase {
         // sea は functionSomething() の戻り値(= 関数内の replaced 変数) & consumeSomething・runnableSomething の引数に sea は含まれていないので、consumeSomething 以降で sea の中身は変わらない
         // replace 関数は immutable なので、mystic の tic を mys に置き換えた mysmys が返される。
         // 答え：mysmys
+        
+        // TODO jflute 1on1にてfunction,consume,supplyの用語について補足 (2024/07/25)
     }
 
     private String functionSomething(String name) {
@@ -88,6 +91,8 @@ public class Step04MethodTest extends PlainTestCase {
         // sea = 904 + 6 = 910
         // 答え：910
         // land が Boolean でも、helloMutable で land の値は false のままらしい。helloMutable 内で land = true としても、呼び出し元の land の参照先が false -> true になるわけではないらしい。
+        // TODO mayukorin [ふぉろー] そうですね、ラッパー型になっても同じで、Booleanのland引数はtest側のland変数とは別物(別箱)なので... by jflute (2024/07/25)
+        // Booleanのland引数にtrueへの参照を入れても、test側のland変数に同じ参照は入るわけではないです。(無関係)
     }
 
     private int helloMutable(int sea, Boolean land, St4MutableStage piari) {
@@ -132,6 +137,9 @@ public class Step04MethodTest extends PlainTestCase {
         // また、goToPark では inParkCount の値は更新される（∵ goToPark では、引数を取らずにグローバル変数の inParkCount を直接更新する）
         // よって、inParkCount = 100（0+1*100)
         // 答え：100
+        // TODO mayukorin [ふぉろー] おおよその考え方は合っていますが、コピーという表現があまり一般的ではないかもですね by jflute (2024/07/25)
+        // ここでも、インスタンス変数としてのhasAnnualPassportと引数としてのhasAnnualPassportは別の(変数)箱なので、
+        // 別の箱に何か値を入れられても、元の箱には何の影響もないということです。step1の復習ですね。
     }
 
     private void offAnnualPassport(boolean hasAnnualPassport) {
@@ -175,8 +183,17 @@ public class Step04MethodTest extends PlainTestCase {
             // private boolean availableLogging = true; で以下 2 つの警告が出るが、仕方ないと思われる。
             // 1. Field 'availableLogging' may be 'final'：availableLogging をどの関数でも更新してないため。
             // 2. Field can be converted to a local variable ：availableLogging を isAvailableLogging 以外で使用していないため。
+            // TODO mayukorin [ふぉろー] ああ、なるほど。IntelliJはどこまでも細かいですね。研修用コードでそれは仕方ないですね by jflute (2024/07/25)
+            // IntelliJくんは細か過ぎて余計なお世話警告を出すこともあるのがネックなんですよね。
+            // 警告ノイズたち: https://dbflute.seasar.org/ja/manual/topic/friends/intellij/index.html#noisywarning
+            // 本来は、必要な警告、不要な警告というのを設定でしっかり調整していくのが必要なんですよね。
+            // (一応、javatryもある程度調整した設定を.ideaディレクトリに入れてるんですけどね...
+            // でも数年経つまた新しい警告ノイズが出てきてしまって...＞＜)
         }
     }
+    
+    // TODO mayukorin [いいね] メソッドの定義順が呼び出される順番と一致していて読みやすいですね by jflute (2024/07/25)
+    // TODO jflute 1on1にてメソッドの定義順について補足 (2024/07/25)
 
     // write methods here
     private String replaceAwithB(String sea) {
@@ -187,6 +204,7 @@ public class Step04MethodTest extends PlainTestCase {
         return sea.replace("C", "B");
     }
 
+    // TODO mayukorin [いいね] 引数名quotationMark、とっても良いですね！ by jflute (2024/07/25)
     private String quote(String sea, String quotationMark) {
         return quotationMark + sea + quotationMark;
     }
