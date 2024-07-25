@@ -81,7 +81,13 @@ public class Step04MethodTest extends PlainTestCase {
         if (!land) {
             sea = sea + mutable.getStageName().length();
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 910（2024/07/25）
+        // sea は primitive なので、helloMutableを実行しても 904 のまま.
+        // land も method_object() 内では primitive なので、helloMutableを実行しても false のまま.
+        // 一方で、mutable は、piari.setStageName("mystic") で 参照先の stageName が mystic に書き変わりそう
+        // sea = 904 + 6 = 910
+        // 答え：910
+        // land が Boolean でも、helloMutable で land の値は false のままらしい。helloMutable 内で land = true としても、呼び出し元の land の参照先が false -> true になるわけではないらしい。
     }
 
     private int helloMutable(int sea, Boolean land, St4MutableStage piari) {
