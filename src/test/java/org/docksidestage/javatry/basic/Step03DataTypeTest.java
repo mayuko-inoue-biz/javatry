@@ -112,7 +112,9 @@ public class Step03DataTypeTest extends PlainTestCase {
         // done mayukorin [読み物課題] プリミティブ型とラッパー型 by jflute (2024/07/22)
         // https://dbflute.seasar.org/ja/manual/topic/programming/java/beginners.html#primitivewrapper
 
-        // TODO jflute 1on1にてprimitiveの用途のお話 (2024/07/22)
+        // done jflute 1on1にてprimitiveの用途のお話 (2024/07/22)
+        // プリミティブ型とラッパー型のドキュメントの補足
+        // ニュアンスの伝達は、現場でしかできない (なかなか本やネットでは得られない)
     }
 
     // ===================================================================================
