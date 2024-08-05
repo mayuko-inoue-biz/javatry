@@ -43,7 +43,9 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(7400);
         int sea = booth.getQuantity();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 9
+        // buyOneDayPassportで、インスタンス変数 quantity がMAX_QUANTITYから-1に更新されるため
+        // 答え：9
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
