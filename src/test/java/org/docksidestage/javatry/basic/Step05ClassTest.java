@@ -53,20 +53,28 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(10000);
         Integer sea = booth.getSalesProceeds();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 10000
+        // handedMoney の初期値は null なため、buyOneDayPassport 内で salesProceeds = handedMoney（=10000）になるため
+        // 答え：10000
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_class_howToUse_nosales() {
         TicketBooth booth = new TicketBooth();
         Integer sea = booth.getSalesProceeds();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => null
+        // handedMoney の初期値は null & Integer 型の sea に代入してもエラーにはならないため。
+        // 答え：null
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_class_howToUse_wrongQuantity() {
         Integer sea = doTest_class_ticket_wrongQuantity();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 10
+        // handedMony が 7400 未満なので buyOneDayPassport 内で TicketShortMoneyException が投げられる。
+        // doTest 関数内では、TicketShortMoneyException がキャッチされ、return booth.getQuantity() まで実行される
+        // quantity は 10-1 = 9 なため、sea = 9 となる。
+        // 答え：9
     }
 
     private Integer doTest_class_ticket_wrongQuantity() {
