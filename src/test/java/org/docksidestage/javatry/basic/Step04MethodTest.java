@@ -19,13 +19,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO mayukorin せっかく素敵な学びをされてるので、javadocにぜひ名前を刻んでください〜 by jflute (2024/07/25)
+// TODO done mayukorin せっかく素敵な学びをされてるので、javadocにぜひ名前を刻んでください〜 by jflute (2024/07/25)
 /**
  * The test of method. <br>
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りにエクササイズを実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author mayukorin
  */
 public class Step04MethodTest extends PlainTestCase {
 
