@@ -54,6 +54,7 @@ public class Step05ClassTest extends PlainTestCase {
         booth.buyOneDayPassport(10000);
         Integer sea = booth.getSalesProceeds();
         log(sea); // your answer? => 10000
+        // TODO mayukorin "handedMoney の初期値は..." -> "salesProceeds の初期値は..." by jflute (2024/08/09)
         // handedMoney の初期値は null なため、buyOneDayPassport 内で salesProceeds = handedMoney（=10000）になるため
         // 答え：10000
     }
@@ -89,6 +90,8 @@ public class Step05ClassTest extends PlainTestCase {
         return booth.getQuantity();
     }
 
+    // [お知らせ] JavaDocのみならず、コメントはチャレンジとして積極的に書いていってみてください。
+    // コメントは書かないと上手にならないのでby jflute
     // ===================================================================================
     //                                                                           Let's fix
     //                                                                           =========

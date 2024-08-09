@@ -15,11 +15,9 @@
  */
 package org.docksidestage.javatry.basic;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO done mayukorin せっかく素敵な学びをされてるので、javadocにぜひ名前を刻んでください〜 by jflute (2024/07/25)
+// done mayukorin せっかく素敵な学びをされてるので、javadocにぜひ名前を刻んでください〜 by jflute (2024/07/25)
 /**
  * The test of method. <br>
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
@@ -194,8 +192,11 @@ public class Step04MethodTest extends PlainTestCase {
         }
     }
     
-    // TODO mayukorin [いいね] メソッドの定義順が呼び出される順番と一致していて読みやすいですね by jflute (2024/07/25)
-    // TODO jflute 1on1にてメソッドの定義順について補足 (2024/07/25)
+    // done mayukorin [いいね] メソッドの定義順が呼び出される順番と一致していて読みやすいですね by jflute (2024/07/25)
+    // done jflute 1on1にてメソッドの定義順について補足 (2024/07/25)
+    // o 何かしらの一貫性が欲しい話: ここでは呼び出し順に定義をするという一貫性がある
+    // o クラス内で再利用するようなprivateメソッドは、別途タグコメント(など)で切り出して独立させる工夫
+    // o 正解はないけど、何かしらの見栄えに関するケアをして欲しい
 
     // write methods here
     private String replaceAwithB(String sea) {
@@ -206,13 +207,19 @@ public class Step04MethodTest extends PlainTestCase {
         return sea.replace("C", "B");
     }
 
-    // TODO mayukorin [いいね] 引数名quotationMark、とっても良いですね！ by jflute (2024/07/25)
+    // done mayukorin [いいね] 引数名quotationMark、とっても良いですね！ by jflute (2024/07/25)
     private String quote(String sea, String quotationMark) {
         return quotationMark + sea + quotationMark;
     }
 
     private boolean availableLogging = true;
 
+    // [ふぉろー] booleanの命名、isメソッドのお話 by jflute
+    // has: 持っているかどうか？ (主語がthis)
+    // exists: 存在しているかどうか？ (かなりhasとニアリーイコール / 主語が若干広い？)
+    // may(might): かもしれない、かどうか？ (レアではあるけど、かもしれないぐらいの判定したいとき)
+    // TODO mayukorin [読み物課題] なんとかフラグというboolean変数名 by jflute (2024/08/09)
+    // https://jflute.hatenadiary.jp/entry/20181013/flgornuance
     private boolean isAvailableLogging() {
         return availableLogging;
     }
