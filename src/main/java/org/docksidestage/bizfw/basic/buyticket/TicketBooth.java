@@ -25,11 +25,13 @@ public class TicketBooth {
     //                                                                          ==========
     private static final int MAX_QUANTITY = 10;
     private static final int ONE_DAY_PRICE = 7400; // when 2019/06/15
+    private static final int TWO_DAY_PRICE = 13200; // when 2019/06/15
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    private int quantity = MAX_QUANTITY;
+    private int oneDayPassportQuantity = MAX_QUANTITY;
+    private int twoDayPassportQuantity = MAX_QUANTITY;
     private Integer salesProceeds; // null allowed: until first purchase
 
     // ===================================================================================
@@ -57,20 +59,43 @@ public class TicketBooth {
      * @throws TicketShortMoneyException When the specified money is short for purchase.
      */
     public int buyOneDayPassport(Integer handedMoney) {
-        if (quantity <= 0) {
+        if (oneDayPassportQuantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
         if (handedMoney < ONE_DAY_PRICE) {
             throw new TicketShortMoneyException("Short money: " + handedMoney);
         }
-        --quantity;
+        --oneDayPassportQuantity;
         if (salesProceeds != null) { // second or more purchase
             salesProceeds = salesProceeds + ONE_DAY_PRICE;
         } else { // first purchase
             salesProceeds = ONE_DAY_PRICE;
         }
         int change = handedMoney - ONE_DAY_PRICE; // change が null になることはないため、int を使った。
+        return change;
+    }
 
+    /**
+     * TwoDayPassport を買うためのメソッド。ゲストが使う
+     * @param handedMoney ゲストから渡された金額（NotNull, NotMinus）
+     * @return change お釣り（NotNull, NotMinus）
+     * @throws TicketSoldOutException チケットが売り切れている場合
+     * @throws TicketShortMoneyException ゲストから渡された金額が、チケット料金よりも少ない場合
+     */
+    public int buyTwoDayPassport(Integer handedMoney) {
+        if (twoDayPassportQuantity <= 0) {
+            throw new TicketSoldOutException("Sold out");
+        }
+        if (handedMoney < TWO_DAY_PRICE) {
+            throw new TicketShortMoneyException("short money: " + handedMoney);
+        }
+        --twoDayPassportQuantity;
+        if (salesProceeds != null) {
+            salesProceeds = salesProceeds + TWO_DAY_PRICE;
+        } else {
+            salesProceeds = TWO_DAY_PRICE;
+        }
+        int change = handedMoney - TWO_DAY_PRICE;
         return change;
     }
 
@@ -95,8 +120,12 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
-    public int getQuantity() {
-        return quantity;
+    public int getOneDayPassportQuantity() {
+        return oneDayPassportQuantity;
+    }
+
+    public int getTwoDayPassportQuantity() {
+        return twoDayPassportQuantity;
     }
 
     public Integer getSalesProceeds() {

@@ -42,7 +42,7 @@ public class Step05ClassTest extends PlainTestCase {
     public void test_class_howToUse_basic() {
         TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(7400);
-        int sea = booth.getQuantity();
+        int sea = booth.getOneDayPassportQuantity();
         log(sea); // your answer? => 9
         // buyOneDayPassportで、インスタンス変数 quantity がMAX_QUANTITYから-1に更新されるため
         // 答え：9
@@ -89,7 +89,7 @@ public class Step05ClassTest extends PlainTestCase {
         } catch (TicketShortMoneyException continued) {
             log("Failed to buy one-day passport: money=" + handedMoney, continued);
         }
-        return booth.getQuantity();
+        return booth.getOneDayPassportQuantity();
     }
 
     // [お知らせ] JavaDocのみならず、コメントはチャレンジとして積極的に書いていってみてください。
@@ -125,13 +125,16 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_letsFix_makeMethod_twoday() {
         // uncomment after making the method
-        //TicketBooth booth = new TicketBooth();
-        //int money = 14000;
-        //int change = booth.buyTwoDayPassport(money);
-        //Integer sea = booth.getSalesProceeds() + change;
-        //log(sea); // should be same as money
+        TicketBooth booth = new TicketBooth();
+        int money = 14000;
+        int change = booth.buyTwoDayPassport(money);
+        Integer sea = booth.getSalesProceeds() + change;
+        log(sea); // should be same as money
+        // 14000 になった。
 
         // and show two-day passport quantity here
+        int quantity = booth.getTwoDayPassportQuantity();
+        log(quantity); // 9 になった。
     }
 
     /**
@@ -141,7 +144,7 @@ public class Step05ClassTest extends PlainTestCase {
     public void test_class_letsFix_refactor_recycle() {
         TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(10000);
-        log(booth.getQuantity(), booth.getSalesProceeds()); // should be same as before-fix
+        log(booth.getOneDayPassportQuantity(), booth.getSalesProceeds()); // should be same as before-fix
     }
 
     // ===================================================================================
