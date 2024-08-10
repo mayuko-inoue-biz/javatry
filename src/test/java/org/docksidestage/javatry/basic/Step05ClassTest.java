@@ -76,6 +76,7 @@ public class Step05ClassTest extends PlainTestCase {
         // doTest 関数内では、TicketShortMoneyException がキャッチされ、return booth.getQuantity() まで実行される
         // quantity は 10-1 = 9 なため、sea = 9 となる。
         // 答え：9
+        // 「① お金不足でもチケットが減る問題」を修正後は、TicketShortMoneyException が投げられた後に quantity を減らすようにするため、10 のまま
     }
 
     private Integer doTest_class_ticket_wrongQuantity() {

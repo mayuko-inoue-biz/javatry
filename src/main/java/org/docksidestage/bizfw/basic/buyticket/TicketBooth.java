@@ -59,10 +59,10 @@ public class TicketBooth {
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
-        --quantity;
         if (handedMoney < ONE_DAY_PRICE) {
             throw new TicketShortMoneyException("Short money: " + handedMoney);
         }
+        --quantity;
         if (salesProceeds != null) { // second or more purchase
             salesProceeds = salesProceeds + handedMoney;
         } else { // first purchase
