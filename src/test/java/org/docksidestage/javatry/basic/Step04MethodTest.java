@@ -218,7 +218,7 @@ public class Step04MethodTest extends PlainTestCase {
     // has: 持っているかどうか？ (主語がthis)
     // exists: 存在しているかどうか？ (かなりhasとニアリーイコール / 主語が若干広い？)
     // may(might): かもしれない、かどうか？ (レアではあるけど、かもしれないぐらいの判定したいとき)
-    // TODO mayukorin [読み物課題] なんとかフラグというboolean変数名 by jflute (2024/08/09)
+    // TODO done mayukorin [読み物課題] なんとかフラグというboolean変数名 by jflute (2024/08/09)
     // https://jflute.hatenadiary.jp/entry/20181013/flgornuance
     private boolean isAvailableLogging() {
         return availableLogging;
