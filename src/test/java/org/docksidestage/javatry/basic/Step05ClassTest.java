@@ -57,6 +57,7 @@ public class Step05ClassTest extends PlainTestCase {
         // TODO done mayukorin "handedMoney の初期値は..." -> "salesProceeds の初期値は..." by jflute (2024/08/09)
         // salesProceeds の初期値は null なため、buyOneDayPassport 内で salesProceeds = handedMoney（=10000）になるため
         // 答え：10000
+        // 「② 受け取ったお金の分だけ売上が増えていく問題」を修正後は、one-day price 価格（7400）になる
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -103,6 +104,7 @@ public class Step05ClassTest extends PlainTestCase {
     public void test_class_letsFix_ticketQuantityReduction() {
         Integer sea = doTest_class_ticket_wrongQuantity();
         log(sea); // should be max quantity, visual check here
+        // 10 になった。
     }
 
     /**
@@ -114,6 +116,7 @@ public class Step05ClassTest extends PlainTestCase {
         booth.buyOneDayPassport(10000);
         Integer sea = booth.getSalesProceeds();
         log(sea); // should be same as one-day price, visual check here
+        // 7400 になった。ついでにお釣りを返すように修正
     }
 
     /**
