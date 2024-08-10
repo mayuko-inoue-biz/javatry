@@ -145,6 +145,15 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(10000);
         log(booth.getOneDayPassportQuantity(), booth.getSalesProceeds()); // should be same as before-fix
+        // 修正前：9, 7400
+        // 修正後：9, 7400
+        // salesProceedsを更新するところだけ、privateメソッドに切り出した
+        // quantity を更新するところも切り出そうかなと思ったが、結局切り出し先で、条件分岐で --twoDayPassportQuantity や --oneDayPassportQuantity をしなければならず、
+        // 書く量は切り出す前後で変わらず、切り出すメリットがあまりないかなと思ったのでやめた
+        // Map に passport の情報をそれぞれ入れて key でアクセスした先の quantity を -1 すれば、
+        // --twoDayPassportQuantity や --oneDayPassportQuantity などせずに書く量を少なくできると思ったが、
+        // 変更量が多くなってしまうのでやめた。
+
     }
 
     // ===================================================================================

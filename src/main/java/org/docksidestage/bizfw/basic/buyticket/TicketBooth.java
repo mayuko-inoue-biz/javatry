@@ -66,11 +66,7 @@ public class TicketBooth {
             throw new TicketShortMoneyException("Short money: " + handedMoney);
         }
         --oneDayPassportQuantity;
-        if (salesProceeds != null) { // second or more purchase
-            salesProceeds = salesProceeds + ONE_DAY_PRICE;
-        } else { // first purchase
-            salesProceeds = ONE_DAY_PRICE;
-        }
+        updateSalesProceeds(ONE_DAY_PRICE);
         int change = handedMoney - ONE_DAY_PRICE; // change が null になることはないため、int を使った。
         return change;
     }
@@ -90,13 +86,17 @@ public class TicketBooth {
             throw new TicketShortMoneyException("short money: " + handedMoney);
         }
         --twoDayPassportQuantity;
-        if (salesProceeds != null) {
-            salesProceeds = salesProceeds + TWO_DAY_PRICE;
-        } else {
-            salesProceeds = TWO_DAY_PRICE;
-        }
+        updateSalesProceeds(TWO_DAY_PRICE);
         int change = handedMoney - TWO_DAY_PRICE;
         return change;
+    }
+
+    private void updateSalesProceeds(Integer ticketPrice) {
+        if (salesProceeds != null) {
+            salesProceeds = salesProceeds + ticketPrice;
+        } else {
+            salesProceeds = ticketPrice;
+        }
     }
 
     public static class TicketSoldOutException extends RuntimeException {
