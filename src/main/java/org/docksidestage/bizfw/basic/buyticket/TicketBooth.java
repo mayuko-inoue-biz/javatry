@@ -75,21 +75,24 @@ public class TicketBooth {
     /**
      * TwoDayPassport を買うためのメソッド。ゲストが使う
      * @param handedMoney ゲストから渡された金額（NotNull, NotMinus）
-     * @return change お釣り（NotNull, NotMinus）
+     * @return TicketBuyResult TwoDayPassport とお釣り（NotNull, NotMinus）で構成される
      * @throws TicketSoldOutException チケットが売り切れている場合
      * @throws TicketShortMoneyException ゲストから渡された金額が、チケット料金よりも少ない場合
      */
-    public int buyTwoDayPassport(Integer handedMoney) {
+    public TicketBuyResult buyTwoDayPassport(Integer handedMoney) {
         if (twoDayPassportQuantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
         if (handedMoney < TWO_DAY_PRICE) {
             throw new TicketShortMoneyException("short money: " + handedMoney);
         }
+
+        Ticket twoDayPassport = new Ticket(TWO_DAY_PRICE);
         --twoDayPassportQuantity;
         updateSalesProceeds(TWO_DAY_PRICE);
         int change = handedMoney - TWO_DAY_PRICE;
-        return change;
+
+        return new TicketBuyResult(twoDayPassport, change);
     }
 
     private void updateSalesProceeds(Integer ticketPrice) {

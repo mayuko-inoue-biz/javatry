@@ -18,6 +18,7 @@ package org.docksidestage.javatry.basic;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
+import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
 import org.docksidestage.unit.PlainTestCase;
 
 /**
@@ -128,7 +129,7 @@ public class Step05ClassTest extends PlainTestCase {
         // uncomment after making the method
         TicketBooth booth = new TicketBooth();
         int money = 14000;
-        int change = booth.buyTwoDayPassport(money);
+        int change = (booth.buyTwoDayPassport(money)).getChange();
         Integer sea = booth.getSalesProceeds() + change;
         log(sea); // should be same as money
         // 14000 になった。
@@ -172,6 +173,7 @@ public class Step05ClassTest extends PlainTestCase {
         log(oneDayPassport.isAlreadyIn()); // should be false
         oneDayPassport.doInPark();
         log(oneDayPassport.isAlreadyIn()); // should be true
+        // false, true になった
     }
 
     /**
@@ -180,12 +182,17 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_return_whole() {
         // uncomment after modifying the method
-        //TicketBooth booth = new TicketBooth();
-        //int handedMoney = 20000;
-        //TicketBuyResult buyResult = booth.buyTwoDayPassport(handedMoney);
-        //Ticket twoDayPassport = buyResult.getTicket();
-        //int change = buyResult.getChange();
-        //log(twoDayPassport.getDisplayPrice() + change); // should be same as money
+        TicketBooth booth = new TicketBooth();
+        int handedMoney = 20000;
+        TicketBuyResult buyResult = booth.buyTwoDayPassport(handedMoney);
+        Ticket twoDayPassport = buyResult.getTicket();
+        int change = buyResult.getChange();
+        log(twoDayPassport.getDisplayPrice() + change); // should be same as money
+        // same money になった
+        // TODO jflute Ticket を new する処理を、TicketBuyResult のコンストラクタとbuyTwoDayPassport のどちらにに入れるべきか、ご意見をお聞きしたいです。
+        // 私の考え
+        // TicketBuyResult の目的： ticket と change をひとまとめに扱いやすくするためのもの（将来、例えば guest クラスができたとき、TicketBuyResult があれば Ticket と change をセットで使える）」という理解をしてます。
+        // その目的からすると Ticket を new する処理は TicketBuyResult のコンストラクタに入れるべきではないのかなと思い、buyTwoDayPassport に入れました。
     }
 
     /**
