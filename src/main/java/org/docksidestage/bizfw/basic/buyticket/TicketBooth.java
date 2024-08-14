@@ -54,21 +54,22 @@ public class TicketBooth {
     /**
      * Buy one-day passport, method for park guest.
      * @param handedMoney The money (amount) handed over from park guest. (NotNull, NotMinus)
-     * @return change お釣り（Not Null, NotMinus）
+     * @return Ticket oneDayPassport
      * @throws TicketSoldOutException When ticket in booth is sold out.
      * @throws TicketShortMoneyException When the specified money is short for purchase.
      */
-    public int buyOneDayPassport(Integer handedMoney) {
+    public Ticket buyOneDayPassport(Integer handedMoney) {
         if (oneDayPassportQuantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
         if (handedMoney < ONE_DAY_PRICE) {
             throw new TicketShortMoneyException("Short money: " + handedMoney);
         }
+
+        Ticket oneDayPassport = new Ticket(ONE_DAY_PRICE);
         --oneDayPassportQuantity;
         updateSalesProceeds(ONE_DAY_PRICE);
-        int change = handedMoney - ONE_DAY_PRICE; // change が null になることはないため、int を使った。
-        return change;
+        return oneDayPassport;
     }
 
     /**
