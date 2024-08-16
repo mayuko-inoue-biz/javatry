@@ -56,7 +56,7 @@ public class Step05ClassTest extends PlainTestCase {
         booth.buyOneDayPassport(10000);
         Integer sea = booth.getSalesProceeds();
         log(sea); // your answer? => 10000
-        // TODO done mayukorin "handedMoney の初期値は..." -> "salesProceeds の初期値は..." by jflute (2024/08/09)
+        // done mayukorin "handedMoney の初期値は..." -> "salesProceeds の初期値は..." by jflute (2024/08/09)
         // salesProceeds の初期値は null なため、buyOneDayPassport 内で salesProceeds = handedMoney（=10000）になるため
         // 答え：10000
         // 「② 受け取ったお金の分だけ売上が増えていく問題」を修正後は、one-day price 価格（7400）になる
@@ -129,6 +129,8 @@ public class Step05ClassTest extends PlainTestCase {
         // uncomment after making the method
         TicketBooth booth = new TicketBooth();
         int money = 14000;
+        // TODO mayukorin "(booth.buyTwoDayPassport(money))" の括弧、気持ちはわかるけど、やってる人いないので... by jflute (2024/08/16)
+        // 一方で、文法上消してもいい括弧でも、人間の誤解を防ぐために明示的に括弧を付けることはよくなるので、それはそれで良い
         int change = (booth.buyTwoDayPassport(money)).getChange();
         Integer sea = booth.getSalesProceeds() + change;
         log(sea); // should be same as money
@@ -137,8 +139,13 @@ public class Step05ClassTest extends PlainTestCase {
         // and show two-day passport quantity here
         int quantity = booth.getTwoDayPassportQuantity();
         log(quantity); // 9 になった。
+        
+        // [ふぉろー] コピペ作業をできるだけ避けるにせよ、どうしてもしないといけなくなった場合の工夫 by jflute
+        // o ハイライト使って修正漏れを発見する習慣
+        // o 別のテキストファイルにパッと入れて検索で発見する習慣
+        // o そもそも別のテキストファイルで一括置換する技
     }
-
+    
     /**
      * Recycle duplicate logics between one-day and two-day by e.g. private method in class. (And confirm result of both before and after) <br>
      * (OneDayとTwoDayで冗長なロジックがあったら、クラス内のprivateメソッドなどで再利用しましょう (修正前と修正後の実行結果を確認))
@@ -189,10 +196,15 @@ public class Step05ClassTest extends PlainTestCase {
         int change = buyResult.getChange();
         log(twoDayPassport.getDisplayPrice() + change); // should be same as money
         // same money になった
-        // TODO jflute Ticket を new する処理を、TicketBuyResult のコンストラクタとbuyTwoDayPassport のどちらにに入れるべきか、ご意見をお聞きしたいです。
+        // TODO done jflute Ticket を new する処理を、TicketBuyResult のコンストラクタとbuyTwoDayPassport のどちらにに入れるべきか、ご意見をお聞きしたいです。
         // 私の考え
         // TicketBuyResult の目的： ticket と change をひとまとめに扱いやすくするためのもの（将来、例えば guest クラスができたとき、TicketBuyResult があれば Ticket と change をセットで使える）」という理解をしてます。
         // その目的からすると Ticket を new する処理は TicketBuyResult のコンストラクタに入れるべきではないのかなと思い、buyTwoDayPassport に入れました。
+        // [いいね] 素晴らしい。
+        // TicketBuyResultはいわゆる「入れ物クラス」言われるもので、あまりこういうクラスには処理を入れないのが慣習。
+        // オブジェクト指向としてはデータに振る舞いをってのはあるけど...ResultがTicketを管理してるか？って言ったらそうでもない気がする。
+        // Resultは受け渡しで、一時的にチケットを相手に渡すだけのオブジェクトであって、管理してるのはBoothなんじゃないか？って考えもできる。
+        // なので、まゆこりんさんの考えを全面的に支持します。
     }
 
     /**
