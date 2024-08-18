@@ -51,16 +51,16 @@ public class TicketBooth {
     // * @throws TicketSoldOutException ブース内のチケットが売り切れだったら
     // * @throws TicketShortMoneyException 買うのに金額が足りなかったら
     // */
-    // TODO mayukorin @return, せめて "購入された" というニュアンスがあるといいかも by jflute (2024/08/16)
-    // TODO mayukorin @return, 型の明示は必要ない、型はメソッド見ればわかるから by jflute (2024/08/16)
+    // TODO done mayukorin @return, せめて "購入された" というニュアンスがあるといいかも by jflute (2024/08/16)
+    // TODO done mayukorin @return, 型の明示は必要ない、型はメソッド見ればわかるから by jflute (2024/08/16)
     // 引数は複数あるので特定しないといけない、戻り値は一つしかないから特定が必要ない
     // [ふぉろー] コンパイラーの気持ちになって仕様を推測していくこともできるよ話 (2024/08/16)
-    // TODO mayukorin @return, javatryのポリシーとして (NotNull) のマークを付けて欲しい by jflute (2024/08/16)
+    // TODO done mayukorin @return, javatryのポリシーとして (NotNull) のマークを付けて欲しい by jflute (2024/08/16)
     // 呼び出し側にとってありがたい情報なのでぜひ。(DBFluteのjavadocの例も見てもらった)
     /**
      * Buy one-day passport, method for park guest.
      * @param handedMoney The money (amount) handed over from park guest. (NotNull, NotMinus)
-     * @return oneDayPassport
+     * @return 購入された oneDayPassport (NotNull)
      * @throws TicketSoldOutException When ticket in booth is sold out.
      * @throws TicketShortMoneyException When the specified money is short for purchase.
      */
@@ -68,23 +68,20 @@ public class TicketBooth {
         if (oneDayPassportQuantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
-        if (handedMoney < ONE_DAY_PRICE) {
-            throw new TicketShortMoneyException("Short money: " + handedMoney);
-        }
 
-        Ticket oneDayPassport = new Ticket(ONE_DAY_PRICE);
+        Ticket oneDayPassport = sellTicket(handedMoney, ONE_DAY_PRICE).getTicket();
         --oneDayPassportQuantity;
-        updateSalesProceeds(ONE_DAY_PRICE);
+
         return oneDayPassport;
     }
 
-    // TODO mayukorin 列挙タイプの説明自体は良いけど、もうちょい濁したほうがよい。もし将来増えた場合... by jflute (2024/08/16)
+    // TODO done mayukorin 列挙タイプの説明自体は良いけど、もうちょい濁したほうがよい。もし将来増えた場合... by jflute (2024/08/16)
     // "など" を使うとよい。"チケットとお釣りなどで構成される" とするだけで耐久性の強い説明になる。
     // 後は、e.g.で列挙して表現するという工夫もあり "e.g. チケット、お釣り"
     /**
      * TwoDayPassport を買うためのメソッド。ゲストが使う
      * @param handedMoney ゲストから渡された金額（NotNull, NotMinus）
-     * @return TicketBuyResult TwoDayPassport とお釣り（NotNull, NotMinus）で構成される
+     * @return TwoDayPassport とお釣りなどで構成される（NotNull）
      * @throws TicketSoldOutException チケットが売り切れている場合
      * @throws TicketShortMoneyException ゲストから渡された金額が、チケット料金よりも少ない場合
      */

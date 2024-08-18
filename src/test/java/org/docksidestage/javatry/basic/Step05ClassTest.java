@@ -129,9 +129,9 @@ public class Step05ClassTest extends PlainTestCase {
         // uncomment after making the method
         TicketBooth booth = new TicketBooth();
         int money = 14000;
-        // TODO mayukorin "(booth.buyTwoDayPassport(money))" の括弧、気持ちはわかるけど、やってる人いないので... by jflute (2024/08/16)
+        // TODO done mayukorin "(booth.buyTwoDayPassport(money))" の括弧、気持ちはわかるけど、やってる人いないので... by jflute (2024/08/16)
         // 一方で、文法上消してもいい括弧でも、人間の誤解を防ぐために明示的に括弧を付けることはよくなるので、それはそれで良い
-        int change = (booth.buyTwoDayPassport(money)).getChange();
+        int change = booth.buyTwoDayPassport(money).getChange();
         Integer sea = booth.getSalesProceeds() + change;
         log(sea); // should be same as money
         // 14000 になった。
