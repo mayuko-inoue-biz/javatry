@@ -89,21 +89,46 @@ public class TicketBooth {
         if (twoDayPassportQuantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
-        if (handedMoney < TWO_DAY_PRICE) {
-            throw new TicketShortMoneyException("short money: " + handedMoney);
-        }
 
-        Ticket twoDayPassport = new Ticket(TWO_DAY_PRICE);
+        TicketBuyResult twoDayPassportBuyResult = sellTicket(handedMoney, TWO_DAY_PRICE);
         --twoDayPassportQuantity;
-        updateSalesProceeds(TWO_DAY_PRICE);
-        int change = handedMoney - TWO_DAY_PRICE;
 
-        return new TicketBuyResult(twoDayPassport, change);
+        return twoDayPassportBuyResult;
     }
 
-    // TODO mayukorin [いいね] updateSalesProceeds()はとても良いメソッドです (粒度も名前も完璧) by jflute (2024/08/16)
-    // TODO mayukorin まず目標として、他にもupdateSalesProceeds()みたいなメソッド作れるはずなので... by jflute (2024/08/16)
+    private TicketBuyResult sellTicket(Integer handedMoney, Integer ticketPrice) {
+        checkIfNotLackOfMoney(handedMoney, ticketPrice);
+
+        Ticket ticket = publishTicket(ticketPrice);
+        updateSalesProceeds(ticketPrice);
+        int change = handedMoney - ticketPrice;
+        return new TicketBuyResult(ticket, change);
+    }
+
+    private void checkIfNotLackOfMoney(Integer handedMoney, Integer ticketPrice) {
+        if (handedMoney < ticketPrice) {
+            throw new TicketShortMoneyException("Short money: " + handedMoney);
+        }
+    }
+
+    private Ticket publishTicket(Integer ticketPrice) {
+        return new Ticket(ticketPrice);
+    }
+
+    // TODO done mayukorin [いいね] updateSalesProceeds()はとても良いメソッドです (粒度も名前も完璧) by jflute (2024/08/16)
+    // TODO done mayukorin まず目標として、他にもupdateSalesProceeds()みたいなメソッド作れるはずなので... by jflute (2024/08/16)
     // 最低限そこまではやってみましょう。
+    // TODO jflute 関数内で、引数によりアクセスする passportQuantity 変数を変えるにはどうしたら良いのでしょうか？
+    // 関数の切り出しはある程度できたのですが、やはり PassportQuantity が切り出せずに残ってしまっています。
+    // 私は以下の2種類の方法しか思いつかないのですが、他にヒントなどあったら教えていただきたいです。
+    // ① passportQuantity の map をインスタンス変数として用意する
+    // value に各 passport quantity が入っている map のインスタンス変数を用意する
+    // 関数内では、map の key を引数にとって、key に対応する passport quantity にアクセスする
+    // ② passportQuantity 分の Ticket のキューで構成される map をインスタンス変数として用意する
+    // 各 quantity 分の Ticket インスタンスのキューで構成される map を用意する
+    // TicketBooth のコンストラクタ内で map は初期化する
+    // sellTicket 内では、キーを引数にとって対応する passport の キューにアクセスし、Ticket を取り出す
+    // passportQuantity はインスタンス変数として持つ必要はなく、キューのサイズで分かる。
     private void updateSalesProceeds(Integer ticketPrice) {
         if (salesProceeds != null) {
             salesProceeds = salesProceeds + ticketPrice;

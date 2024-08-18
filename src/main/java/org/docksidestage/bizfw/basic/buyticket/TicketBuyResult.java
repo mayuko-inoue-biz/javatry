@@ -7,8 +7,8 @@ public class TicketBuyResult {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    private final Ticket ticket; // 購入したチケット
-    private final int change; // チケット購入時のお釣り
+    private final Ticket ticket; // 購入したチケット（NotNull）
+    private final int change; // チケット購入時のお釣り（NotMinus）
 
     // ===================================================================================
     //                                                                         Constructor
