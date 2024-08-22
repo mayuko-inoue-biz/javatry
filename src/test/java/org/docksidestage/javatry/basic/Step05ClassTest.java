@@ -15,6 +15,11 @@
  */
 package org.docksidestage.javatry.basic;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
@@ -177,9 +182,9 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBooth booth = new TicketBooth();
         Ticket oneDayPassport = booth.buyOneDayPassport(10000);
         log(oneDayPassport.getDisplayPrice()); // should be same as one-day price
-        log(oneDayPassport.isAlreadyIn()); // should be false
-        oneDayPassport.doInPark();
-        log(oneDayPassport.isAlreadyIn()); // should be true
+        log(oneDayPassport.unAvailable()); // should be false
+        oneDayPassport.doInPark(LocalDateTime.of(2017, 11, 17, 11, 17));
+        log(oneDayPassport.unAvailable()); // should be true
         // false, true になった
     }
 

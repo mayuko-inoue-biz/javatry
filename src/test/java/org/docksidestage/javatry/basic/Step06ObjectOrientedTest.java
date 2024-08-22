@@ -15,6 +15,8 @@
  */
 package org.docksidestage.javatry.basic;
 
+import java.time.LocalDateTime;
+
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.objanimal.Animal;
@@ -135,7 +137,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // if step05 has been finished, you can use this code by jflute (2019/06/15)
         //Ticket ticket = booth.buyOneDayPassport(10000);
         booth.buyOneDayPassport(10000); // as temporary, remove if you finished step05
-        Ticket ticket = new Ticket(7400); // also here
+        Ticket ticket = new Ticket(7400, 1); // also here
 
         // *buyOneDayPassport() has this process:
         //if (quantity <= 0) {
@@ -158,7 +160,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [do in park now!!!]
         //
-        ticket.doInPark();
+        ticket.doInPark(LocalDateTime.of(2017, 11, 17, 11, 17));
 
         // *doInPark() has this process:
         //if (alreadyIn) {
@@ -173,7 +175,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     }
 
     private void saveBuyingHistory(TicketBooth booth, Ticket ticket) {
-        if (ticket.isAlreadyIn()) {
+        if (ticket.unAvailable()) {
             // only logging here (normally e.g. DB insert)
             doShowTicketBooth(booth);
             doShowYourTicket(ticket);
@@ -185,7 +187,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     }
 
     private void doShowYourTicket(Ticket ticket) {
-        log("Your Ticket: displayPrice={}, alreadyIn={}", ticket.getDisplayPrice(), ticket.isAlreadyIn());
+        log("Your Ticket: displayPrice={}, unAvailable={}", ticket.getDisplayPrice(), ticket.unAvailable());
     }
 
     // write your memo here:

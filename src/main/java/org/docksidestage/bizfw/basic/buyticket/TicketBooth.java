@@ -26,6 +26,8 @@ public class TicketBooth {
     private static final int MAX_QUANTITY = 10;
     private static final int ONE_DAY_PRICE = 7400; // when 2019/06/15
     private static final int TWO_DAY_PRICE = 13200; // when 2019/06/15
+    private static final int ONE_DAY = 1;
+    private static final int TWO_DAY = 2;
 
     // ===================================================================================
     //                                                                           Attribute
@@ -69,7 +71,7 @@ public class TicketBooth {
             throw new TicketSoldOutException("Sold out");
         }
 
-        Ticket oneDayPassport = sellTicket(handedMoney, ONE_DAY_PRICE).getTicket();
+        Ticket oneDayPassport = sellTicket(handedMoney, ONE_DAY_PRICE, ONE_DAY).getTicket();
         --oneDayPassportQuantity;
 
         return oneDayPassport;
@@ -90,16 +92,16 @@ public class TicketBooth {
             throw new TicketSoldOutException("Sold out");
         }
 
-        TicketBuyResult twoDayPassportBuyResult = sellTicket(handedMoney, TWO_DAY_PRICE);
+        TicketBuyResult twoDayPassportBuyResult = sellTicket(handedMoney, TWO_DAY_PRICE, TWO_DAY);
         --twoDayPassportQuantity;
 
         return twoDayPassportBuyResult;
     }
 
-    private TicketBuyResult sellTicket(Integer handedMoney, Integer ticketPrice) {
+    private TicketBuyResult sellTicket(Integer handedMoney, Integer ticketPrice, int consecutiveAvaliableDays) {
         checkIfNotLackOfMoney(handedMoney, ticketPrice);
 
-        Ticket ticket = publishTicket(ticketPrice);
+        Ticket ticket = publishTicket(ticketPrice, consecutiveAvaliableDays);
         updateSalesProceeds(ticketPrice);
         int change = handedMoney - ticketPrice;
         return new TicketBuyResult(ticket, change);
@@ -111,8 +113,8 @@ public class TicketBooth {
         }
     }
 
-    private Ticket publishTicket(Integer ticketPrice) {
-        return new Ticket(ticketPrice);
+    private Ticket publishTicket(Integer ticketPrice, int consecutiveAvaliableDays) {
+        return new Ticket(ticketPrice, consecutiveAvaliableDays);
     }
 
     // TODO done mayukorin [いいね] updateSalesProceeds()はとても良いメソッドです (粒度も名前も完璧) by jflute (2024/08/16)
