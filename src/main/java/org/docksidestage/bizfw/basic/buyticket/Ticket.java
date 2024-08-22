@@ -15,6 +15,9 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 /**
  * @author jflute
  */
@@ -24,23 +27,36 @@ public class Ticket {
     //                                                                           Attribute
     //                                                                           =========
     private final int displayPrice; // written on ticket, park guest can watch this
-    private boolean alreadyIn; // true means this ticket is unavailable
-
+    private int remainAvailableDays; // チケットの残り使用可能日数
+    private LocalDateTime lastUsedDay; // チケットを使用した最新日
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public Ticket(int displayPrice) {
+    public Ticket(int displayPrice, int consecutiveAvailableDays) {
         this.displayPrice = displayPrice;
+        this.remainAvailableDays = consecutiveAvailableDays;
     }
 
     // ===================================================================================
     //                                                                             In Park
     //                                                                             =======
-    public void doInPark() {
-        if (alreadyIn) {
-            throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + displayPrice);
+    public void doInPark(LocalDateTime currentDay) {
+        if (remainAvailableDays == 0) {
+            throw new IllegalStateException("This ticket is unavailable: displayedPrice=" + displayPrice);
         }
-        alreadyIn = true;
+        if (lastUsedDay != null) {
+            long daysSinceLastUsedDay = Duration.between(lastUsedDay, currentDay).toDays();
+            if (daysSinceLastUsedDay == 0) {
+                throw new IllegalStateException("Already in park by this ticket today: consecutive days you can use from tomorrow=" + remainAvailableDays);
+            } else if (daysSinceLastUsedDay > 1) {
+                remainAvailableDays = 0;
+                throw new IllegalStateException("This ticket is no longer valid as you did not use the ticket on consecutive days: displayedPrice=" + displayPrice);
+            } else if (daysSinceLastUsedDay < 0) {
+                throw new IllegalStateException("currentDay must be a time later than lastUsedDay: specified currentDay=" + currentDay + ", lastUsedDay=" + lastUsedDay);
+            }
+        }
+        remainAvailableDays--;
+        lastUsedDay = currentDay;
     }
 
     // ===================================================================================
@@ -50,7 +66,7 @@ public class Ticket {
         return displayPrice;
     }
 
-    public boolean isAlreadyIn() {
-        return alreadyIn;
+    public boolean unAvailable() {
+        return remainAvailableDays == 0;
     }
 }

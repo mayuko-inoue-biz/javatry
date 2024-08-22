@@ -211,8 +211,26 @@ public class Step05ClassTest extends PlainTestCase {
      * Now you can use only one in spite of two-day passport, so fix Ticket to be able to handle plural days. <br>
      * (TwoDayPassportなのに一回しか利用できません。複数日数に対応できるようにTicketを修正しましょう)
      */
+    // 研修で習ったステートマシン図を Ticket に作成して修正した
+    // Ticket のステートマシン図：https://docs.google.com/presentation/d/1NmkpsEHkNUYg1KeIgJW1BO9IB1v2Cm2iwUubWj1GX9Y/edit?usp=sharing
+    // でも結局ステートマシン図の通りに Ticket を修正できなかった
+    // 「使用中」の状態はTicket クラスで保持していないし、1日経過したら「使用中」から「使用可能」or 「使用不可」に変わるようなメソッドを Ticket に作ってもない
+    // TODO jflute ステートマシン図と実装は完全に対応させるべきなのでしょうか？
     public void test_class_moreFix_usePluralDays() {
         // your confirmation code here
+        TicketBooth booth = new TicketBooth();
+        TicketBuyResult buyResult = booth.buyTwoDayPassport(20000);
+        Ticket twoDayPassport = buyResult.getTicket();
+        // 1日目にインする
+        LocalDateTime firstDay = LocalDateTime.of(2017, 11, 17, 11, 17);
+        log(twoDayPassport.unAvailable()); // should be false
+        twoDayPassport.doInPark(firstDay);
+        log(twoDayPassport.unAvailable()); // should be false
+        // 2日目にインする
+        LocalDateTime secondDay = LocalDateTime.of(2017, 11, 18, 11, 18);
+        twoDayPassport.doInPark(secondDay);
+        log(twoDayPassport.unAvailable()); // should be true
+        // false, false, true になった
     }
 
     /**
