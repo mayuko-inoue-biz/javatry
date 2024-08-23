@@ -53,11 +53,11 @@ public class TicketBooth {
     // * @throws TicketSoldOutException ブース内のチケットが売り切れだったら
     // * @throws TicketShortMoneyException 買うのに金額が足りなかったら
     // */
-    // TODO done mayukorin @return, せめて "購入された" というニュアンスがあるといいかも by jflute (2024/08/16)
-    // TODO done mayukorin @return, 型の明示は必要ない、型はメソッド見ればわかるから by jflute (2024/08/16)
+    // done mayukorin @return, せめて "購入された" というニュアンスがあるといいかも by jflute (2024/08/16)
+    // done mayukorin @return, 型の明示は必要ない、型はメソッド見ればわかるから by jflute (2024/08/16)
     // 引数は複数あるので特定しないといけない、戻り値は一つしかないから特定が必要ない
     // [ふぉろー] コンパイラーの気持ちになって仕様を推測していくこともできるよ話 (2024/08/16)
-    // TODO done mayukorin @return, javatryのポリシーとして (NotNull) のマークを付けて欲しい by jflute (2024/08/16)
+    // done mayukorin @return, javatryのポリシーとして (NotNull) のマークを付けて欲しい by jflute (2024/08/16)
     // 呼び出し側にとってありがたい情報なのでぜひ。(DBFluteのjavadocの例も見てもらった)
     /**
      * Buy one-day passport, method for park guest.
@@ -67,17 +67,19 @@ public class TicketBooth {
      * @throws TicketShortMoneyException When the specified money is short for purchase.
      */
     public Ticket buyOneDayPassport(Integer handedMoney) {
+        // TODO mayukorin 参照するだけの処理であれば、引数で指定して、中で共有化できる by jflute (2024/08/23)
         if (oneDayPassportQuantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
 
+        // TODO mayukorin [いいね] お釣りの計算とかResultの生成とか超微々たるコストなので気にせず実行して辻褄合わせるのもアリ by jflute (2024/08/23)
         Ticket oneDayPassport = sellTicket(handedMoney, ONE_DAY_PRICE, ONE_DAY).getTicket();
         --oneDayPassportQuantity;
 
         return oneDayPassport;
     }
 
-    // TODO done mayukorin 列挙タイプの説明自体は良いけど、もうちょい濁したほうがよい。もし将来増えた場合... by jflute (2024/08/16)
+    // done mayukorin 列挙タイプの説明自体は良いけど、もうちょい濁したほうがよい。もし将来増えた場合... by jflute (2024/08/16)
     // "など" を使うとよい。"チケットとお釣りなどで構成される" とするだけで耐久性の強い説明になる。
     // 後は、e.g.で列挙して表現するという工夫もあり "e.g. チケット、お釣り"
     /**
@@ -107,6 +109,10 @@ public class TicketBooth {
         return new TicketBuyResult(ticket, change);
     }
 
+    // TODO mayukorin checkは、目的語が正しいもの来るのか？間違ったものが来るのか？両方ありえる by jflute (2024/08/23)
+    // というかcheckだと、どっちで例外がthrowされるのかがパッとわからない。
+    // 代表選手として、assertという言葉があって、これは目的語が必ず正しいことが来る e.g. assertEnoughMoney
+    // (プログラミングの世界における世界的な慣習になっている)
     private void checkIfNotLackOfMoney(Integer handedMoney, Integer ticketPrice) {
         if (handedMoney < ticketPrice) {
             throw new TicketShortMoneyException("Short money: " + handedMoney);
@@ -117,10 +123,10 @@ public class TicketBooth {
         return new Ticket(ticketPrice, consecutiveAvaliableDays);
     }
 
-    // TODO done mayukorin [いいね] updateSalesProceeds()はとても良いメソッドです (粒度も名前も完璧) by jflute (2024/08/16)
-    // TODO done mayukorin まず目標として、他にもupdateSalesProceeds()みたいなメソッド作れるはずなので... by jflute (2024/08/16)
+    // done mayukorin [いいね] updateSalesProceeds()はとても良いメソッドです (粒度も名前も完璧) by jflute (2024/08/16)
+    // done mayukorin まず目標として、他にもupdateSalesProceeds()みたいなメソッド作れるはずなので... by jflute (2024/08/16)
     // 最低限そこまではやってみましょう。
-    // TODO jflute 関数内で、引数によりアクセスする passportQuantity 変数を変えるにはどうしたら良いのでしょうか？
+    // done jflute 関数内で、引数によりアクセスする passportQuantity 変数を変えるにはどうしたら良いのでしょうか？
     // 関数の切り出しはある程度できたのですが、やはり PassportQuantity が切り出せずに残ってしまっています。
     // 私は以下の2種類の方法しか思いつかないのですが、他にヒントなどあったら教えていただきたいです。
     // ① passportQuantity の map をインスタンス変数として用意する
@@ -131,6 +137,14 @@ public class TicketBooth {
     // TicketBooth のコンストラクタ内で map は初期化する
     // sellTicket 内では、キーを引数にとって対応する passport の キューにアクセスし、Ticket を取り出す
     // passportQuantity はインスタンス変数として持つ必要はなく、キューのサイズで分かる。
+    // TODO mayukorin [いいね] 素晴らしい、特に2はとても良い発想です (実務で状況変わった時に適してるかは別ですが) by jflute (2024/08/23)
+    // TODO mayukorin では2で実装してみてください by jflute (2024/08/23)
+    // TODO jflute 3の紹介は2の実装が終わってから (2024/08/23)
+    
+    // TODO mayukorin [いいね] 質問/相談するときに、自分ここまで考えました、という内容を伝えるの素晴らしい by jflute (2024/08/23)
+    // TODO mayukorin [読み物課題] 質問のコツその一: なんでその質問してるのか？も伝えよう by jflute (2024/08/23)
+    // https://jflute.hatenadiary.jp/entry/20170611/askingway1
+    
     private void updateSalesProceeds(Integer ticketPrice) {
         if (salesProceeds != null) {
             salesProceeds = salesProceeds + ticketPrice;

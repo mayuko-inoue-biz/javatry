@@ -26,6 +26,7 @@ import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
 import org.docksidestage.unit.PlainTestCase;
 
+// TODO mayukorin unusedのimport by jflute (2024/08/23)
 /**
  * The test of class. <br>
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
@@ -134,7 +135,7 @@ public class Step05ClassTest extends PlainTestCase {
         // uncomment after making the method
         TicketBooth booth = new TicketBooth();
         int money = 14000;
-        // TODO done mayukorin "(booth.buyTwoDayPassport(money))" の括弧、気持ちはわかるけど、やってる人いないので... by jflute (2024/08/16)
+        // done mayukorin "(booth.buyTwoDayPassport(money))" の括弧、気持ちはわかるけど、やってる人いないので... by jflute (2024/08/16)
         // 一方で、文法上消してもいい括弧でも、人間の誤解を防ぐために明示的に括弧を付けることはよくなるので、それはそれで良い
         int change = booth.buyTwoDayPassport(money).getChange();
         Integer sea = booth.getSalesProceeds() + change;
@@ -201,7 +202,7 @@ public class Step05ClassTest extends PlainTestCase {
         int change = buyResult.getChange();
         log(twoDayPassport.getDisplayPrice() + change); // should be same as money
         // same money になった
-        // TODO done jflute Ticket を new する処理を、TicketBuyResult のコンストラクタとbuyTwoDayPassport のどちらにに入れるべきか、ご意見をお聞きしたいです。
+        // done jflute Ticket を new する処理を、TicketBuyResult のコンストラクタとbuyTwoDayPassport のどちらにに入れるべきか、ご意見をお聞きしたいです。
         // 私の考え
         // TicketBuyResult の目的： ticket と change をひとまとめに扱いやすくするためのもの（将来、例えば guest クラスができたとき、TicketBuyResult があれば Ticket と change をセットで使える）」という理解をしてます。
         // その目的からすると Ticket を new する処理は TicketBuyResult のコンストラクタに入れるべきではないのかなと思い、buyTwoDayPassport に入れました。
@@ -220,7 +221,8 @@ public class Step05ClassTest extends PlainTestCase {
     // Ticket のステートマシン図：https://docs.google.com/presentation/d/1NmkpsEHkNUYg1KeIgJW1BO9IB1v2Cm2iwUubWj1GX9Y/edit?usp=sharing
     // でも結局ステートマシン図の通りに Ticket を修正できなかった
     // 「使用中」の状態はTicket クラスで保持していないし、1日経過したら「使用中」から「使用可能」or 「使用不可」に変わるようなメソッドを Ticket に作ってもない
-    // TODO jflute ステートマシン図と実装は完全に対応させるべきなのでしょうか？
+    // TODO done jflute ステートマシン図と実装は完全に対応させるべきなのでしょうか？
+    // TODO mayukorin [へんじ] まあステートマシン図に書いた内容が、業務要件なのであれば対応しなきゃいけない by jflute (2024/08/23)
     public void test_class_moreFix_usePluralDays() {
         // your confirmation code here
         TicketBooth booth = new TicketBooth();
