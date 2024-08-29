@@ -15,7 +15,7 @@
  */
 package org.docksidestage.javatry.basic;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
@@ -160,7 +160,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [do in park now!!!]
         //
-        ticket.doInPark(LocalDateTime.of(2017, 11, 17, 11, 17));
+        ticket.doInPark(LocalDate.of(2017, 11, 17));
 
         // *doInPark() has this process:
         //if (alreadyIn) {

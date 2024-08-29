@@ -15,12 +15,13 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
-// TODO mayukorin せっかくの作品なので自分の名前を by jflute (2024/08/23)
+// TODO done mayukorin せっかくの作品なので自分の名前を by jflute (2024/08/23)
 /**
  * @author jflute
+ * @author mayukorin
  */
 public class Ticket {
 
@@ -28,43 +29,43 @@ public class Ticket {
     //                                                                           Attribute
     //                                                                           =========
     private final int displayPrice; // written on ticket, park guest can watch this
-    // TODO mayukorin remainが動詞感が強いので、もうちょい形容詞的な活用にしたい by jflute (2024/08/23)
-    private int remainAvailableDays; // チケットの残り使用可能日数
-    // TODO mayukorin 最新 "日" なので、LocalDate でいいかなと by jflute (2024/08/23)
-    // TODO mayukorin Dayでも大きな間違いじゃないですが、Dayだと30とか31だけを持ってるイメージ、年月日なのでDateがよく使われる by jflute (2024/08/23)
-    private LocalDateTime lastUsedDay; // チケットを使用した最新日
+    // TODO done mayukorin remainが動詞感が強いので、もうちょい形容詞的な活用にしたい by jflute (2024/08/23)
+    private int remainingAvailableDays; // チケットの残り使用可能日数
+    // TODO done mayukorin 最新 "日" なので、LocalDate でいいかなと by jflute (2024/08/23)
+    // TODO done mayukorin Dayでも大きな間違いじゃないですが、Dayだと30とか31だけを持ってるイメージ、年月日なのでDateがよく使われる by jflute (2024/08/23)
+    private LocalDate lastUsedDate; // チケットを使用した最新日
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
     public Ticket(int displayPrice, int consecutiveAvailableDays) {
         this.displayPrice = displayPrice;
-        this.remainAvailableDays = consecutiveAvailableDays;
+        this.remainingAvailableDays = consecutiveAvailableDays;
     }
 
     // ===================================================================================
     //                                                                             In Park
     //                                                                             =======
-    public void doInPark(LocalDateTime currentDay) {
-        if (remainAvailableDays == 0) {
+    public void doInPark(LocalDate currentDate) {
+        if (remainingAvailableDays == 0) {
             throw new IllegalStateException("This ticket is unavailable: displayedPrice=" + displayPrice);
         }
-        // TODO mayukorin [いいね] 例外throwするときに関連する変数の値も出しているの素晴らしい by jflute (2024/08/23)
-        // TODO mayukorin [読み物課題] せっかくなのでこちらを by jflute (2024/08/23)
+        // TODO done mayukorin [いいね] 例外throwするときに関連する変数の値も出しているの素晴らしい by jflute (2024/08/23)
+        // TODO done mayukorin [読み物課題] せっかくなのでこちらを by jflute (2024/08/23)
         // 例外メッセージ、敬語で満足でもロスロスパターン
         // https://jflute.hatenadiary.jp/entry/20170804/explossloss
-        if (lastUsedDay != null) {
-            long daysSinceLastUsedDay = Duration.between(lastUsedDay, currentDay).toDays();
+        if (lastUsedDate != null) {
+            long daysSinceLastUsedDay = ChronoUnit.DAYS.between(lastUsedDate, currentDate);
             if (daysSinceLastUsedDay == 0) {
-                throw new IllegalStateException("Already in park by this ticket today: consecutive days you can use from tomorrow=" + remainAvailableDays);
+                throw new IllegalStateException("Already in park by this ticket today: consecutive days you can use from tomorrow=" + remainingAvailableDays);
             } else if (daysSinceLastUsedDay > 1) {
-                remainAvailableDays = 0;
+                remainingAvailableDays = 0;
                 throw new IllegalStateException("This ticket is no longer valid as you did not use the ticket on consecutive days: displayedPrice=" + displayPrice);
             } else if (daysSinceLastUsedDay < 0) {
-                throw new IllegalStateException("currentDay must be a time later than lastUsedDay: specified currentDay=" + currentDay + ", lastUsedDay=" + lastUsedDay);
+                throw new IllegalStateException("currentDate must be a time later than lastUsedDate: specified currentDate=" + currentDate + ", lastUsedDate=" + lastUsedDate);
             }
         }
-        remainAvailableDays--;
-        lastUsedDay = currentDay;
+        remainingAvailableDays--;
+        lastUsedDate = currentDate;
     }
 
     // ===================================================================================
@@ -75,6 +76,6 @@ public class Ticket {
     }
 
     public boolean unAvailable() {
-        return remainAvailableDays == 0;
+        return remainingAvailableDays == 0;
     }
 }

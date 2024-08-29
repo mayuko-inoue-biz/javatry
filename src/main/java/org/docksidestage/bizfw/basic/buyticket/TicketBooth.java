@@ -67,13 +67,13 @@ public class TicketBooth {
      * @throws TicketShortMoneyException When the specified money is short for purchase.
      */
     public Ticket buyOneDayPassport(Integer handedMoney) {
-        // TODO mayukorin 参照するだけの処理であれば、引数で指定して、中で共有化できる by jflute (2024/08/23)
+        // TODO done mayukorin 参照するだけの処理であれば、引数で指定して、中で共有化できる by jflute (2024/08/23)
         if (oneDayPassportQuantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
 
-        // TODO mayukorin [いいね] お釣りの計算とかResultの生成とか超微々たるコストなので気にせず実行して辻褄合わせるのもアリ by jflute (2024/08/23)
-        Ticket oneDayPassport = sellTicket(handedMoney, ONE_DAY_PRICE, ONE_DAY).getTicket();
+        // TODO done mayukorin [いいね] お釣りの計算とかResultの生成とか超微々たるコストなので気にせず実行して辻褄合わせるのもアリ by jflute (2024/08/23)
+        Ticket oneDayPassport = sellTicket(handedMoney, ONE_DAY_PRICE, ONE_DAY, oneDayPassportQuantity).getTicket();
         --oneDayPassportQuantity;
 
         return oneDayPassport;
@@ -94,14 +94,15 @@ public class TicketBooth {
             throw new TicketSoldOutException("Sold out");
         }
 
-        TicketBuyResult twoDayPassportBuyResult = sellTicket(handedMoney, TWO_DAY_PRICE, TWO_DAY);
+        TicketBuyResult twoDayPassportBuyResult = sellTicket(handedMoney, TWO_DAY_PRICE, TWO_DAY, twoDayPassportQuantity);
         --twoDayPassportQuantity;
 
         return twoDayPassportBuyResult;
     }
 
-    private TicketBuyResult sellTicket(Integer handedMoney, Integer ticketPrice, int consecutiveAvaliableDays) {
-        checkIfNotLackOfMoney(handedMoney, ticketPrice);
+    private TicketBuyResult sellTicket(Integer handedMoney, Integer ticketPrice, int consecutiveAvaliableDays, int ticketQuantity) {
+        assertEnoughTicketQuantity(ticketQuantity);
+        assertEnoughMoney(handedMoney, ticketPrice);
 
         Ticket ticket = publishTicket(ticketPrice, consecutiveAvaliableDays);
         updateSalesProceeds(ticketPrice);
@@ -109,11 +110,17 @@ public class TicketBooth {
         return new TicketBuyResult(ticket, change);
     }
 
-    // TODO mayukorin checkは、目的語が正しいもの来るのか？間違ったものが来るのか？両方ありえる by jflute (2024/08/23)
+    private void assertEnoughTicketQuantity(int ticketQuantity) {
+        if (ticketQuantity <= 0) {
+            throw new TicketSoldOutException("Sold out");
+        }
+    }
+
+    // TODO done mayukorin checkは、目的語が正しいもの来るのか？間違ったものが来るのか？両方ありえる by jflute (2024/08/23)
     // というかcheckだと、どっちで例外がthrowされるのかがパッとわからない。
     // 代表選手として、assertという言葉があって、これは目的語が必ず正しいことが来る e.g. assertEnoughMoney
     // (プログラミングの世界における世界的な慣習になっている)
-    private void checkIfNotLackOfMoney(Integer handedMoney, Integer ticketPrice) {
+    private void assertEnoughMoney(Integer handedMoney, Integer ticketPrice) {
         if (handedMoney < ticketPrice) {
             throw new TicketShortMoneyException("Short money: " + handedMoney);
         }
@@ -141,8 +148,8 @@ public class TicketBooth {
     // TODO mayukorin では2で実装してみてください by jflute (2024/08/23)
     // TODO jflute 3の紹介は2の実装が終わってから (2024/08/23)
     
-    // TODO mayukorin [いいね] 質問/相談するときに、自分ここまで考えました、という内容を伝えるの素晴らしい by jflute (2024/08/23)
-    // TODO mayukorin [読み物課題] 質問のコツその一: なんでその質問してるのか？も伝えよう by jflute (2024/08/23)
+    // TODO done mayukorin [いいね] 質問/相談するときに、自分ここまで考えました、という内容を伝えるの素晴らしい by jflute (2024/08/23)
+    // TODO done mayukorin [読み物課題] 質問のコツその一: なんでその質問してるのか？も伝えよう by jflute (2024/08/23)
     // https://jflute.hatenadiary.jp/entry/20170611/askingway1
     
     private void updateSalesProceeds(Integer ticketPrice) {

@@ -15,10 +15,7 @@
  */
 package org.docksidestage.javatry.basic;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
@@ -26,7 +23,7 @@ import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO mayukorin unusedのimport by jflute (2024/08/23)
+// TODO done mayukorin unusedのimport by jflute (2024/08/23)
 /**
  * The test of class. <br>
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
@@ -184,7 +181,7 @@ public class Step05ClassTest extends PlainTestCase {
         Ticket oneDayPassport = booth.buyOneDayPassport(10000);
         log(oneDayPassport.getDisplayPrice()); // should be same as one-day price
         log(oneDayPassport.unAvailable()); // should be false
-        oneDayPassport.doInPark(LocalDateTime.of(2017, 11, 17, 11, 17));
+        oneDayPassport.doInPark(LocalDate.of(2017, 11, 17));
         log(oneDayPassport.unAvailable()); // should be true
         // false, true になった
     }
@@ -222,20 +219,20 @@ public class Step05ClassTest extends PlainTestCase {
     // でも結局ステートマシン図の通りに Ticket を修正できなかった
     // 「使用中」の状態はTicket クラスで保持していないし、1日経過したら「使用中」から「使用可能」or 「使用不可」に変わるようなメソッドを Ticket に作ってもない
     // TODO done jflute ステートマシン図と実装は完全に対応させるべきなのでしょうか？
-    // TODO mayukorin [へんじ] まあステートマシン図に書いた内容が、業務要件なのであれば対応しなきゃいけない by jflute (2024/08/23)
+    // TODO done mayukorin [へんじ] まあステートマシン図に書いた内容が、業務要件なのであれば対応しなきゃいけない by jflute (2024/08/23)
     public void test_class_moreFix_usePluralDays() {
         // your confirmation code here
         TicketBooth booth = new TicketBooth();
         TicketBuyResult buyResult = booth.buyTwoDayPassport(20000);
         Ticket twoDayPassport = buyResult.getTicket();
         // 1日目にインする
-        LocalDateTime firstDay = LocalDateTime.of(2017, 11, 17, 11, 17);
+        LocalDate firstDate = LocalDate.of(2017, 11, 17);
         log(twoDayPassport.unAvailable()); // should be false
-        twoDayPassport.doInPark(firstDay);
+        twoDayPassport.doInPark(firstDate);
         log(twoDayPassport.unAvailable()); // should be false
         // 2日目にインする
-        LocalDateTime secondDay = LocalDateTime.of(2017, 11, 18, 11, 18);
-        twoDayPassport.doInPark(secondDay);
+        LocalDate secondDate = LocalDate.of(2017, 11, 18);
+        twoDayPassport.doInPark(secondDate);
         log(twoDayPassport.unAvailable()); // should be true
         // false, false, true になった
     }

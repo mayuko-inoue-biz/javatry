@@ -23,6 +23,9 @@ public class TicketBuyResult {
 
     public static class ChangeMinusException extends RuntimeException {
         private static final long serialVersionUID = 1L; // TODO mayukorin serialVersionUID の役割を後で調べる
+        // シリアライズを宣言したクラスのバージョン。
+        // ID が同じ = 構造が同じことを保証している
+        // シリアライズ：Javaのオブジェクトまたはデータを別のJavaシステムでも利用できるようにbyte形式（stream of bytes）に変換するフォーマット変換技術
         public ChangeMinusException(String msg) {
             super(msg);
         }
