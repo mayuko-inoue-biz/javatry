@@ -15,6 +15,10 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+
 /**
  * @author jflute
  */
@@ -23,23 +27,27 @@ public class TicketBooth {
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
-    private static final int MAX_QUANTITY = 10;
-    private static final int ONE_DAY_PRICE = 7400; // when 2019/06/15
-    private static final int TWO_DAY_PRICE = 13200; // when 2019/06/15
-    private static final int ONE_DAY = 1;
-    private static final int TWO_DAY = 2;
+    private final EnumMap<TicketType, List<Ticket>> ticketStock;
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    private int oneDayPassportQuantity = MAX_QUANTITY;
-    private int twoDayPassportQuantity = MAX_QUANTITY;
     private Integer salesProceeds; // null allowed: until first purchase
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
     public TicketBooth() {
+        ticketStock = new EnumMap<>(TicketType.class);
+
+        for (TicketType ticketType : TicketType.values()) {
+            List<Ticket> tickets = new ArrayList<>();
+            for (int i = 0; i < ticketType.getInitialQuantity(); i++) {
+                tickets.add(new Ticket(ticketType.getPrice(), ticketType.getInitialAvailableDays()));
+            }
+
+            ticketStock.put(ticketType, tickets);
+        }
     }
 
     // ===================================================================================
@@ -68,14 +76,8 @@ public class TicketBooth {
      */
     public Ticket buyOneDayPassport(Integer handedMoney) {
         // TODO done mayukorin 参照するだけの処理であれば、引数で指定して、中で共有化できる by jflute (2024/08/23)
-        if (oneDayPassportQuantity <= 0) {
-            throw new TicketSoldOutException("Sold out");
-        }
-
         // TODO done mayukorin [いいね] お釣りの計算とかResultの生成とか超微々たるコストなので気にせず実行して辻褄合わせるのもアリ by jflute (2024/08/23)
-        Ticket oneDayPassport = sellTicket(handedMoney, ONE_DAY_PRICE, ONE_DAY, oneDayPassportQuantity).getTicket();
-        --oneDayPassportQuantity;
-
+        Ticket oneDayPassport = sellTicket(TicketType.ONE_DAY_PASSPORT, handedMoney).getTicket();
         return oneDayPassport;
     }
 
@@ -90,28 +92,22 @@ public class TicketBooth {
      * @throws TicketShortMoneyException ゲストから渡された金額が、チケット料金よりも少ない場合
      */
     public TicketBuyResult buyTwoDayPassport(Integer handedMoney) {
-        if (twoDayPassportQuantity <= 0) {
-            throw new TicketSoldOutException("Sold out");
-        }
-
-        TicketBuyResult twoDayPassportBuyResult = sellTicket(handedMoney, TWO_DAY_PRICE, TWO_DAY, twoDayPassportQuantity);
-        --twoDayPassportQuantity;
-
+        TicketBuyResult twoDayPassportBuyResult = sellTicket(TicketType.TWO_DAY_PASSPORT, handedMoney);
         return twoDayPassportBuyResult;
     }
 
-    private TicketBuyResult sellTicket(Integer handedMoney, Integer ticketPrice, int consecutiveAvaliableDays, int ticketQuantity) {
-        assertEnoughTicketQuantity(ticketQuantity);
-        assertEnoughMoney(handedMoney, ticketPrice);
+    private TicketBuyResult sellTicket(TicketType ticketType, Integer handedMoney) {
+        assertEnoughTicketQuantity(ticketType);
+        assertEnoughMoney(handedMoney, ticketType);
 
-        Ticket ticket = publishTicket(ticketPrice, consecutiveAvaliableDays);
-        updateSalesProceeds(ticketPrice);
-        int change = handedMoney - ticketPrice;
+        Ticket ticket = takeOutTicket(ticketType);
+        updateSalesProceeds(ticketType);
+        int change = calcChange(handedMoney, ticketType);
         return new TicketBuyResult(ticket, change);
     }
 
-    private void assertEnoughTicketQuantity(int ticketQuantity) {
-        if (ticketQuantity <= 0) {
+    private void assertEnoughTicketQuantity(TicketType ticketType) {
+        if (ticketStock.get(ticketType).isEmpty()) {
             throw new TicketSoldOutException("Sold out");
         }
     }
@@ -120,14 +116,16 @@ public class TicketBooth {
     // というかcheckだと、どっちで例外がthrowされるのかがパッとわからない。
     // 代表選手として、assertという言葉があって、これは目的語が必ず正しいことが来る e.g. assertEnoughMoney
     // (プログラミングの世界における世界的な慣習になっている)
-    private void assertEnoughMoney(Integer handedMoney, Integer ticketPrice) {
-        if (handedMoney < ticketPrice) {
+    private void assertEnoughMoney(Integer handedMoney, TicketType ticketType) {
+        if (handedMoney < ticketType.getPrice()) {
             throw new TicketShortMoneyException("Short money: " + handedMoney);
         }
     }
 
-    private Ticket publishTicket(Integer ticketPrice, int consecutiveAvaliableDays) {
-        return new Ticket(ticketPrice, consecutiveAvaliableDays);
+    private Ticket takeOutTicket(TicketType ticketType) {
+        Ticket ticket = ticketStock.get(ticketType).get(0);
+        ticketStock.get(ticketType).remove(0);
+        return ticket;
     }
 
     // done mayukorin [いいね] updateSalesProceeds()はとても良いメソッドです (粒度も名前も完璧) by jflute (2024/08/16)
@@ -144,20 +142,24 @@ public class TicketBooth {
     // TicketBooth のコンストラクタ内で map は初期化する
     // sellTicket 内では、キーを引数にとって対応する passport の キューにアクセスし、Ticket を取り出す
     // passportQuantity はインスタンス変数として持つ必要はなく、キューのサイズで分かる。
-    // TODO mayukorin [いいね] 素晴らしい、特に2はとても良い発想です (実務で状況変わった時に適してるかは別ですが) by jflute (2024/08/23)
-    // TODO mayukorin では2で実装してみてください by jflute (2024/08/23)
+    // TODO done mayukorin [いいね] 素晴らしい、特に2はとても良い発想です (実務で状況変わった時に適してるかは別ですが) by jflute (2024/08/23)
+    // TODO done mayukorin では2で実装してみてください by jflute (2024/08/23)
     // TODO jflute 3の紹介は2の実装が終わってから (2024/08/23)
     
     // TODO done mayukorin [いいね] 質問/相談するときに、自分ここまで考えました、という内容を伝えるの素晴らしい by jflute (2024/08/23)
     // TODO done mayukorin [読み物課題] 質問のコツその一: なんでその質問してるのか？も伝えよう by jflute (2024/08/23)
     // https://jflute.hatenadiary.jp/entry/20170611/askingway1
     
-    private void updateSalesProceeds(Integer ticketPrice) {
+    private void updateSalesProceeds(TicketType ticketType) {
         if (salesProceeds != null) {
-            salesProceeds = salesProceeds + ticketPrice;
+            salesProceeds = salesProceeds + ticketType.getPrice();
         } else {
-            salesProceeds = ticketPrice;
+            salesProceeds = ticketType.getPrice();
         }
+    }
+
+    private Integer calcChange(Integer handedMoney, TicketType ticketType) {
+        return handedMoney - ticketType.getPrice();
     }
 
     public static class TicketSoldOutException extends RuntimeException {
@@ -182,11 +184,11 @@ public class TicketBooth {
     //                                                                            Accessor
     //                                                                            ========
     public int getOneDayPassportQuantity() {
-        return oneDayPassportQuantity;
+        return ticketStock.get(TicketType.ONE_DAY_PASSPORT).size();
     }
 
     public int getTwoDayPassportQuantity() {
-        return twoDayPassportQuantity;
+        return ticketStock.get(TicketType.TWO_DAY_PASSPORT).size();
     }
 
     public Integer getSalesProceeds() {
