@@ -28,6 +28,8 @@ public class TicketBooth {
     //                                                                          Definition
     //                                                                          ==========
     private final EnumMap<TicketType, List<Ticket>> ticketStock;
+    // Map の Key の指定間違いを防止するために、key に Enum を用いることにした。
+    // Price や、Quantity、DAY も全て Enum に集約した方が管理しやすいと思ったのでそうした。
 
     // ===================================================================================
     //                                                                           Attribute
