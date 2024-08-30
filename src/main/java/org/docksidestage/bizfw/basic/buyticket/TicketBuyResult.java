@@ -1,5 +1,6 @@
 package org.docksidestage.bizfw.basic.buyticket;
 
+// TODO mayukorin class宣言直下(Attributeコメントの上)、他のクラスでは空行空いてるので形を合わせましょう by jflute (2024/08/30)
 /**
  * @author mayukorin
  */
@@ -16,7 +17,12 @@ public class TicketBuyResult {
     public TicketBuyResult(Ticket ticket, int change) {
         this.ticket = ticket;
         if (change < 0) {
+            // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+            // TODO mayukorin 例外throwのところ良いコメントなのですが、横のスラスラコメントだと見づらいので... by jflute (2024/08/30)
+            // せっかくなので見やすく改行を入れてもいいので、ぜひ独立行のコメントに直しましょう。
+            // _/_/_/_/_/_/_/_/_/_/
             throw new ChangeMinusException("minus change: " + change); // change が0以上と保証されている buyTwoDayPassport 以外のところで TicketBuyResult が呼ばれることもありえる && change が負の場合 change の意味がなくなるので（guest 的には change受け取ったのにお金減ったんだけどということになる）、 exception を出すようにした
+            // TODO jflute [1on1にて] 横のスラスラコメントで書くか？独立行コメントで書くか？の境目は？ (2024/08/30)
         }
         this.change = change;
     }
