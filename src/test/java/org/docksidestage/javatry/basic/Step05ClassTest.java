@@ -23,7 +23,7 @@ import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO done mayukorin unusedのimport by jflute (2024/08/23)
+// done mayukorin unusedのimport by jflute (2024/08/23)
 /**
  * The test of class. <br>
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
@@ -218,8 +218,8 @@ public class Step05ClassTest extends PlainTestCase {
     // Ticket のステートマシン図：https://docs.google.com/presentation/d/1NmkpsEHkNUYg1KeIgJW1BO9IB1v2Cm2iwUubWj1GX9Y/edit?usp=sharing
     // でも結局ステートマシン図の通りに Ticket を修正できなかった
     // 「使用中」の状態はTicket クラスで保持していないし、1日経過したら「使用中」から「使用可能」or 「使用不可」に変わるようなメソッドを Ticket に作ってもない
-    // TODO done jflute ステートマシン図と実装は完全に対応させるべきなのでしょうか？
-    // TODO done mayukorin [へんじ] まあステートマシン図に書いた内容が、業務要件なのであれば対応しなきゃいけない by jflute (2024/08/23)
+    // done jflute ステートマシン図と実装は完全に対応させるべきなのでしょうか？
+    // done mayukorin [へんじ] まあステートマシン図に書いた内容が、業務要件なのであれば対応しなきゃいけない by jflute (2024/08/23)
     public void test_class_moreFix_usePluralDays() {
         // your confirmation code here
         TicketBooth booth = new TicketBooth();
