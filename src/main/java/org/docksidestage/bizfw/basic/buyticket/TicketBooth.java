@@ -18,21 +18,24 @@ package org.docksidestage.bizfw.basic.buyticket;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
-// TODO mayukorin せっかくの作品なので自分の名前を by jflute (2024/08/30)
+// TODO done mayukorin せっかくの作品なので自分の名前を by jflute (2024/08/30)
 /**
  * @author jflute
+ * @author mayukorin
  */
 public class TicketBooth {
 
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
-    // TODO mayukorin 利用する時は抽象的なインターフェースのMapで十分 by jflute (2024/08/30)
+    // TODO done mayukorin 利用する時は抽象的なインターフェースのMapで十分 by jflute (2024/08/30)
     // 利用する側は自分が必要な最低限の概念のインターフェースで扱いたい。詳しくはstep6にて。
-    // TODO mayukorin 本気で書くならこういうコメントも by jflute (2024/08/30)
+    // TODO done mayukorin 本気で書くならこういうコメントも by jflute (2024/08/30)
     //  e.g. /** チケット種別ごとのチケット在庫のストック、valueのリストが0ならその種別は売り切れ (NotNull) */
-    private final EnumMap<TicketType, List<Ticket>> ticketStock;
+    // チケット種別(key)ごとのチケットの在庫(value)、valueのListのサイズが0になったらその種別は売り切れ (NotNull)
+    private final Map<TicketType, List<Ticket>> ticketStock;
     // Map の Key の指定間違いを防止するために、key に Enum を用いることにした。
     // Price や、Quantity、DAY も全て Enum に集約した方が管理しやすいと思ったのでそうした。
     // [ふぉろー] EnumMapのHashMapとのパフォーマンスの違いについて説明した by jflute (2024/08/30)
@@ -48,13 +51,15 @@ public class TicketBooth {
     //                                                                         Constructor
     //                                                                         ===========
     public TicketBooth() {
-        // TODO mayukorin ここはTicketBoothとしてのコアな仕組みを構築する準備ロジックなのでコメントあるといい by jflute (2024/08/30)
+        // TODO done mayukorin ここはTicketBoothとしてのコアな仕組みを構築する準備ロジックなのでコメントあるといい by jflute (2024/08/30)
         // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
         // e.g. jfluteより
         //  チケット種別ごとにあらかじめチケットの在庫(インスタンス)を作っておく
         //  この種別ごとの在庫が購入される事に徐々に減っていく
         // _/_/_/_/_/_/_/_/_/_/_/_/
         // ↓でも、真似てもいいので自分でなんか書いてみて
+        // チケット種別ごとにあらかじめ決められた数だけチケットインスタンスを作成して List に入れておく
+        // チケットが購入されたら List 内のチケットインスタンスが減っていく
         ticketStock = new EnumMap<>(TicketType.class);
 
         for (TicketType ticketType : TicketType.values()) { // ordinalの順でループ
@@ -117,17 +122,17 @@ public class TicketBooth {
         return twoDayPassportBuyResult;
     }
 
-    // TODO mayukorin [いいね] 買い手のpublic buyに対して、売り手のprivate sellという対比が素敵すぎる by jflute (2024/08/30)
+    // TODO done mayukorin [いいね] 買い手のpublic buyに対して、売り手のprivate sellという対比が素敵すぎる by jflute (2024/08/30)
     // そこまで考えていたか...す、すごい。
     // ちなみに、他のケースだと... doBuyTicket(), doBuyPassport() というように doを付けて実処理感を出す。
     // ほかだと、internalBuyTicket() とか buyTicketInternally() とかあるけど、個人的には直感的ではないかな!?
     private TicketBuyResult sellTicket(TicketType ticketType, Integer handedMoney) {
         assertEnoughTicketQuantity(ticketType);
-        assertEnoughMoney(handedMoney, ticketType);
+        assertEnoughMoney(ticketType, handedMoney);
 
         Ticket ticket = takeOutTicket(ticketType);
         updateSalesProceeds(ticketType);
-        int change = calcChange(handedMoney, ticketType);
+        int change = calcChange(ticketType, handedMoney);
         return new TicketBuyResult(ticket, change);
     }
 
@@ -141,19 +146,17 @@ public class TicketBooth {
     // というかcheckだと、どっちで例外がthrowされるのかがパッとわからない。
     // 代表選手として、assertという言葉があって、これは目的語が必ず正しいことが来る e.g. assertEnoughMoney
     // (プログラミングの世界における世界的な慣習になっている)
-    // TODO mayukorin 引数の順番、sellTicket()と逆になっているけど、意図してないのであればブレなので合わせたほうがいいかな by jflute (2024/08/30)
-    private void assertEnoughMoney(Integer handedMoney, TicketType ticketType) {
+    // TODO done mayukorin 引数の順番、sellTicket()と逆になっているけど、意図してないのであればブレなので合わせたほうがいいかな by jflute (2024/08/30)
+    private void assertEnoughMoney(TicketType ticketType, Integer handedMoney) {
         if (handedMoney < ticketType.getPrice()) {
             throw new TicketShortMoneyException("Short money: " + handedMoney);
         }
     }
 
     private Ticket takeOutTicket(TicketType ticketType) {
-        // TODO mayukorin remove()がそのインスタンスを戻すので事前getが要らない by jflute (2024/08/30)
-        // TODO mayukorin 問答無用なことの補足として横に "すでにassertされてること前提" とか書いておくといいかなと by jflute (2024/08/30)
-        Ticket ticket = ticketStock.get(ticketType).get(0);
-        ticketStock.get(ticketType).remove(0);
-        return ticket;
+        // TODO done mayukorin remove()がそのインスタンスを戻すので事前getが要らない by jflute (2024/08/30)
+        // TODO done mayukorin 問答無用なことの補足として横に "すでにassertされてること前提" とか書いておくといいかなと by jflute (2024/08/30)
+        return ticketStock.get(ticketType).remove(0); // 0インデックスが存在することは既にassertされてる前提
     }
 
     // done mayukorin [いいね] updateSalesProceeds()はとても良いメソッドです (粒度も名前も完璧) by jflute (2024/08/16)
@@ -188,12 +191,13 @@ public class TicketBooth {
         }
     }
 
-    // TODO mayukorin [いいね] 小さくてもれっきとした業務ロジックなのでお釣りという概念を明示するためにもprivateメソッド良い by jflute (2024/08/30)
-    private Integer calcChange(Integer handedMoney, TicketType ticketType) {
+    // TODO done mayukorin [いいね] 小さくてもれっきとした業務ロジックなのでお釣りという概念を明示するためにもprivateメソッド良い by jflute (2024/08/30)
+    private Integer calcChange(TicketType ticketType, Integer handedMoney) {
         return handedMoney - ticketType.getPrice();
     }
     
-    // TODO mayukorin メソッドに切り出すIntelliJのショートカットを調べてきてください by jflute (2024/08/30)
+    // TODO done mayukorin メソッドに切り出すIntelliJのショートカットを調べてきてください by jflute (2024/08/30)
+    // command + option + M でした！
 
     public static class TicketSoldOutException extends RuntimeException {
 
