@@ -4,6 +4,7 @@ package org.docksidestage.bizfw.basic.buyticket;
  * @author mayukorin
  */
 public enum TicketType {
+
     // ===================================================================================
     //                                                                           Identifier
     //                                                                           =========

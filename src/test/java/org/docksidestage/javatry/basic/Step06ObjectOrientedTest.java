@@ -175,7 +175,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     }
 
     private void saveBuyingHistory(TicketBooth booth, Ticket ticket) {
-        if (ticket.unAvailable()) {
+        if (ticket.isUsedUp()) {
             // only logging here (normally e.g. DB insert)
             doShowTicketBooth(booth);
             doShowYourTicket(ticket);
@@ -187,7 +187,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     }
 
     private void doShowYourTicket(Ticket ticket) {
-        log("Your Ticket: displayPrice={}, unAvailable={}", ticket.getDisplayPrice(), ticket.unAvailable());
+        log("Your Ticket: displayPrice={}, unAvailable={}", ticket.getDisplayPrice(), ticket.isUsedUp());
     }
 
     // write your memo here:

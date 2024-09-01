@@ -1,15 +1,18 @@
 package org.docksidestage.bizfw.basic.buyticket;
 
-// TODO mayukorin class宣言直下(Attributeコメントの上)、他のクラスでは空行空いてるので形を合わせましょう by jflute (2024/08/30)
+// TODO done mayukorin class宣言直下(Attributeコメントの上)、他のクラスでは空行空いてるので形を合わせましょう by jflute (2024/08/30)
 /**
  * @author mayukorin
  */
 public class TicketBuyResult {
+
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    private final Ticket ticket; // 購入したチケット（NotNull）
-    private final int change; // チケット購入時のお釣り（NotMinus）
+    /** 購入したチケット（NotNull） */
+    private final Ticket ticket;
+    /** チケット購入時のお釣り（NotMinus） */
+    private final int change;
 
     // ===================================================================================
     //                                                                         Constructor
@@ -18,10 +21,13 @@ public class TicketBuyResult {
         this.ticket = ticket;
         if (change < 0) {
             // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
-            // TODO mayukorin 例外throwのところ良いコメントなのですが、横のスラスラコメントだと見づらいので... by jflute (2024/08/30)
+            // TODO done mayukorin 例外throwのところ良いコメントなのですが、横のスラスラコメントだと見づらいので... by jflute (2024/08/30)
             // せっかくなので見やすく改行を入れてもいいので、ぜひ独立行のコメントに直しましょう。
             // _/_/_/_/_/_/_/_/_/_/
-            throw new ChangeMinusException("minus change: " + change); // change が0以上と保証されている buyTwoDayPassport 以外のところで TicketBuyResult が呼ばれることもありえる && change が負の場合 change の意味がなくなるので（guest 的には change受け取ったのにお金減ったんだけどということになる）、 exception を出すようにした
+            // change が0以上と保証されている buyTwoDayPassport 以外のところで TicketBuyResult が呼ばれることもありえる &&
+            // change が負の場合 change の意味がなくなるので（guest 的には change受け取ったのにお金減ったんだけどということになる）
+            // exception を出すようにした
+            throw new ChangeMinusException("minus change: " + change);
             // TODO jflute [1on1にて] 横のスラスラコメントで書くか？独立行コメントで書くか？の境目は？ (2024/08/30)
         }
         this.change = change;

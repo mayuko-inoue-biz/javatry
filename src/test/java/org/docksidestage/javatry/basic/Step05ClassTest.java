@@ -180,9 +180,9 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBooth booth = new TicketBooth();
         Ticket oneDayPassport = booth.buyOneDayPassport(10000);
         log(oneDayPassport.getDisplayPrice()); // should be same as one-day price
-        log(oneDayPassport.unAvailable()); // should be false
+        log(oneDayPassport.isUsedUp()); // should be false
         oneDayPassport.doInPark(LocalDate.of(2017, 11, 17));
-        log(oneDayPassport.unAvailable()); // should be true
+        log(oneDayPassport.isUsedUp()); // should be true
         // false, true になった
     }
 
@@ -227,13 +227,13 @@ public class Step05ClassTest extends PlainTestCase {
         Ticket twoDayPassport = buyResult.getTicket();
         // 1日目にインする
         LocalDate firstDate = LocalDate.of(2017, 11, 17);
-        log(twoDayPassport.unAvailable()); // should be false
+        log(twoDayPassport.isUsedUp()); // should be false
         twoDayPassport.doInPark(firstDate);
-        log(twoDayPassport.unAvailable()); // should be false
+        log(twoDayPassport.isUsedUp()); // should be false
         // 2日目にインする
         LocalDate secondDate = LocalDate.of(2017, 11, 18);
         twoDayPassport.doInPark(secondDate);
-        log(twoDayPassport.unAvailable()); // should be true
+        log(twoDayPassport.isUsedUp()); // should be true
         // false, false, true になった
     }
 
