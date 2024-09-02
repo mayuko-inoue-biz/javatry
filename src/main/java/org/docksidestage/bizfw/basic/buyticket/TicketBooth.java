@@ -30,7 +30,7 @@ import java.util.Map;
  */
 public class TicketBooth {
 
-    // TODO done mayukorin これは知らなくて当然ですが、Definitionはstatic finalなもので使う慣習があるので... by jflute (2024/08/30)
+    // done mayukorin これは知らなくて当然ですが、Definitionはstatic finalなもので使う慣習があるので... by jflute (2024/08/30)
     // ticketStockはインスタンスに属するAttributeなので、salesProceedsと同じエリアのAttribute配下に移動しましょう。
     // ===================================================================================
     //                                                                          Definition
@@ -43,7 +43,7 @@ public class TicketBooth {
     // 利用する側は自分が必要な最低限の概念のインターフェースで扱いたい。詳しくはstep6にて。
     // done mayukorin 本気で書くならこういうコメントも by jflute (2024/08/30)
     //  e.g. /** チケット種別ごとのチケット在庫のストック、valueのリストが0ならその種別は売り切れ (NotNull) */
-    // TODO done mayukorin せっかくのコメントなので、JavaDoc形式で書いて ticketStock に関連付けてみましょう by jflute (2024/08/30)
+    // done mayukorin せっかくのコメントなので、JavaDoc形式で書いて ticketStock に関連付けてみましょう by jflute (2024/08/30)
     // /** */ 形式で書いたコメントはJavaDocとして認識され、直後の変数やメソッドに紐づくようになります。
     /** チケット種別(key)ごとのチケットの在庫(value)、valueのListのサイズが0になったらその種別は売り切れ (NotNull) */
     private final Map<TicketType, List<Ticket>> ticketStock;
@@ -206,7 +206,7 @@ public class TicketBooth {
     
     // done mayukorin メソッドに切り出すIntelliJのショートカットを調べてきてください by jflute (2024/08/30)
     // command + option + M でした！
-    // TODO done mayukorin [へんじ] おっ、そうなんだ。これEclipseと同じだね(^^ by jflute (2024/08/30)
+    // done mayukorin [へんじ] おっ、そうなんだ。これEclipseと同じだね(^^ by jflute (2024/08/30)
 
     public static class TicketSoldOutException extends RuntimeException {
 

@@ -1,6 +1,6 @@
 package org.docksidestage.bizfw.basic.buyticket;
 
-// TODO done mayukorin class宣言直下(Attributeコメントの上)、他のクラスでは空行空いてるので形を合わせましょう by jflute (2024/08/30)
+// done mayukorin class宣言直下(Attributeコメントの上)、他のクラスでは空行空いてるので形を合わせましょう by jflute (2024/08/30)
 /**
  * @author mayukorin
  */
@@ -21,7 +21,7 @@ public class TicketBuyResult {
         this.ticket = ticket;
         if (change < 0) {
             // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
-            // TODO done mayukorin 例外throwのところ良いコメントなのですが、横のスラスラコメントだと見づらいので... by jflute (2024/08/30)
+            // done mayukorin 例外throwのところ良いコメントなのですが、横のスラスラコメントだと見づらいので... by jflute (2024/08/30)
             // せっかくなので見やすく改行を入れてもいいので、ぜひ独立行のコメントに直しましょう。
             // _/_/_/_/_/_/_/_/_/_/
             // change が0以上と保証されている buyTwoDayPassport 以外のところで TicketBuyResult が呼ばれることもありえる &&
