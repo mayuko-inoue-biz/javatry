@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 // done mayukorin せっかくの作品なので自分の名前を by jflute (2024/08/30)
-// TODO mayukorin [読み物課題] 行動経済学でした by jflute (2024/08/30)
+// TODO done mayukorin [読み物課題] 行動経済学でした by jflute (2024/08/30)
 // https://twitter.com/jflute/status/840176230414483460
 // https://twitter.com/jflute/status/1426028421675511808
 /**
