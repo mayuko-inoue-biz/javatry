@@ -183,8 +183,8 @@ public class TicketBooth {
         assertEnoughMoney(ticketType, handedMoney);
 
         Ticket ticket = takeOutTicket(ticketType);
-        updateSalesProceeds(ticketType);
-        int change = calcChange(ticketType, handedMoney);
+        updateSalesProceeds(ticket);
+        int change = calcChange(ticket, handedMoney);
         return new TicketBuyResult(ticket, change);
     }
 
@@ -200,7 +200,8 @@ public class TicketBooth {
     // (プログラミングの世界における世界的な慣習になっている)
     // done mayukorin 引数の順番、sellTicket()と逆になっているけど、意図してないのであればブレなので合わせたほうがいいかな by jflute (2024/08/30)
     private void assertEnoughMoney(TicketType ticketType, Integer handedMoney) {
-        if (handedMoney < ticketType.getPrice()) {
+        Integer nowTicketPrice = ticketStock.get(ticketType).get(0).getDisplayPrice(); // 0インデックスが存在することは既にassertされてる前提
+        if (handedMoney < nowTicketPrice) {
             throw new TicketShortMoneyException("Short money: " + handedMoney);
         }
     }
@@ -235,17 +236,17 @@ public class TicketBooth {
     // done mayukorin [読み物課題] 質問のコツその一: なんでその質問してるのか？も伝えよう by jflute (2024/08/23)
     // https://jflute.hatenadiary.jp/entry/20170611/askingway1
     
-    private void updateSalesProceeds(TicketType ticketType) {
+    private void updateSalesProceeds(Ticket ticket) {
         if (salesProceeds != null) {
-            salesProceeds = salesProceeds + ticketType.getPrice();
+            salesProceeds = salesProceeds + ticket.getDisplayPrice();
         } else {
-            salesProceeds = ticketType.getPrice();
+            salesProceeds = ticket.getDisplayPrice();
         }
     }
 
     // done mayukorin [いいね] 小さくてもれっきとした業務ロジックなのでお釣りという概念を明示するためにもprivateメソッド良い by jflute (2024/08/30)
-    private Integer calcChange(TicketType ticketType, Integer handedMoney) {
-        return handedMoney - ticketType.getPrice();
+    private Integer calcChange(Ticket ticket, Integer handedMoney) {
+        return handedMoney - ticket.getDisplayPrice();
     }
     
     // done mayukorin メソッドに切り出すIntelliJのショートカットを調べてきてください by jflute (2024/08/30)
