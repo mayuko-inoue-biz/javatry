@@ -15,10 +15,12 @@
  */
 package org.docksidestage.javatry.basic;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
-import org.docksidestage.bizfw.basic.buyticket.*;
+import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
+import org.docksidestage.bizfw.basic.buyticket.Ticket;
+import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
 import org.docksidestage.unit.PlainTestCase;
 
 // done mayukorin unusedのimport by jflute (2024/08/23)
@@ -179,7 +181,7 @@ public class Step05ClassTest extends PlainTestCase {
         Ticket oneDayPassport = booth.buyOneDayPassport(10000);
         log(oneDayPassport.getDisplayPrice()); // should be same as one-day price
         log(oneDayPassport.isUsedUp()); // should be false
-        oneDayPassport.doInPark(LocalDateTime.of(2017, 11, 17, 9, 0));
+        oneDayPassport.doInPark(LocalDate.of(2017, 11, 17));
         log(oneDayPassport.isUsedUp()); // should be true
         // false, true になった
     }
@@ -224,12 +226,12 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBuyResult buyResult = booth.buyTwoDayPassport(20000);
         Ticket twoDayPassport = buyResult.getTicket();
         // 1日目にインする
-        LocalDateTime firstDate = LocalDateTime.of(2017, 11, 17, 9, 0);
+        LocalDate firstDate = LocalDate.of(2017, 11, 17);
         log(twoDayPassport.isUsedUp()); // should be false
         twoDayPassport.doInPark(firstDate);
         log(twoDayPassport.isUsedUp()); // should be false
         // 2日目にインする
-        LocalDateTime secondDate = LocalDateTime.of(2017, 11, 18, 9, 0);
+        LocalDate secondDate = LocalDate.of(2017, 11, 18);
         twoDayPassport.doInPark(secondDate);
         log(twoDayPassport.isUsedUp()); // should be true
         // false, false, true になった
@@ -241,23 +243,22 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_whetherTicketType() {
         // uncomment when you implement this exercise
-        TicketBooth booth = new TicketBooth();
-        Ticket oneDayPassport = booth.buyOneDayPassport(10000);
-        showTicketIfNeeds(oneDayPassport); // should be other
-        TicketBuyResult buyResult = booth.buyTwoDayPassport(13200);
-        Ticket twoDayPassport = buyResult.getTicket();
-        showTicketIfNeeds(twoDayPassport); // should be two-day passport
-        // should be の通りになった
+        //TicketBooth booth = new TicketBooth();
+        //Ticket oneDayPassport = booth.buyOneDayPassport(10000);
+        //showTicketIfNeeds(oneDayPassport);
+        //TicketBuyResult buyResult = booth.buyTwoDayPassport(10000);
+        //Ticket twoDayPassport = buyResult.getTicket();
+        //showTicketIfNeeds(twoDayPassport);
     }
 
     // uncomment when you implement this exercise
-    private void showTicketIfNeeds(Ticket ticket) {
-        if (ticket.getTicketType() == FullDayTicketType.TWO_DAY_PASSPORT) { // write determination for two-day passport
-            log("two-day passport");
-        } else {
-            log("other");
-        }
-    }
+    //private void showTicketIfNeeds(Ticket ticket) {
+    //    if (xxxxxxxxxxxxxxxxxx) { // write determination for two-day passport
+    //        log("two-day passport");
+    //    } else {
+    //        log("other");
+    //    }
+    //}
 
     // ===================================================================================
     //                                                                           Good Luck
@@ -268,11 +269,6 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_wonder_four() {
         // your confirmation code here
-        TicketBooth booth = new TicketBooth();
-        int money = 22400;
-        Ticket ticket = booth.buyFourDayPassport(money).getTicket();
-        log(ticket.getTicketType()); // should be FOUR_DAY_PASSPORT
-        // FOUR_DAY_PASSPORT になった
     }
 
     /**
@@ -281,21 +277,6 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_wonder_night() {
         // your confirmation code here
-        TicketBooth booth = new TicketBooth();
-        int money = 7400;
-        Ticket ticket = booth.buyNightOnlyTwoDayPassport(money).getTicket();
-        log(ticket.getTicketType()); // should be NIGHT_ONLY_TWO_DAY_PASSPORT
-        LocalDateTime currentDateTime = LocalDateTime.of(2017, 11, 17, 9, 0);
-        try {
-            ticket.doInPark(currentDateTime);
-        } catch (IllegalStateException continued) {
-            log("Failed to do in park: currentTime=" + currentDateTime.toLocalTime(), continued); // should be output
-            ticket.doInPark(LocalDateTime.of(2017, 11, 17, 18, 0));
-            log(ticket.isUsedUp()); // should be false
-            ticket.doInPark(LocalDateTime.of(2017, 11, 18, 18, 0));
-            log(ticket.isUsedUp()); // should be true
-        }
-        // should be の通りになった
     }
 
     /**

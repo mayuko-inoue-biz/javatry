@@ -16,7 +16,6 @@
 package org.docksidestage.bizfw.basic.buyticket;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 // done mayukorin せっかくの作品なので自分の名前を by jflute (2024/08/23)
@@ -31,46 +30,30 @@ public class Ticket {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** チケット種別 (NotNull) */
-    protected final TicketType ticketType;
-    /** チケットの値段 */
-    protected final int displayPrice; // written on ticket, park guest can watch this
+    private final int displayPrice; // written on ticket, park guest can watch this
     // done mayukorin remainが動詞感が強いので、もうちょい形容詞的な活用にしたい by jflute (2024/08/23)
-    /** チケットの残り使用可能日数 */
-    protected int remainingAvailableDays;
+    private int remainingAvailableDays; // チケットの残り使用可能日数
     // done mayukorin 最新 "日" なので、LocalDate でいいかなと by jflute (2024/08/23)
     // done mayukorin Dayでも大きな間違いじゃないですが、Dayだと30とか31だけを持ってるイメージ、年月日なのでDateがよく使われる by jflute (2024/08/23)
     // done mayukorin こここそ、(NullAllowed) が欲しいですね。最初使うまでnullってのが明示されて欲しいところ by jflute (2024/08/30)
     /** チケット最新使用日 (NullAllowed：チケットを使ってInParkするまでnull) */
-    protected LocalDate lastUsedDate;
+    private LocalDate lastUsedDate;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    // TODO 最優先 mayukorin 引数を TicketType ではなく FullDayTicketType にするべき（TicketType にすると、SpecificTimeTicketも許容してしまい、doInParkで意図しない挙動になる可能性あり）。
-    // そのためには、Ticket -> FullDayTicket class にして、Ticket は抽象クラスにするべき？
-    // でもそもそもそんな風に継承先でインスタンス変数も継承させる的なやり方って良いの？
-    public Ticket(TicketType ticketType) {
-        // Ticket の値段・チケットの残り使用可能日数は、
-        // 初期値の ticketType.getPrice()・ticketType.getInitialAvailableDays() から変わる可能性があるので、
-        // ticketType とは別に displayPrice, remainingAvailableDays のように変数として定義している
-        this.ticketType = ticketType;
-        this.displayPrice = ticketType.getPrice();
-        this.remainingAvailableDays = ticketType.getInitialAvailableDays();
-
+    public Ticket(int displayPrice, int consecutiveAvailableDays) {
+        this.displayPrice = displayPrice;
+        this.remainingAvailableDays = consecutiveAvailableDays;
     }
 
     // ===================================================================================
     //                                                                             In Park
     //                                                                             =======
-    public void doInPark(LocalDateTime currentDateTime) {
+    public void doInPark(LocalDate currentDate) {
         if (remainingAvailableDays == 0) {
             throw new IllegalStateException("This ticket is unavailable: displayedPrice=" + displayPrice);
         }
-
-        // TODO mayukorin 時刻使ってないのに、SpecificTimeTicket が原因で currentDateTime にしなければいけないの微妙
-        // かといって、currentDateTime を引数に取るのをやめると、テストが難しくなる（テストでは時刻を指定して期待通りに機能するかを確かめたいが、メソッド内部で現在の時刻を計算してしまうため）
-        LocalDate currentDate = currentDateTime.toLocalDate();
         // done mayukorin [いいね] 例外throwするときに関連する変数の値も出しているの素晴らしい by jflute (2024/08/23)
         // done mayukorin [読み物課題] せっかくなのでこちらを by jflute (2024/08/23)
         // 例外メッセージ、敬語で満足でもロスロスパターン
@@ -110,9 +93,5 @@ public class Ticket {
     // (要は、isNotUsedUp()とかisNotExhausted()みたいなことは避けたいということです)
     public boolean isUsedUp() {
         return remainingAvailableDays == 0;
-    }
-
-    public TicketType getTicketType() {
-        return ticketType;
     }
 }
