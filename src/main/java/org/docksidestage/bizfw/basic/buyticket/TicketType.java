@@ -21,7 +21,7 @@ public enum TicketType {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    private TicketType(int initialAvailableDays, int price, int initialQuantity) {
+    TicketType(int initialAvailableDays, int price, int initialQuantity) {
         this.initialAvailableDays = initialAvailableDays;
         this.price = price;
         this.initialQuantity = initialQuantity;

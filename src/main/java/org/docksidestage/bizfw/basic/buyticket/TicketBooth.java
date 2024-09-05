@@ -73,7 +73,7 @@ public class TicketBooth {
         for (TicketType ticketType : TicketType.values()) { // ordinalの順でループ
             List<Ticket> tickets = new ArrayList<>();
             for (int i = 0; i < ticketType.getInitialQuantity(); i++) {
-                tickets.add(new Ticket(ticketType.getPrice(), ticketType.getInitialAvailableDays()));
+                tickets.add(new Ticket(ticketType));
             }
 
             ticketStock.put(ticketType, tickets);
@@ -111,6 +111,7 @@ public class TicketBooth {
         // done mayukorin 参照するだけの処理であれば、引数で指定して、中で共有化できる by jflute (2024/08/23)
         // done mayukorin [いいね] お釣りの計算とかResultの生成とか超微々たるコストなので気にせず実行して辻褄合わせるのもアリ by jflute (2024/08/23)
         // TODO mayukorin ここまで来たら直接returnしちゃってもいいかなと。ショートカットあるかな？探してみてください by jflute (2024/08/30)
+        // Googleで検索 &
         Ticket oneDayPassport = sellTicket(TicketType.ONE_DAY_PASSPORT, handedMoney).getTicket();
         return oneDayPassport;
     }

@@ -30,6 +30,8 @@ public class Ticket {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
+    /** チケット種別 (NotNull) */
+    private final TicketType ticketType;
     private final int displayPrice; // written on ticket, park guest can watch this
     // done mayukorin remainが動詞感が強いので、もうちょい形容詞的な活用にしたい by jflute (2024/08/23)
     private int remainingAvailableDays; // チケットの残り使用可能日数
@@ -42,9 +44,16 @@ public class Ticket {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public Ticket(int displayPrice, int consecutiveAvailableDays) {
-        this.displayPrice = displayPrice;
-        this.remainingAvailableDays = consecutiveAvailableDays;
+    public Ticket(TicketType ticketType) {
+        // Ticket の使用可能日数、値段は
+        // 初期化時のticketType.getInitialAvailableDays()、ticketType.getPrice()から更新される可能性がある.
+        // Ticketを使えば、Ticketの使用可能日数はticketType.getInitialAvailableDays()から減っていく
+        // Ticketの値段も、セールなどでticketType.getInitialAvailableDays()から変わる可能性がある
+        // そのため、Ticketの使用可能日数、値段は、ticketType.getPrice(), ticketType.getInitialAvailableDays() ではなく
+        // this.displayPrice、this.remainingAvailableDays のインスタンス変数として定義している
+        this.ticketType = ticketType;
+        this.displayPrice = ticketType.getPrice();
+        this.remainingAvailableDays = ticketType.getInitialAvailableDays();
     }
 
     // ===================================================================================
@@ -80,6 +89,10 @@ public class Ticket {
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
+    public TicketType getTicketType() {
+        return ticketType;
+    }
+
     public int getDisplayPrice() {
         return displayPrice;
     }
