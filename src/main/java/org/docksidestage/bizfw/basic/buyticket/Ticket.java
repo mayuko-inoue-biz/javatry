@@ -30,6 +30,7 @@ public class Ticket {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
+    // TODO m.inoue Ticket が TicketType の initialQuantity, Price, initialAvailableDays にアクセスできる必要はない気がする (2024/09/06)
     /** チケット種別 (NotNull) */
     private final TicketType ticketType;
     private final int displayPrice; // written on ticket, park guest can watch this
