@@ -16,9 +16,12 @@
 package org.docksidestage.javatry.basic;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+import org.docksidestage.bizfw.basic.buyticket.FullDayTicketType;
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
+import org.docksidestage.bizfw.basic.buyticket.TicketType;
 import org.docksidestage.bizfw.basic.objanimal.Animal;
 import org.docksidestage.bizfw.basic.objanimal.BarkedSound;
 import org.docksidestage.bizfw.basic.objanimal.Cat;
@@ -137,7 +140,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // if step05 has been finished, you can use this code by jflute (2019/06/15)
         //Ticket ticket = booth.buyOneDayPassport(10000);
         booth.buyOneDayPassport(10000); // as temporary, remove if you finished step05
-        Ticket ticket = new Ticket(7400, 1); // also here
+        Ticket ticket = new Ticket(FullDayTicketType.ONE_DAY_PASSPORT); // also here
 
         // *buyOneDayPassport() has this process:
         //if (quantity <= 0) {
@@ -160,7 +163,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [do in park now!!!]
         //
-        ticket.doInPark(LocalDate.of(2017, 11, 17));
+        ticket.doInPark(LocalDateTime.of(2017, 11, 17, 9, 0));
 
         // *doInPark() has this process:
         //if (alreadyIn) {

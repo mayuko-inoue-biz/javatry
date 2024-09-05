@@ -15,10 +15,7 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 // done mayukorin せっかくの作品なので自分の名前を by jflute (2024/08/30)
 // TODO done mayukorin [読み物課題] 行動経済学でした by jflute (2024/08/30)
@@ -68,16 +65,15 @@ public class TicketBooth {
         // ↓でも、真似てもいいので自分でなんか書いてみて
         // チケット種別ごとにあらかじめ決められた数だけチケットインスタンスを作成して List に入れておく
         // チケットが購入されたら List 内のチケットインスタンスが減っていく
-        ticketStock = new EnumMap<>(TicketType.class);
+        // TODO mayukorin interface の TicketType を EnumMap に入れられなかったので HashMap にしたが、他に良いやり方ないか確認する
+        // TODO mayukorin publishTickets という名前別の良い名前考える
+        ticketStock = new HashMap<>();
 
-        for (TicketType ticketType : TicketType.values()) { // ordinalの順でループ
-            List<Ticket> tickets = new ArrayList<>();
-            for (int i = 0; i < ticketType.getInitialQuantity(); i++) {
-                tickets.add(new Ticket(ticketType.getPrice(), ticketType.getInitialAvailableDays()));
-            }
+        ticketStock.put(FullDayTicketType.ONE_DAY_PASSPORT, publishTickets(FullDayTicketType.ONE_DAY_PASSPORT));
+        ticketStock.put(FullDayTicketType.TWO_DAY_PASSPORT, publishTickets(FullDayTicketType.TWO_DAY_PASSPORT));
+        ticketStock.put(FullDayTicketType.FOUR_DAY_PASSPORT, publishTickets(FullDayTicketType.FOUR_DAY_PASSPORT));
+        ticketStock.put(SpecificTimeTicketType.NIGHT_ONLY_TWO_DAY_PASSPORT, publishSpecificTimeTickets(SpecificTimeTicketType.NIGHT_ONLY_TWO_DAY_PASSPORT));
 
-            ticketStock.put(ticketType, tickets);
-        }
         // [ふぉろー] 厳密にはunmodifiableにしておくと、安全で可読性がさらに良くなる
         // (ただ、本来は読み取り専用Mapインターフェースみたいなのがあったら一番だけどJava標準にはない)
         //ticketStock = Collections.unmodifiableMap(workingStock);
@@ -111,7 +107,7 @@ public class TicketBooth {
         // done mayukorin 参照するだけの処理であれば、引数で指定して、中で共有化できる by jflute (2024/08/23)
         // done mayukorin [いいね] お釣りの計算とかResultの生成とか超微々たるコストなので気にせず実行して辻褄合わせるのもアリ by jflute (2024/08/23)
         // TODO mayukorin ここまで来たら直接returnしちゃってもいいかなと。ショートカットあるかな？探してみてください by jflute (2024/08/30)
-        Ticket oneDayPassport = sellTicket(TicketType.ONE_DAY_PASSPORT, handedMoney).getTicket();
+        Ticket oneDayPassport = sellTicket(FullDayTicketType.ONE_DAY_PASSPORT, handedMoney).getTicket();
         return oneDayPassport;
     }
 
@@ -126,8 +122,56 @@ public class TicketBooth {
      * @throws TicketShortMoneyException ゲストから渡された金額が、チケット料金よりも少ない場合
      */
     public TicketBuyResult buyTwoDayPassport(Integer handedMoney) {
-        TicketBuyResult twoDayPassportBuyResult = sellTicket(TicketType.TWO_DAY_PASSPORT, handedMoney);
+        TicketBuyResult twoDayPassportBuyResult = sellTicket(FullDayTicketType.TWO_DAY_PASSPORT, handedMoney);
         return twoDayPassportBuyResult;
+    }
+
+    /**
+     * FourDayPassport を買うためのメソッド。ゲストが使う
+     * @param handedMoney ゲストから渡された金額（NotNull, NotMinus）
+     * @return TwoDayPassport とお釣りなどで構成される（NotNull）
+     * @throws TicketSoldOutException チケットが売り切れている場合
+     * @throws TicketShortMoneyException ゲストから渡された金額が、チケット料金よりも少ない場合
+     */
+    public TicketBuyResult buyFourDayPassport(Integer handedMoney) {
+        TicketBuyResult fourDayPassportBuyResult = sellTicket(FullDayTicketType.FOUR_DAY_PASSPORT, handedMoney);
+        return fourDayPassportBuyResult;
+    }
+
+    /**
+     * NightOnlyTwoDayPassport を買うためのメソッド。ゲストが使う
+     * @param handedMoney ゲストから渡された金額（NotNull, NotMinus）
+     * @return TwoDayPassport とお釣りなどで構成される（NotNull）
+     * @throws TicketSoldOutException チケットが売り切れている場合
+     * @throws TicketShortMoneyException ゲストから渡された金額が、チケット料金よりも少ない場合
+     */
+    public TicketBuyResult buyNightOnlyTwoDayPassport(Integer handedMoney) {
+        TicketBuyResult nightOnlyTwoDayPassport = sellTicket(SpecificTimeTicketType.NIGHT_ONLY_TWO_DAY_PASSPORT, handedMoney);
+        return nightOnlyTwoDayPassport;
+    }
+
+    private List<Ticket> publishTickets(FullDayTicketType ticketType) {
+        List<Ticket> tickets = new ArrayList<>();
+        for (int i = 0; i < ticketType.getInitialQuantity(); i++) {
+            tickets.add(publishTicket(ticketType));
+        }
+        return tickets;
+    }
+
+    private Ticket publishTicket(FullDayTicketType ticketType) {
+        return new Ticket(ticketType);
+    }
+
+    private List<Ticket> publishSpecificTimeTickets(SpecificTimeTicketType ticketType) {
+        List<Ticket> tickets = new ArrayList<>();
+        for (int i = 0; i < ticketType.getInitialQuantity(); i++) {
+            tickets.add(publishSpecificTimeTicket(ticketType));
+        }
+        return tickets;
+    }
+
+    private SpecificTimeTicket publishSpecificTimeTicket(SpecificTimeTicketType ticketType) {
+        return new SpecificTimeTicket(ticketType);
     }
 
     // done mayukorin [いいね] 買い手のpublic buyに対して、売り手のprivate sellという対比が素敵すぎる by jflute (2024/08/30)
