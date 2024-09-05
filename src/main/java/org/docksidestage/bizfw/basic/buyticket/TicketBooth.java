@@ -230,11 +230,11 @@ public class TicketBooth {
     //                                                                            Accessor
     //                                                                            ========
     public int getOneDayPassportQuantity() {
-        return ticketStock.get(FullDayTicketType.ONE_DAY_PASSPORT).size();
+        return ticketStock.get(TicketType.ONE_DAY_PASSPORT).size();
     }
 
     public int getTwoDayPassportQuantity() {
-        return ticketStock.get(FullDayTicketType.TWO_DAY_PASSPORT).size();
+        return ticketStock.get(TicketType.TWO_DAY_PASSPORT).size();
     }
 
     public Integer getSalesProceeds() {
