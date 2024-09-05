@@ -78,7 +78,6 @@ public class Ticket {
         // done mayukorin 変数名やif条件をしっかり読めばわかるのですが、込み入ってるのでコメントでの補足が欲しいところですね by jflute (2024/08/30)
         // TODO jflute 1on1にてコメント補足予定 (2024/09/02)
 
-        // TODO mayukorin IllegalStateException ではなく Exception を定義した方が呼び出し側はなんで引っかかったのかがわかりやすいかも
         // チケット最新使用日と今日の間の日数(daysSinceLastUsedDay)を計算し、日数が1日差、つまり今日がチケット最新使用日の次の日だったらチケットを利用できる。
         if (lastUsedDate != null) {
             long daysSinceLastUsedDay = ChronoUnit.DAYS.between(lastUsedDate, currentDate);
