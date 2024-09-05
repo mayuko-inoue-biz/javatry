@@ -271,6 +271,27 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_wonder_four() {
         // your confirmation code here
+        TicketBooth booth = new TicketBooth();
+        TicketBuyResult buyResult = booth.buyFourDayPassport(22400);
+        Ticket fourDayPassport = buyResult.getTicket();
+        // 1日目にインする
+        LocalDate firstDate = LocalDate.of(2017, 11, 17);
+        log(fourDayPassport.isUsedUp()); // should be false
+        fourDayPassport.doInPark(firstDate);
+        log(fourDayPassport.isUsedUp()); // should be false
+        // 2日目にインする
+        LocalDate secondDate = LocalDate.of(2017, 11, 18);
+        fourDayPassport.doInPark(secondDate);
+        log(fourDayPassport.isUsedUp()); // should be false
+        // 3日目にインする
+        LocalDate thirdDate = LocalDate.of(2017, 11, 19);
+        fourDayPassport.doInPark(thirdDate);
+        log(fourDayPassport.isUsedUp()); // should be false
+        // 4日目にインする
+        LocalDate fourthDate = LocalDate.of(2017, 11, 20);
+        fourDayPassport.doInPark(fourthDate);
+        log(fourDayPassport.isUsedUp()); // should be true
+        // should be と同じになった。
     }
 
     /**

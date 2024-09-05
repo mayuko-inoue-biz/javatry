@@ -131,6 +131,18 @@ public class TicketBooth {
         return twoDayPassportBuyResult;
     }
 
+    /**
+     * FourDayPassport を買うためのメソッド。ゲストが使う
+     * @param handedMoney ゲストから渡された金額（NotNull, NotMinus）
+     * @return FourDayPassport とお釣りなどで構成される（NotNull）
+     * @throws TicketSoldOutException チケットが売り切れている場合
+     * @throws TicketShortMoneyException ゲストから渡された金額が、チケット料金よりも少ない場合
+     */
+    public TicketBuyResult buyFourDayPassport(Integer handedMoney) {
+        TicketBuyResult fourDayPassportBuyResult = sellTicket(TicketType.FOUR_DAY_PASSPORT, handedMoney);
+        return fourDayPassportBuyResult;
+    }
+
     // done mayukorin [いいね] 買い手のpublic buyに対して、売り手のprivate sellという対比が素敵すぎる by jflute (2024/08/30)
     // そこまで考えていたか...す、すごい。
     // ちなみに、他のケースだと... doBuyTicket(), doBuyPassport() というように doを付けて実処理感を出す。

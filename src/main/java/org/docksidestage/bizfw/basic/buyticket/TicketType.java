@@ -9,7 +9,8 @@ public enum TicketType {
     //                                                                           Identifier
     //                                                                           =========
     ONE_DAY_PASSPORT(1, 7400, 10),
-    TWO_DAY_PASSPORT(2, 13200, 10); // MAX_QUANTITY を入れられなくなってしまった...
+    TWO_DAY_PASSPORT(2, 13200, 10),// MAX_QUANTITY を入れられなくなってしまった...
+    FOUR_DAY_PASSPORT(4, 22400, 10);
 
     // ===================================================================================
     //                                                                           Attribute
