@@ -30,7 +30,7 @@ public class Ticket {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    // TODO m.inoue Ticket が TicketType の initialQuantity, Price, initialAvailableDays にアクセスできる必要はない気がする (2024/09/06)
+    // TODO done m.inoue Ticket が TicketType の initialQuantity, Price, initialAvailableDays にアクセスできる必要はない気がする (2024/09/06)
     // [ふぉろー] 確かにその通りだけど、見えちゃっても特に問題ない程度ではある。内部構造ってほどのものでもないし。
     // そもそもTicketTypeがpublicなので、誰からもinitialQuantityとか見えちゃうものでもある。
     // 一方で、仕様変更によってはinitialQuantityが必要になったりする可能性もあるし。

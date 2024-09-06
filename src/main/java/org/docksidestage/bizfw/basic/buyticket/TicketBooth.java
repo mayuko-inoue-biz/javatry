@@ -110,15 +110,14 @@ public class TicketBooth {
     public Ticket buyOneDayPassport(Integer handedMoney) {
         // done mayukorin 参照するだけの処理であれば、引数で指定して、中で共有化できる by jflute (2024/08/23)
         // done mayukorin [いいね] お釣りの計算とかResultの生成とか超微々たるコストなので気にせず実行して辻褄合わせるのもアリ by jflute (2024/08/23)
-        // TODO mayukorin ここまで来たら直接returnしちゃってもいいかなと。ショートカットあるかな？探してみてください by jflute (2024/08/30)
+        // TODO done mayukorin ここまで来たら直接returnしちゃってもいいかなと。ショートカットあるかな？探してみてください by jflute (2024/08/30)
         // Googleで「Intellij 直接return」検索 & Find Actions で「return」で検索したけどなさそう
         // [ふぉろー] option+command+N だった (shift+shiftならInline Variable...)
         // option+command+V :: 変数の抽出
         // option+command+B :: サブクラスを探すっぽい？
         // option+command+N :: 変数のインライン化
         // option+command+M :: メソッドの抽出
-        Ticket oneDayPassport = sellTicket(TicketType.ONE_DAY_PASSPORT, handedMoney).getTicket();
-        return oneDayPassport;
+        return sellTicket(TicketType.ONE_DAY_PASSPORT, handedMoney).getTicket();
     }
 
     // done mayukorin 列挙タイプの説明自体は良いけど、もうちょい濁したほうがよい。もし将来増えた場合... by jflute (2024/08/16)
