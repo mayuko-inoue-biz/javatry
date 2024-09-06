@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 // done mayukorin せっかくの作品なので自分の名前を by jflute (2024/08/30)
-// TODO done mayukorin [読み物課題] 行動経済学でした by jflute (2024/08/30)
+// done mayukorin [読み物課題] 行動経済学でした by jflute (2024/08/30)
 // https://twitter.com/jflute/status/840176230414483460
 // https://twitter.com/jflute/status/1426028421675511808
 /**
@@ -112,6 +112,11 @@ public class TicketBooth {
         // done mayukorin [いいね] お釣りの計算とかResultの生成とか超微々たるコストなので気にせず実行して辻褄合わせるのもアリ by jflute (2024/08/23)
         // TODO mayukorin ここまで来たら直接returnしちゃってもいいかなと。ショートカットあるかな？探してみてください by jflute (2024/08/30)
         // Googleで「Intellij 直接return」検索 & Find Actions で「return」で検索したけどなさそう
+        // [ふぉろー] option+command+N だった (shift+shiftならInline Variable...)
+        // option+command+V :: 変数の抽出
+        // option+command+B :: サブクラスを探すっぽい？
+        // option+command+N :: 変数のインライン化
+        // option+command+M :: メソッドの抽出
         Ticket oneDayPassport = sellTicket(TicketType.ONE_DAY_PASSPORT, handedMoney).getTicket();
         return oneDayPassport;
     }
