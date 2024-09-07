@@ -15,10 +15,7 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 // done mayukorin せっかくの作品なので自分の名前を by jflute (2024/08/30)
 // done mayukorin [読み物課題] 行動経済学でした by jflute (2024/08/30)
@@ -68,12 +65,22 @@ public class TicketBooth {
         // ↓でも、真似てもいいので自分でなんか書いてみて
         // チケット種別ごとにあらかじめ決められた数だけチケットインスタンスを作成して List に入れておく
         // チケットが購入されたら List 内のチケットインスタンスが減っていく
-        ticketStock = new EnumMap<>(TicketType.class);
+        ticketStock = new HashMap<>();
 
-        for (TicketType ticketType : TicketType.values()) { // ordinalの順でループ
+        // TODO m.inoue 処理をまとめたい
+        for (AllDayTicketType ticketType : AllDayTicketType.values()) { // ordinalの順でループ
             List<Ticket> tickets = new ArrayList<>();
             for (int i = 0; i < ticketType.getInitialQuantity(); i++) {
-                tickets.add(new Ticket(ticketType));
+                tickets.add(new AllDayTicket(ticketType));
+            }
+
+            ticketStock.put(ticketType, tickets);
+        }
+
+        for (AfterTimeTicketType ticketType : AfterTimeTicketType.values()) { // ordinalの順でループ
+            List<Ticket> tickets = new ArrayList<>();
+            for (int i = 0; i < ticketType.getInitialQuantity(); i++) {
+                tickets.add(new AfterTimeTicket(ticketType));
             }
 
             ticketStock.put(ticketType, tickets);
@@ -117,7 +124,7 @@ public class TicketBooth {
         // option+command+B :: サブクラスを探すっぽい？
         // option+command+N :: 変数のインライン化
         // option+command+M :: メソッドの抽出
-        return sellTicket(TicketType.ONE_DAY_PASSPORT, handedMoney).getTicket();
+        return sellTicket(AllDayTicketType.ONE_DAY_PASSPORT, handedMoney).getTicket();
     }
 
     // done mayukorin 列挙タイプの説明自体は良いけど、もうちょい濁したほうがよい。もし将来増えた場合... by jflute (2024/08/16)
@@ -131,7 +138,7 @@ public class TicketBooth {
      * @throws TicketShortMoneyException ゲストから渡された金額が、チケット料金よりも少ない場合
      */
     public TicketBuyResult buyTwoDayPassport(Integer handedMoney) {
-        TicketBuyResult twoDayPassportBuyResult = sellTicket(TicketType.TWO_DAY_PASSPORT, handedMoney);
+        TicketBuyResult twoDayPassportBuyResult = sellTicket(AllDayTicketType.TWO_DAY_PASSPORT, handedMoney);
         return twoDayPassportBuyResult;
     }
 
@@ -143,8 +150,20 @@ public class TicketBooth {
      * @throws TicketShortMoneyException ゲストから渡された金額が、チケット料金よりも少ない場合
      */
     public TicketBuyResult buyFourDayPassport(Integer handedMoney) {
-        TicketBuyResult fourDayPassportBuyResult = sellTicket(TicketType.FOUR_DAY_PASSPORT, handedMoney);
+        TicketBuyResult fourDayPassportBuyResult = sellTicket(AllDayTicketType.FOUR_DAY_PASSPORT, handedMoney);
         return fourDayPassportBuyResult;
+    }
+
+    /**
+     * NightOnlyTwoDayPassport を買うためのメソッド。ゲストが使う
+     * @param handedMoney ゲストから渡された金額（NotNull, NotMinus）
+     * @return NightOnlyTwoDayPassport とお釣りなどで構成される（NotNull）
+     * @throws TicketSoldOutException チケットが売り切れている場合
+     * @throws TicketShortMoneyException ゲストから渡された金額が、チケット料金よりも少ない場合
+     */
+    public TicketBuyResult buyNightOnlyTwoDayPassport(Integer handedMoney) {
+        TicketBuyResult nightOnlyTwoDayPassport = sellTicket(AfterTimeTicketType.NIGHT_ONLY_TWO_DAY_PASSPORT, handedMoney);
+        return nightOnlyTwoDayPassport;
     }
 
     // done mayukorin [いいね] 買い手のpublic buyに対して、売り手のprivate sellという対比が素敵すぎる by jflute (2024/08/30)
@@ -251,11 +270,11 @@ public class TicketBooth {
     //                                                                            Accessor
     //                                                                            ========
     public int getOneDayPassportQuantity() {
-        return ticketStock.get(TicketType.ONE_DAY_PASSPORT).size();
+        return ticketStock.get(AllDayTicketType.ONE_DAY_PASSPORT).size();
     }
 
     public int getTwoDayPassportQuantity() {
-        return ticketStock.get(TicketType.TWO_DAY_PASSPORT).size();
+        return ticketStock.get(AllDayTicketType.TWO_DAY_PASSPORT).size();
     }
 
     public Integer getSalesProceeds() {
