@@ -291,6 +291,25 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_wonder_night() {
         // your confirmation code here
+        TicketBooth booth = new TicketBooth();
+        TicketBuyResult buyResult = booth.buyNightOnlyTwoDayPassport(7400);
+        Ticket nightOnlyTwoDayPassport = buyResult.getTicket();
+        // 1日目にインする
+        log(nightOnlyTwoDayPassport.isUsedUp()); // should be false
+        nightOnlyTwoDayPassport.doInPark(LocalDateTime.of(2017, 11, 17, 18, 0));
+        log(nightOnlyTwoDayPassport.isUsedUp()); // should be false
+
+        // 2日目にインする
+        LocalDateTime lunchDateTime = LocalDateTime.of(2017, 11, 18, 12, 0);
+        try {
+            nightOnlyTwoDayPassport.doInPark(lunchDateTime);
+        } catch (IllegalStateException continued) {
+            log("Failed to in park: current hour=" + lunchDateTime.getHour(), continued);
+            log(nightOnlyTwoDayPassport.isUsedUp()); // should be false
+            nightOnlyTwoDayPassport.doInPark(LocalDateTime.of(2017, 11, 18, 18, 0));
+            log(nightOnlyTwoDayPassport.isUsedUp()); // should be true
+        }
+        // should be と同じになった。
     }
 
     /**

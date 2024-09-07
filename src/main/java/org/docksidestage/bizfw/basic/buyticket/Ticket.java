@@ -17,6 +17,7 @@ package org.docksidestage.bizfw.basic.buyticket;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 // done mayukorin せっかくの作品なので自分の名前を by jflute (2024/08/23)
@@ -46,6 +47,10 @@ public class Ticket {
     // done mayukorin こここそ、(NullAllowed) が欲しいですね。最初使うまでnullってのが明示されて欲しいところ by jflute (2024/08/30)
     /** チケット最新使用日 (NullAllowed：チケットを使ってInParkするまでnull) */
     private LocalDate lastUsedDate;
+    /** イン可能時間 (NotNull) */
+    private final LocalTime canInParkTime;
+    /** アウトしなければいけない最終時間 (NotNull) */
+    private final LocalTime mustOutParkTime;
 
     // ===================================================================================
     //                                                                         Constructor
@@ -60,13 +65,19 @@ public class Ticket {
         this.ticketType = ticketType;
         this.displayPrice = ticketType.getPrice();
         this.remainingAvailableDays = ticketType.getInitialAvailableDays();
+        this.canInParkTime = ticketType.getCanInParkTime();
+        this.mustOutParkTime = ticketType.getMustOutParkTime();
     }
 
     // ===================================================================================
     //                                                                             In Park
     //                                                                             =======
     public void doInPark(LocalDateTime currentDateTime) {
-        if (remainingAvailableDays == 0) {
+        LocalTime currentTime = currentDateTime.toLocalTime();
+        if (currentTime.isBefore(canInParkTime) || currentTime.isAfter(mustOutParkTime)) { // 今がインできない時間である
+            throw new IllegalStateException("This time cannot be in park by ticket: currentTime=" + currentTime + ", canInParkTime=" + canInParkTime+ ", mustOutParkTime=" + mustOutParkTime);
+        }
+        if (remainingAvailableDays == 0) { // チケットを使い切った
             throw new IllegalStateException("This ticket is unavailable: displayedPrice=" + displayPrice);
         }
         // done mayukorin [いいね] 例外throwするときに関連する変数の値も出しているの素晴らしい by jflute (2024/08/23)
