@@ -67,7 +67,6 @@ public class TicketBooth {
         // チケットが購入されたら List 内のチケットインスタンスが減っていく
         ticketStock = new HashMap<>();
 
-        // TODO m.inoue 処理をまとめたい
         for (TicketType ticketType : TicketType.values()) { // ordinalの順でループ
             List<Ticket> tickets = new ArrayList<>();
             for (int i = 0; i < ticketType.getInitialQuantity(); i++) {
