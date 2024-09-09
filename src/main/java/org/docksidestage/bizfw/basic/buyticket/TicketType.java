@@ -23,6 +23,9 @@ public enum TicketType {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
+    // TODO mayukorin canInParkTime, mustOutParkTimeはnot nullって一言どこかに欲しいですね by jflute (2024/09/09)
+    // なぜかというと、後からチケット種別を追加する人が、時間って指定しないといけないの？とか迷うかもしれないので。
+    // (実際、nullにするとTicketのdoInPark()が呼ばれたときにNullPointerExceptionとちょと遠いので)
     private final int initialAvailableDays;
     private final int price;
     private final int initialQuantity;

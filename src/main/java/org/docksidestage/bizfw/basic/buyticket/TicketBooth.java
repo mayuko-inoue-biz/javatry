@@ -107,7 +107,7 @@ public class TicketBooth {
     public Ticket buyOneDayPassport(Integer handedMoney) {
         // done mayukorin 参照するだけの処理であれば、引数で指定して、中で共有化できる by jflute (2024/08/23)
         // done mayukorin [いいね] お釣りの計算とかResultの生成とか超微々たるコストなので気にせず実行して辻褄合わせるのもアリ by jflute (2024/08/23)
-        // TODO done mayukorin ここまで来たら直接returnしちゃってもいいかなと。ショートカットあるかな？探してみてください by jflute (2024/08/30)
+        // done mayukorin ここまで来たら直接returnしちゃってもいいかなと。ショートカットあるかな？探してみてください by jflute (2024/08/30)
         // Googleで「Intellij 直接return」検索 & Find Actions で「return」で検索したけどなさそう
         // [ふぉろー] option+command+N だった (shift+shiftならInline Variable...)
         // option+command+V :: 変数の抽出
@@ -128,6 +128,7 @@ public class TicketBooth {
      * @throws TicketShortMoneyException ゲストから渡された金額が、チケット料金よりも少ない場合
      */
     public TicketBuyResult buyTwoDayPassport(Integer handedMoney) {
+        // TODO mayukorin こっちも〜 (option+command+N) by jflute (2024/09/09)
         TicketBuyResult twoDayPassportBuyResult = sellTicket(TicketType.TWO_DAY_PASSPORT, handedMoney);
         return twoDayPassportBuyResult;
     }

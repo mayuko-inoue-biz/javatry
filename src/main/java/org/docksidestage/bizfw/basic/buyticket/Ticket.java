@@ -32,25 +32,27 @@ public class Ticket {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    // TODO done m.inoue Ticket が TicketType の initialQuantity, Price, initialAvailableDays にアクセスできる必要はない気がする (2024/09/06)
-    // [ふぉろー] 確かにその通りだけど、見えちゃっても特に問題ない程度ではある。内部構造ってほどのものでもないし。
-    // そもそもTicketTypeがpublicなので、誰からもinitialQuantityとか見えちゃうものでもある。
-    // 一方で、仕様変更によってはinitialQuantityが必要になったりする可能性もあるし。
-    // 一方で一方で、enumにinterfaceをimplementsさせて隠す方法はある。
     /** チケット種別 (NotNull) */
     private final TicketType ticketType;
     private final int displayPrice; // written on ticket, park guest can watch this
-    // done mayukorin remainが動詞感が強いので、もうちょい形容詞的な活用にしたい by jflute (2024/08/23)
     private int remainingAvailableDays; // チケットの残り使用可能日数
-    // done mayukorin 最新 "日" なので、LocalDate でいいかなと by jflute (2024/08/23)
-    // done mayukorin Dayでも大きな間違いじゃないですが、Dayだと30とか31だけを持ってるイメージ、年月日なのでDateがよく使われる by jflute (2024/08/23)
-    // done mayukorin こここそ、(NullAllowed) が欲しいですね。最初使うまでnullってのが明示されて欲しいところ by jflute (2024/08/30)
     /** チケット最新使用日 (NullAllowed：チケットを使ってInParkするまでnull) */
     private LocalDate lastUsedDate;
     /** イン可能時間 (NotNull) */
     private final LocalTime canInParkTime;
     /** アウトしなければいけない最終時間 (NotNull) */
     private final LocalTime mustOutParkTime;
+
+    // [インスタンス変数周りの思い出]
+    // done m.inoue Ticket が TicketType の initialQuantity, Price, initialAvailableDays にアクセスできる必要はない気がする (2024/09/06)
+    // [ふぉろー] 確かにその通りだけど、見えちゃっても特に問題ない程度ではある。内部構造ってほどのものでもないし。
+    // そもそもTicketTypeがpublicなので、誰からもinitialQuantityとか見えちゃうものでもある。
+    // 一方で、仕様変更によってはinitialQuantityが必要になったりする可能性もあるし。
+    // 一方で一方で、enumにinterfaceをimplementsさせて隠す方法はある。
+    // done mayukorin remainが動詞感が強いので、もうちょい形容詞的な活用にしたい by jflute (2024/08/23)
+    // done mayukorin 最新 "日" なので、LocalDate でいいかなと by jflute (2024/08/23)
+    // done mayukorin Dayでも大きな間違いじゃないですが、Dayだと30とか31だけを持ってるイメージ、年月日なのでDateがよく使われる by jflute (2024/08/23)
+    // done mayukorin こここそ、(NullAllowed) が欲しいですね。最初使うまでnullってのが明示されて欲しいところ by jflute (2024/08/30)
 
     // ===================================================================================
     //                                                                         Constructor
@@ -72,7 +74,11 @@ public class Ticket {
     // ===================================================================================
     //                                                                             In Park
     //                                                                             =======
+    // TODO mayukorin 修行++: 利用する側が現在日時を指定できるとなると、変な時間を渡すこともできてしまうので... by jflute (2024/09/09)
+    // できれば、現在日時の取得は内部で解決したいところですね。でも、テストで日時を指定したいから難しいところですね。
+    // ということで、今のところこれでもいいけどいつかどうにかしたい、というところで。(1on1でフォローします)
     public void doInPark(LocalDateTime currentDateTime) {
+        // TODO mayukorin 21時ぴったりはインできて21時01分はインできない、という挙動は想定通りですか？ by jflute (2024/09/09)
         LocalTime currentTime = currentDateTime.toLocalTime();
         if (currentTime.isBefore(canInParkTime) || currentTime.isAfter(mustOutParkTime)) { // 今がインできない時間である
             throw new IllegalStateException("This time cannot be in park by ticket: currentTime=" + currentTime + ", canInParkTime=" + canInParkTime+ ", mustOutParkTime=" + mustOutParkTime);
