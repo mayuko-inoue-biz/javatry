@@ -32,6 +32,7 @@ public class Ticket {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
+    // TODO mayukorin javadoc入れたら、改行入れて見やすくしちゃってもいいかなと by jflute (2024/09/09)
     /** チケット種別 (NotNull) */
     private final TicketType ticketType;
     private final int displayPrice; // written on ticket, park guest can watch this
@@ -77,6 +78,12 @@ public class Ticket {
     // TODO mayukorin 修行++: 利用する側が現在日時を指定できるとなると、変な時間を渡すこともできてしまうので... by jflute (2024/09/09)
     // できれば、現在日時の取得は内部で解決したいところですね。でも、テストで日時を指定したいから難しいところですね。
     // ということで、今のところこれでもいいけどいつかどうにかしたい、というところで。(1on1でフォローします)
+    // 説明はしたので、step6をやってから着手するか？勢いに乗ってやるか？どちらでもOK。
+    // [ふぉろー] 現場での現在日時インターフェースの話もした。
+    // 題材として、LastaFluteのTimeManagerとUnitTestのswitchCurrentDate()の連携の話も少し。(究極の形)
+    // switchCurrentDate(() -> {
+    //     return LocalDateTime.of(2000, 1, 1, 1, 1);
+    // });
     public void doInPark(LocalDateTime currentDateTime) {
         // TODO mayukorin 21時ぴったりはインできて21時01分はインできない、という挙動は想定通りですか？ by jflute (2024/09/09)
         LocalTime currentTime = currentDateTime.toLocalTime();

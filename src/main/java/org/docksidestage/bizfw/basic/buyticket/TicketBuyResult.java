@@ -28,7 +28,10 @@ public class TicketBuyResult {
             // change が負の場合 change の意味がなくなるので（guest 的には change受け取ったのにお金減ったんだけどということになる）
             // exception を出すようにした
             throw new ChangeMinusException("minus change: " + change);
-            // TODO jflute [1on1にて] 横のスラスラコメントで書くか？独立行コメントで書くか？の境目は？ (2024/08/30)
+            // done jflute [1on1にて] 横のスラスラコメントで書くか？独立行コメントで書くか？の境目は？ (2024/08/30)
+            // 長くなったら独立させるってシンプルな感じ。
+            // 個人的には横のスラスラはまあまあ好きなので、書けるまでは書く。
+            // 横のスラスラの(個人的に思う)メリットなど色々と説明した。
         }
         this.change = change;
     }
