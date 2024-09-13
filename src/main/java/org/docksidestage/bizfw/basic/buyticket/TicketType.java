@@ -23,15 +23,24 @@ public enum TicketType {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    // TODO mayukorin canInParkTime, mustOutParkTimeはnot nullって一言どこかに欲しいですね by jflute (2024/09/09)
+    // TODO done mayukorin canInParkTime, mustOutParkTimeはnot nullって一言どこかに欲しいですね by jflute (2024/09/09)
     // なぜかというと、後からチケット種別を追加する人が、時間って指定しないといけないの？とか迷うかもしれないので。
     // (実際、nullにするとTicketのdoInPark()が呼ばれたときにNullPointerExceptionとちょと遠いので)
-    // TODO mayukorin mustOutParkTimeは、その時間自体はInなのかOutなのかの説明があると安心する by jflute (2024/09/09)
+    // TODO done mayukorin mustOutParkTimeは、その時間自体はInなのかOutなのかの説明があると安心する by jflute (2024/09/09)
     // 一方で、inParkBeginTime, inParkEndTime とか begin/end で簡易な名前つけるパターンもよくある。(参考までに)
+    /** チケットの使用可能日数 */
     private final int initialAvailableDays;
+
+    /** 値段 */
     private final int price;
+
+    /** 1チケットブースあたりのチケット発行数 */
     private final int initialQuantity;
+
+    /** イン可能時間 (NotNull) */
     private final LocalTime canInParkTime;
+
+    /** アウトしていなければいけない時間、この時間にはアウト状態になっているべき、canInParkTimeより遅い時刻を指定すること(NotNull) */
     private final LocalTime mustOutParkTime;
 
     // ===================================================================================

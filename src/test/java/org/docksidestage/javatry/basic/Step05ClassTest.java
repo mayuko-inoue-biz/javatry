@@ -279,10 +279,19 @@ public class Step05ClassTest extends PlainTestCase {
         // 3日目にインする
         fourDayPassport.doInPark(LocalDateTime.of(2017, 11, 19, 12, 0));
         log(fourDayPassport.isUsedUp()); // should be false
-        // 4日目にインする
-        fourDayPassport.doInPark(LocalDateTime.of(2017, 11, 20, 12, 0));
-        log(fourDayPassport.isUsedUp()); // should be true
-        // should be と同じになった。
+        // 4日目
+        // 21:00にインしようとする
+        LocalDateTime ninePMTime = LocalDateTime.of(2017, 11, 17, 21, 0);
+        try {
+            fourDayPassport.doInPark(ninePMTime);
+        } catch (IllegalStateException continued) {
+            log("Failed to in park: current hour=" + ninePMTime.getHour(), continued);
+            log(fourDayPassport.isUsedUp()); // should be false
+            // 開園している正午にイン
+            fourDayPassport.doInPark(LocalDateTime.of(2017, 11, 20, 12, 0));
+            log(fourDayPassport.isUsedUp()); // should be true
+            // should be と同じになった。
+        }
     }
 
     /**
@@ -300,12 +309,14 @@ public class Step05ClassTest extends PlainTestCase {
         log(nightOnlyTwoDayPassport.isUsedUp()); // should be false
 
         // 2日目にインする
+        // 正午にインしようとする
         LocalDateTime lunchDateTime = LocalDateTime.of(2017, 11, 18, 12, 0);
         try {
             nightOnlyTwoDayPassport.doInPark(lunchDateTime);
         } catch (IllegalStateException continued) {
             log("Failed to in park: current hour=" + lunchDateTime.getHour(), continued);
             log(nightOnlyTwoDayPassport.isUsedUp()); // should be false
+            // 18:00にイン
             nightOnlyTwoDayPassport.doInPark(LocalDateTime.of(2017, 11, 18, 18, 0));
             log(nightOnlyTwoDayPassport.isUsedUp()); // should be true
         }

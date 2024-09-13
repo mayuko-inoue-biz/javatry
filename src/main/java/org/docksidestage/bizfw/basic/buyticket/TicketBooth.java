@@ -128,9 +128,8 @@ public class TicketBooth {
      * @throws TicketShortMoneyException ゲストから渡された金額が、チケット料金よりも少ない場合
      */
     public TicketBuyResult buyTwoDayPassport(Integer handedMoney) {
-        // TODO mayukorin こっちも〜 (option+command+N) by jflute (2024/09/09)
-        TicketBuyResult twoDayPassportBuyResult = sellTicket(TicketType.TWO_DAY_PASSPORT, handedMoney);
-        return twoDayPassportBuyResult;
+        // TODO done mayukorin こっちも〜 (option+command+N) by jflute (2024/09/09)
+        return sellTicket(TicketType.TWO_DAY_PASSPORT, handedMoney);
     }
 
     /**
@@ -141,8 +140,7 @@ public class TicketBooth {
      * @throws TicketShortMoneyException ゲストから渡された金額が、チケット料金よりも少ない場合
      */
     public TicketBuyResult buyFourDayPassport(Integer handedMoney) {
-        TicketBuyResult fourDayPassportBuyResult = sellTicket(TicketType.FOUR_DAY_PASSPORT, handedMoney);
-        return fourDayPassportBuyResult;
+        return sellTicket(TicketType.FOUR_DAY_PASSPORT, handedMoney);
     }
 
     /**
@@ -153,8 +151,7 @@ public class TicketBooth {
      * @throws TicketShortMoneyException ゲストから渡された金額が、チケット料金よりも少ない場合
      */
     public TicketBuyResult buyNightOnlyTwoDayPassport(Integer handedMoney) {
-        TicketBuyResult nightOnlyTwoDayPassport = sellTicket(TicketType.NIGHT_ONLY_TWO_DAY_PASSPORT, handedMoney);
-        return nightOnlyTwoDayPassport;
+        return sellTicket(TicketType.NIGHT_ONLY_TWO_DAY_PASSPORT, handedMoney);
     }
 
     // done mayukorin [いいね] 買い手のpublic buyに対して、売り手のprivate sellという対比が素敵すぎる by jflute (2024/08/30)

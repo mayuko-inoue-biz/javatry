@@ -32,16 +32,21 @@ public class Ticket {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    // TODO mayukorin javadoc入れたら、改行入れて見やすくしちゃってもいいかなと by jflute (2024/09/09)
+    // TODO done mayukorin javadoc入れたら、改行入れて見やすくしちゃってもいいかなと by jflute (2024/09/09)
     /** チケット種別 (NotNull) */
     private final TicketType ticketType;
+
     private final int displayPrice; // written on ticket, park guest can watch this
+
     private int remainingAvailableDays; // チケットの残り使用可能日数
+
     /** チケット最新使用日 (NullAllowed：チケットを使ってInParkするまでnull) */
     private LocalDate lastUsedDate;
+
     /** イン可能時間 (NotNull) */
     private final LocalTime canInParkTime;
-    /** アウトしなければいけない最終時間 (NotNull) */
+
+    /** アウトしていなければいけない時間、この時間にはアウト状態になっているべき (NotNull) */
     private final LocalTime mustOutParkTime;
 
     // [インスタンス変数周りの思い出]
@@ -85,10 +90,11 @@ public class Ticket {
     //     return LocalDateTime.of(2000, 1, 1, 1, 1);
     // });
     public void doInPark(LocalDateTime currentDateTime) {
-        // TODO mayukorin 21時ぴったりはインできて21時01分はインできない、という挙動は想定通りですか？ by jflute (2024/09/09)
+        // TODO done mayukorin 21時ぴったりはインできて21時01分はインできない、という挙動は想定通りですか？ by jflute (2024/09/09)
+        // 21時ぴったりにはインしてほしくないのでそのように直しました by mayukorin
         LocalTime currentTime = currentDateTime.toLocalTime();
-        if (currentTime.isBefore(canInParkTime) || currentTime.isAfter(mustOutParkTime)) { // 今がインできない時間である
-            throw new IllegalStateException("This time cannot be in park by ticket: currentTime=" + currentTime + ", canInParkTime=" + canInParkTime+ ", mustOutParkTime=" + mustOutParkTime);
+        if (currentTime.isBefore(canInParkTime) || !currentTime.isBefore(mustOutParkTime)) { // 今がインできない時間（なお、mustOutParkTimeもインできない時間ピッタリなので該当する)
+            throw new IllegalStateException("This time cannot be in park by ticket: currentTime=" + currentTime + ". canInParkTime=" + canInParkTime+ ", mustOutParkTime=" + mustOutParkTime);
         }
         if (remainingAvailableDays == 0) { // チケットを使い切った
             throw new IllegalStateException("This ticket is unavailable: displayedPrice=" + displayPrice);
