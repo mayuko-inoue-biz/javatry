@@ -33,7 +33,7 @@ import org.docksidestage.unit.PlainTestCase;
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りにエクササイズを実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author mayukorin
  */
 public class Step06ObjectOrientedTest extends PlainTestCase {
 
@@ -68,13 +68,13 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         if (handedMoney < oneDayPrice) {
             throw new IllegalStateException("Short money: handedMoney=" + handedMoney);
         }
-        salesProceeds = handedMoney;
+        salesProceeds = oneDayPrice;
 
         //
         // [ticket info]
         //
         // simulation: actually these variables should be more wide scope
-        int displayPrice = quantity;
+        int displayPrice = oneDayPrice;
         boolean alreadyIn = false;
 
         // other processes here...
@@ -86,21 +86,21 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // simulation: actually this process should be called by other trigger
         if (alreadyIn) {
-            throw new IllegalStateException("Already in park by this ticket: displayPrice=" + quantity);
+            throw new IllegalStateException("Already in park by this ticket: displayPrice=" + displayPrice);
         }
         alreadyIn = true;
 
         //
         // [final process]
         //
-        saveBuyingHistory(quantity, displayPrice, salesProceeds, alreadyIn);
+        saveBuyingHistory(quantity, salesProceeds, displayPrice, alreadyIn);
     }
 
     private void saveBuyingHistory(int quantity, Integer salesProceeds, int displayPrice, boolean alreadyIn) {
         if (alreadyIn) {
             // simulation: only logging here (normally e.g. DB insert)
-            showTicketBooth(displayPrice, salesProceeds);
-            showYourTicket(quantity, alreadyIn);
+            showTicketBooth(quantity, salesProceeds);
+            showYourTicket(displayPrice, alreadyIn);
         }
     }
 
@@ -134,9 +134,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // [buy one-day passport]
         //
         // if step05 has been finished, you can use this code by jflute (2019/06/15)
-        //Ticket ticket = booth.buyOneDayPassport(10000);
-        booth.buyOneDayPassport(10000); // as temporary, remove if you finished step05
-        Ticket ticket = new Ticket(TicketType.ONE_DAY_PASSPORT); // also here
+        Ticket ticket = booth.buyOneDayPassport(10000);
+//        booth.buyOneDayPassport(10000); // as temporary, remove if you finished step05
+//        Ticket ticket = new Ticket(TicketType.ONE_DAY_PASSPORT); // also here
 
         // *buyOneDayPassport() has this process:
         //if (quantity <= 0) {
@@ -192,7 +192,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     // write your memo here:
     // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
     // what is object?
-    //
+    // 関連する特性やそれに関する処理をまとめたもの
     // _/_/_/_/_/_/_/_/_/_/
 
     // ===================================================================================
@@ -206,9 +206,19 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Dog dog = new Dog();
         BarkedSound sound = dog.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wan
+        // sea = soundのbarkWordインスタンス変数
+        // dog.bark()は親のAnimalクラスのbark()を呼び出す
+        // bark()を見ると、barkWordインスタンス変数=getBarkWord()
+        // getBarkWord()はabstractメソッドなのでそれを実装しているDogのgetBarkWord()=wan
         int land = dog.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 7
+        // dog.getHitPoint()はAnimalクラスのgetHitPoint()を呼び出す
+        // hitPointが代入されるのは、Animal()コンストラクタでのみだけど
+        // new Dog() で親の Animal()コンストラクタも呼び出されないような気がする...?
+        // いや、でも呼び出されるのか..?一旦呼び出されるとして答えを書いてみよう
+        // 「wan, 7」になったから、new Dog() で親の Animal()コンストラクタも呼び出されて初期値10から-3になるっぽい
+        // 調べたところ、子コンストラクタで親コンストラクタが呼ばれていない場合、引数なしの親コンストラクタが自動で呼び出されるらしい
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -216,9 +226,12 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Animal animal = new Dog();
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wan
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 7
+        // 上との違いは、animal変数がAnimal型になった部分
+        // でも変わらずDogのgetBarkWord()=wanは呼び出されるはず。
+        // 「wan, 7」になった
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -226,9 +239,15 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Animal animal = createAnyAnimal();
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wan
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 7
+        // 上との違いは、new Dog()をcreateAnyAnimal()を介して作るようになった部分
+        // でも変わらずDogのgetBarkWord()=wanは呼び出されるはず。
+        // でもちょい自信ないかも
+        // 「wan, 7」になった
+        // Animal animal で代入するときは、createAnyAnimal()の返り値として宣言してる型は関係なく、
+        // 中身の実際の型を見てるのか
     }
 
     private Animal createAnyAnimal() {
@@ -244,9 +263,12 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     private void doAnimalSeaLand_for_4th(Animal animal) {
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wan
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 7
+        // 上との違いは、animalを引数で受け取るようになった部分
+        // でも多分、animalではなく実際の型Dogを見ているはずなので、上と同じ答えになる気がする。
+        // 同じように、「wan, 7」になった。
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -254,9 +276,14 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Animal animal = new Cat();
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => nya-
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 5
+        // 上と違うのは、animalがDog->Catのインスタンスになった部分
+        // getBarkWord()がDogではなくCatのメソッドになるので
+        // nya-になる
+        // downHitPoint()もDogとは異なり、hitPointが奇数になるように減っていく
+        // nya-, 5 になった
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -264,9 +291,16 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Animal animal = new Zombie();
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => uooo
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => -1
+        // 上と違うのは、animalがCat->Zombieのインスタンスになった部分
+        // getBarkWord()がCatではなくZombieのメソッドになるので
+        // uoooになる
+        // Zombieのコンストラクタで呼ばれるgetInitialHitPoint()はZombieでも実装されている
+        // hitPoint=-1になる
+        // 毎回呼ばれるdownHitPoint()もZombieで実装されているが、hitPointは何も更新しない
+        // uooo, -1 になった
     }
 
     /**
@@ -277,7 +311,8 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // write your memo here:
         // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
         // what is happy?
-        //
+        // どの具象クラスなのか意識せずにメソッドを呼び出すことができる
+        // 具象クラスを変更したいときも、new でインスタンスを生成する部分の名前を変更すれば良いだけ
         // _/_/_/_/_/_/_/_/_/_/
     }
 
@@ -288,18 +323,26 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     public void test_objectOriented_polymorphism_interface_dispatch() {
         Loudable loudable = new Zombie();
         String sea = loudable.soundLoudly();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => uooo
         String land = ((Zombie) loudable).bark().getBarkWord();
-        log(land); // your answer? => 
+        log(land); // your answer? => uooo
+        // loudable.soundLoudly()で、AnimalのsoundLoudly()(bark().getBarkWord())が実行される
+        // seaには、getBarkWord()の返り値が入るので、uooo
+        // landでも同じようにZombieのbark().getBarkWord()が実行される
+        // uooo、uooo になった
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_objectOriented_polymorphism_interface_hierarchy() {
         Loudable loudable = new AlarmClock();
         String sea = loudable.soundLoudly();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => jiri jiri jiri---
         boolean land = loudable instanceof Animal;
-        log(land); // your answer? => 
+        log(land); // your answer? => false
+        // loudable.soundLoudly()で、AlarmClockのsoundLoudly()が実行される
+        // AlarmClockはLoudableを実装しているだけでAnimalを継承しているわけではないので
+        // loudable instanceof Animaはfalse
+        // jiri jiri jiri---、false になった
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
