@@ -337,5 +337,6 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_yourSuperComments() {
         // your confirmation code here
+        // ab9e9ac で追加してみた
     }
 }
