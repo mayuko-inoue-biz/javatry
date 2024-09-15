@@ -3,6 +3,7 @@ package org.docksidestage.bizfw.basic.buyticket;
 // done mayukorin class宣言直下(Attributeコメントの上)、他のクラスでは空行空いてるので形を合わせましょう by jflute (2024/08/30)
 /**
  * @author mayukorin
+ * TicketBoothで購入したTicketとお釣りなどで構成されている。
  */
 public class TicketBuyResult {
 

@@ -4,6 +4,7 @@ import java.time.LocalTime;
 
 /**
  * @author mayukorin
+ * Ticket種別ごとの値段や使用可能日時、 1チケットブースあたりの発行数などが設定されている。
  */
 public enum TicketType {
 

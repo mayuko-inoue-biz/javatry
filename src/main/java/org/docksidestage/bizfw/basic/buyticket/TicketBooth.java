@@ -24,6 +24,7 @@ import java.util.*;
 /**
  * @author jflute
  * @author mayukorin
+ * Ticketを販売する
  */
 public class TicketBooth {
 

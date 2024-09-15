@@ -26,6 +26,7 @@ import java.time.temporal.ChronoUnit;
 /**
  * @author jflute
  * @author m.inoue
+ * Ticketを使ってパークにインできる
  */
 public class Ticket {
 
