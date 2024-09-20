@@ -66,6 +66,9 @@ public class TicketBooth {
         // ↓でも、真似てもいいので自分でなんか書いてみて
         // チケット種別ごとにあらかじめ決められた数だけチケットインスタンスを作成して List に入れておく
         // チケットが購入されたら List 内のチケットインスタンスが減っていく
+        // TODO mayukorin せっかくなので、prepareTicketStock()でメソッド化してConstructorの見通しを良くしてみましょう by jflute (2024/09/20)
+        // (将来の2個目以降の実装のレールを作ってあげる)
+        // (ついでにpackage分けのジレンマの話にもつなげてみた)
         ticketStock = new HashMap<>();
 
         for (TicketType ticketType : TicketType.values()) { // ordinalの順でループ
@@ -129,7 +132,7 @@ public class TicketBooth {
      * @throws TicketShortMoneyException ゲストから渡された金額が、チケット料金よりも少ない場合
      */
     public TicketBuyResult buyTwoDayPassport(Integer handedMoney) {
-        // TODO done mayukorin こっちも〜 (option+command+N) by jflute (2024/09/09)
+        // done mayukorin こっちも〜 (option+command+N) by jflute (2024/09/09)
         return sellTicket(TicketType.TWO_DAY_PASSPORT, handedMoney);
     }
 

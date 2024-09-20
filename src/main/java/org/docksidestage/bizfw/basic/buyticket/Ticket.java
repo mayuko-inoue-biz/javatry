@@ -33,20 +33,22 @@ public class Ticket {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    // TODO done mayukorin javadoc入れたら、改行入れて見やすくしちゃってもいいかなと by jflute (2024/09/09)
+    // done mayukorin javadoc入れたら、改行入れて見やすくしちゃってもいいかなと by jflute (2024/09/09)
+    // TODO mayukorin 定義順、Immutable,Mutableで分けてもいいかなと by jflute (2024/09/20)
+    // (常にImmutable,Mutableで分けるわけでもなく、他に業務的にしっくりくる分けがあったらそっちで分けたりもする)
     /** チケット種別 (NotNull) */
     private final TicketType ticketType;
 
     private final int displayPrice; // written on ticket, park guest can watch this
-
+    
     private int remainingAvailableDays; // チケットの残り使用可能日数
 
     /** チケット最新使用日 (NullAllowed：チケットを使ってInParkするまでnull) */
     private LocalDate lastUsedDate;
-
+    
     /** イン可能時間 (NotNull) */
     private final LocalTime canInParkTime;
-
+    
     /** アウトしていなければいけない時間、この時間にはアウト状態になっているべき (NotNull) */
     private final LocalTime mustOutParkTime;
 
@@ -91,8 +93,9 @@ public class Ticket {
     //     return LocalDateTime.of(2000, 1, 1, 1, 1);
     // });
     public void doInPark(LocalDateTime currentDateTime) {
-        // TODO done mayukorin 21時ぴったりはインできて21時01分はインできない、という挙動は想定通りですか？ by jflute (2024/09/09)
+        // done mayukorin 21時ぴったりはインできて21時01分はインできない、という挙動は想定通りですか？ by jflute (2024/09/09)
         // 21時ぴったりにはインしてほしくないのでそのように直しました by mayukorin
+        // TODO mayukorin せっかくなので、IntelliJのショートカット使って、privateメソッド化いくつかやってみましょう by jflute (2024/09/20)
         LocalTime currentTime = currentDateTime.toLocalTime();
         if (currentTime.isBefore(canInParkTime) || !currentTime.isBefore(mustOutParkTime)) { // 今がインできない時間（なお、mustOutParkTimeもインできない時間ピッタリなので該当する)
             throw new IllegalStateException("This time cannot be in park by ticket: currentTime=" + currentTime + ". canInParkTime=" + canInParkTime+ ", mustOutParkTime=" + mustOutParkTime);
