@@ -23,6 +23,13 @@ import java.time.temporal.ChronoUnit;
 // done mayukorin せっかくの作品なので自分の名前を by jflute (2024/08/23)
 // done mayukorin lastUsedDateの変数宣言の直下、つまりConstructorタグコメントの直上に空行を by jflute (2024/08/30)
 // 他のクラスやタグコメントの区切れでは、空行空けてるので統一性を。
+// TODO mayukorin javadoc内の説明文、authorよりも上が良いですね (Step5クラスのjavadocとか見てみましょう) by jflute (2024/09/20)
+// e.g.
+// /**
+//  * Ticketを使ってパークにインできる
+//  * @author jflute
+//  * @author m.inoue
+//  */
 /**
  * @author jflute
  * @author m.inoue
