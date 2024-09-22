@@ -3,8 +3,8 @@ package org.docksidestage.bizfw.basic.buyticket;
 import java.time.LocalTime;
 
 /**
- * @author mayukorin
  * Ticket種別ごとの値段や使用可能日時、 1チケットブースあたりの発行数などが設定されている。
+ * @author mayukorin
  */
 public enum TicketType {
 
@@ -39,20 +39,20 @@ public enum TicketType {
     private final int initialQuantity;
 
     /** イン可能時間 (NotNull) */
-    private final LocalTime canInParkTime;
+    private final LocalTime inParkBeginTime;
 
-    /** アウトしていなければいけない時間、この時間にはアウト状態になっているべき、canInParkTimeより遅い時刻を指定すること(NotNull) */
-    private final LocalTime mustOutParkTime;
+    /** アウトしていなければいけない時間、この時間にはアウト状態になっているべき、inParkBeginTime より遅い時刻を指定すること(NotNull) */
+    private final LocalTime inParkEndTime;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    TicketType(int initialAvailableDays, int price, Integer initialQuantity, LocalTime canInParkTime, LocalTime mustOutParkTime) {
+    TicketType(int initialAvailableDays, int price, Integer initialQuantity, LocalTime inParkBeginTime, LocalTime inParkEndTime) {
         this.initialAvailableDays = initialAvailableDays;
         this.price = price;
         this.initialQuantity = initialQuantity;
-        this.canInParkTime = canInParkTime;
-        this.mustOutParkTime = mustOutParkTime;
+        this.inParkBeginTime = inParkBeginTime;
+        this.inParkEndTime = inParkEndTime;
     }
 
     // ===================================================================================
@@ -66,15 +66,13 @@ public enum TicketType {
         return price;
     }
 
-    public int getInitialQuantity() {
-        return initialQuantity;
+    public int getInitialQuantity() { return initialQuantity; }
+
+    public LocalTime getInParkBeginTime() {
+        return inParkBeginTime;
     }
 
-    public LocalTime getCanInParkTime() {
-        return canInParkTime;
-    }
-
-    public LocalTime getMustOutParkTime() {
-        return mustOutParkTime;
+    public LocalTime getInParkEndTime() {
+        return inParkEndTime;
     }
 }

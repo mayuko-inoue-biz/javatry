@@ -23,7 +23,7 @@ import java.time.temporal.ChronoUnit;
 // done mayukorin せっかくの作品なので自分の名前を by jflute (2024/08/23)
 // done mayukorin lastUsedDateの変数宣言の直下、つまりConstructorタグコメントの直上に空行を by jflute (2024/08/30)
 // 他のクラスやタグコメントの区切れでは、空行空けてるので統一性を。
-// TODO mayukorin javadoc内の説明文、authorよりも上が良いですね (Step5クラスのjavadocとか見てみましょう) by jflute (2024/09/20)
+// TODO done mayukorin javadoc内の説明文、authorよりも上が良いですね (Step5クラスのjavadocとか見てみましょう) by jflute (2024/09/20)
 // e.g.
 // /**
 //  * Ticketを使ってパークにインできる
@@ -31,9 +31,9 @@ import java.time.temporal.ChronoUnit;
 //  * @author m.inoue
 //  */
 /**
+ * Ticketを使ってパークにインできる
  * @author jflute
  * @author m.inoue
- * Ticketを使ってパークにインできる
  */
 public class Ticket {
 
@@ -41,23 +41,25 @@ public class Ticket {
     //                                                                           Attribute
     //                                                                           =========
     // done mayukorin javadoc入れたら、改行入れて見やすくしちゃってもいいかなと by jflute (2024/09/09)
-    // TODO mayukorin 定義順、Immutable,Mutableで分けてもいいかなと by jflute (2024/09/20)
+    // TODO done mayukorin 定義順、Immutable,Mutableで分けてもいいかなと by jflute (2024/09/20)
     // (常にImmutable,Mutableで分けるわけでもなく、他に業務的にしっくりくる分けがあったらそっちで分けたりもする)
     /** チケット種別 (NotNull) */
     private final TicketType ticketType;
 
+    /** チケット価格 (NotNull) */
     private final int displayPrice; // written on ticket, park guest can watch this
-    
-    private int remainingAvailableDays; // チケットの残り使用可能日数
+
+    /** イン可能時間 (NotNull) */
+    private final LocalTime inParkBeginTime;
+
+    /** アウトしていなければいけない時間、この時間にはアウト状態になっているべき (NotNull) */
+    private final LocalTime inParkEndTime;
+
+    /** チケットの残り使用可能日数 (NotNull) */
+    private int remainingAvailableDays;
 
     /** チケット最新使用日 (NullAllowed：チケットを使ってInParkするまでnull) */
     private LocalDate lastUsedDate;
-    
-    /** イン可能時間 (NotNull) */
-    private final LocalTime canInParkTime;
-    
-    /** アウトしていなければいけない時間、この時間にはアウト状態になっているべき (NotNull) */
-    private final LocalTime mustOutParkTime;
 
     // [インスタンス変数周りの思い出]
     // done m.inoue Ticket が TicketType の initialQuantity, Price, initialAvailableDays にアクセスできる必要はない気がする (2024/09/06)
@@ -82,9 +84,9 @@ public class Ticket {
         // this.displayPrice、this.remainingAvailableDays のインスタンス変数として定義している
         this.ticketType = ticketType;
         this.displayPrice = ticketType.getPrice();
+        this.inParkBeginTime = ticketType.getInParkBeginTime();
+        this.inParkEndTime = ticketType.getInParkEndTime();
         this.remainingAvailableDays = ticketType.getInitialAvailableDays();
-        this.canInParkTime = ticketType.getCanInParkTime();
-        this.mustOutParkTime = ticketType.getMustOutParkTime();
     }
 
     // ===================================================================================
@@ -100,16 +102,28 @@ public class Ticket {
     //     return LocalDateTime.of(2000, 1, 1, 1, 1);
     // });
     public void doInPark(LocalDateTime currentDateTime) {
+        // TODO done mayukorin せっかくなので、IntelliJのショートカット使って、privateメソッド化いくつかやってみましょう by jflute (2024/09/20)
+        assertCanInParkTime(currentDateTime.toLocalTime());
+        assertNotUsedUpTicket();
+        assertDailyInPark(currentDateTime.toLocalDate());
+        useTicketForOneDay(currentDateTime.toLocalDate());
+    }
+
+    private void assertCanInParkTime(LocalTime currentTime) {
         // done mayukorin 21時ぴったりはインできて21時01分はインできない、という挙動は想定通りですか？ by jflute (2024/09/09)
         // 21時ぴったりにはインしてほしくないのでそのように直しました by mayukorin
-        // TODO mayukorin せっかくなので、IntelliJのショートカット使って、privateメソッド化いくつかやってみましょう by jflute (2024/09/20)
-        LocalTime currentTime = currentDateTime.toLocalTime();
-        if (currentTime.isBefore(canInParkTime) || !currentTime.isBefore(mustOutParkTime)) { // 今がインできない時間（なお、mustOutParkTimeもインできない時間ピッタリなので該当する)
-            throw new IllegalStateException("This time cannot be in park by ticket: currentTime=" + currentTime + ". canInParkTime=" + canInParkTime+ ", mustOutParkTime=" + mustOutParkTime);
+        if (currentTime.isBefore(inParkBeginTime) || !currentTime.isBefore(inParkEndTime)) { // 今がインできない時間（なお、inParkEndTimeもインできない時間ピッタリなので該当する)
+            throw new IllegalStateException("This time cannot be in park by ticket: currentTime=" + currentTime + ". inParkBeginTime=" + inParkBeginTime+ ", inParkEndTime=" + inParkEndTime);
         }
+    }
+
+    private void assertNotUsedUpTicket() {
         if (remainingAvailableDays == 0) { // チケットを使い切った
             throw new IllegalStateException("This ticket is unavailable: displayedPrice=" + displayPrice);
         }
+    }
+
+    private void assertDailyInPark(LocalDate currentDate) {
         // done mayukorin [いいね] 例外throwするときに関連する変数の値も出しているの素晴らしい by jflute (2024/08/23)
         // done mayukorin [読み物課題] せっかくなのでこちらを by jflute (2024/08/23)
         // 例外メッセージ、敬語で満足でもロスロスパターン
@@ -119,7 +133,6 @@ public class Ticket {
         // ↓以下、多少jfluteがコメント補佐した。でもドラえもんは...
         // 前回使用日から(2回目以降のインで)判断できるチケットの使用可否をチェックしている
         // チケットが利用できる条件: チケット最新使用日と今日の間の日数(daysSinceLastUsedDay)を計算し、日数が1日差、つまり今日がチケット最新使用日の次の日だったらチケットを利用できる。
-        LocalDate currentDate = currentDateTime.toLocalDate();
         if (lastUsedDate != null) { // つまり2回目以降のイン
             long daysSinceLastUsedDay = ChronoUnit.DAYS.between(lastUsedDate, currentDate);
             if (daysSinceLastUsedDay == 0) { // つまり同じ日にインしてる
@@ -131,6 +144,9 @@ public class Ticket {
                 throw new IllegalStateException("currentDate must be a time later than lastUsedDate: specified currentDate=" + currentDate + ", lastUsedDate=" + lastUsedDate);
             }
         }
+    }
+
+    private void useTicketForOneDay(LocalDate currentDate) {
         remainingAvailableDays--;
         lastUsedDate = currentDate;
     }

@@ -22,9 +22,9 @@ import java.util.*;
 // https://twitter.com/jflute/status/840176230414483460
 // https://twitter.com/jflute/status/1426028421675511808
 /**
+ * Ticketを販売する
  * @author jflute
  * @author mayukorin
- * Ticketを販売する
  */
 public class TicketBooth {
 
@@ -66,10 +66,17 @@ public class TicketBooth {
         // ↓でも、真似てもいいので自分でなんか書いてみて
         // チケット種別ごとにあらかじめ決められた数だけチケットインスタンスを作成して List に入れておく
         // チケットが購入されたら List 内のチケットインスタンスが減っていく
-        // TODO mayukorin せっかくなので、prepareTicketStock()でメソッド化してConstructorの見通しを良くしてみましょう by jflute (2024/09/20)
+        // TODO done mayukorin せっかくなので、prepareTicketStock()でメソッド化してConstructorの見通しを良くしてみましょう by jflute (2024/09/20)
         // (将来の2個目以降の実装のレールを作ってあげる)
         // (ついでにpackage分けのジレンマの話にもつなげてみた)
-        ticketStock = new HashMap<>();
+        ticketStock = prepareTicketStock();
+        // [ふぉろー] 厳密にはunmodifiableにしておくと、安全で可読性がさらに良くなる
+        // (ただ、本来は読み取り専用Mapインターフェースみたいなのがあったら一番だけどJava標準にはない)
+        //ticketStock = Collections.unmodifiableMap(workingStock);
+    }
+
+    private Map<TicketType, List<Ticket>> prepareTicketStock() {
+        final Map<TicketType, List<Ticket>> ticketStock = new HashMap<>();
 
         for (TicketType ticketType : TicketType.values()) { // ordinalの順でループ
             List<Ticket> tickets = new ArrayList<>();
@@ -79,9 +86,7 @@ public class TicketBooth {
 
             ticketStock.put(ticketType, tickets);
         }
-        // [ふぉろー] 厳密にはunmodifiableにしておくと、安全で可読性がさらに良くなる
-        // (ただ、本来は読み取り専用Mapインターフェースみたいなのがあったら一番だけどJava標準にはない)
-        //ticketStock = Collections.unmodifiableMap(workingStock);
+        return ticketStock;
     }
 
     // ===================================================================================
