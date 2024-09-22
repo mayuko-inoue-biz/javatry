@@ -350,9 +350,12 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Animal seaAnimal = new Cat();
         Animal landAnimal = new Zombie();
         boolean sea = seaAnimal instanceof FastRunner;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => true
         boolean land = landAnimal instanceof FastRunner;
-        log(land); // your answer? => 
+        log(land); // your answer? => false
+        // CatはFastRunnerを実装してるので、seaAnimal instanceof FastRunner：true
+        // ZombieはFastRunnerを実装していないので、seaAnimal instanceof FastRunner：false
+        // true, false になった
     }
 
     /**
@@ -361,6 +364,8 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_polymorphism_interface_runnerImpl() {
         // your confirmation code here
+        FastRunner fastAnimal = new Dog();
+        fastAnimal.run();
     }
 
     /**
@@ -371,7 +376,11 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // write your memo here:
         // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
         // what is difference?
-        //
+        // 抽象クラス：インスタンス変数を持てる・メソッドの中身を実装できる
+        // インターフェース：インスタンス変数を持てない・メソッドの中身を実装できない
+        // インターフェースはメソッドの具体的な処理の中身は実装先のクラスに任せていて、
+        // 抽象クラスは継承先のどのクラスにも共通してる処理を記述しちゃっている
+        // だけど、概念的な違いってなんだろう...
         // _/_/_/_/_/_/_/_/_/_/
     }
 
