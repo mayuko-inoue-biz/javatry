@@ -66,13 +66,18 @@ public class TicketBooth {
         // ↓でも、真似てもいいので自分でなんか書いてみて
         // チケット種別ごとにあらかじめ決められた数だけチケットインスタンスを作成して List に入れておく
         // チケットが購入されたら List 内のチケットインスタンスが減っていく
-        // TODO done mayukorin せっかくなので、prepareTicketStock()でメソッド化してConstructorの見通しを良くしてみましょう by jflute (2024/09/20)
+        // done mayukorin せっかくなので、prepareTicketStock()でメソッド化してConstructorの見通しを良くしてみましょう by jflute (2024/09/20)
         // (将来の2個目以降の実装のレールを作ってあげる)
         // (ついでにpackage分けのジレンマの話にもつなげてみた)
         ticketStock = prepareTicketStock();
         // [ふぉろー] 厳密にはunmodifiableにしておくと、安全で可読性がさらに良くなる
         // (ただ、本来は読み取り専用Mapインターフェースみたいなのがあったら一番だけどJava標準にはない)
         //ticketStock = Collections.unmodifiableMap(workingStock);
+        // [ふぉろー] Eclipse Collections の ImmutableList の話もした。
+        // Eclipse Foundation, Apache Foundationの話も少しした。
+        // OSSの種類、コミュニティベースのOSS(Tomcat, Eclipse, Struts2),
+        // 企業ベースのOSS(IntelliJ community版, Spring, React, Angular, MySQL)
+        // 個人ベースのOSS(DBFlute...＞＜)
     }
 
     private Map<TicketType, List<Ticket>> prepareTicketStock() {
