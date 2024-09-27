@@ -18,11 +18,8 @@ package org.docksidestage.javatry.basic;
 import java.time.LocalDateTime;
 
 import org.docksidestage.bizfw.basic.buyticket.*;
-import org.docksidestage.bizfw.basic.objanimal.Animal;
-import org.docksidestage.bizfw.basic.objanimal.BarkedSound;
-import org.docksidestage.bizfw.basic.objanimal.Cat;
-import org.docksidestage.bizfw.basic.objanimal.Dog;
-import org.docksidestage.bizfw.basic.objanimal.Zombie;
+import org.docksidestage.bizfw.basic.objanimal.*;
+import org.docksidestage.bizfw.basic.objanimal.jumper.HighJumper;
 import org.docksidestage.bizfw.basic.objanimal.loud.AlarmClock;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
@@ -374,8 +371,8 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_polymorphism_interface_runnerImpl() {
         // your confirmation code here
-        FastRunner fastAnimal = new Dog();
-        fastAnimal.run();
+        doFastRun(new Dog()); // ...Running now になるはず
+        // なった
     }
 
     /**
@@ -386,11 +383,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // write your memo here:
         // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
         // what is difference?
-        // 抽象クラス：インスタンス変数を持てる・メソッドの中身を実装できる
-        // インターフェース：インスタンス変数を持てない・メソッドの中身を実装できない
-        // インターフェースはメソッドの具体的な処理の中身は実装先のクラスに任せていて、
-        // 抽象クラスは継承先のどのクラスにも共通してる処理を記述しちゃっている
-        // だけど、概念的な違いってなんだろう...
+        // 抽象クラス：クラスの種類
+        // インターフェース：クラスが持ってる振る舞い
+        // みたいな感じ？
         // _/_/_/_/_/_/_/_/_/_/
     }
 
@@ -403,6 +398,10 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_polymorphism_makeConcrete() {
         // your confirmation code here
+        Animal notFastRunnerAnimal = new Turtle();
+        boolean notFastRunner = notFastRunnerAnimal instanceof FastRunner;
+        log(notFastRunner); // falseになるはず
+        // なった
     }
 
     /**
@@ -411,6 +410,27 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_polymorphism_makeInterface() {
         // your confirmation code here
+        // HighJumperインターフェースを作成した
+        // CatがHighJumperインターフェースをimplementsするようにした
+        Cat cat = new Cat();
+        doHighJump(cat); // ...Jumping now になるはず
+        doBark(cat); // nya- になるはず
+        doFastRun(cat); // ...Running now
+        // doHighJump、doBark、doFastRun：各クラス・インターフェースのメソッドを呼ぶ関数を定義した
+        // (FastRunner) cat).jump() のように呼び出し時にいちいちキャストしなくて良いので楽な気がする
+    }
+
+    private void doFastRun(FastRunner fastRunner) {
+        fastRunner.run();
+    }
+
+    private void doHighJump(HighJumper highJumper) {
+        highJumper.jump();
+    }
+
+    private void doBark(Animal animal) {
+        String barkWord = animal.bark().getBarkWord();
+        log(barkWord);
     }
 
     // ===================================================================================

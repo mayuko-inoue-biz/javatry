@@ -21,11 +21,18 @@ import org.slf4j.LoggerFactory;
 /**
  * The object for bicycle(自転車).
  * @author jflute
+ * @author mayukorin
  */
 public class Bicycle implements FastRunner {
 
+    // ===================================================================================
+    //                                                                          Definition
+    //                                                                          ==========
     private static final Logger logger = LoggerFactory.getLogger(Bicycle.class);
 
+    // ===================================================================================
+    //                                                                              Runner
+    //                                                                              ======
     @Override
     public void run() {
         // dummy implementation
