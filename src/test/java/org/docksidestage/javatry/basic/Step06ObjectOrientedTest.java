@@ -394,6 +394,12 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // それぞれ別物です。
         // オブジェクト指向の多重継承(Javaはない)の話もした
         // https://dbflute.seasar.org/ja/manual/topic/programming/objectop/index.html
+        
+        // オブジェクト指向やインターフェースに限らず...
+        // Javaに限らず...
+        // 何事でもコンセプトを理解するようにすることで知識のつながりを辿ることができて応用力につながる。
+        // TODO mayukorin [読み物課題] 実装方法よりも機能概念を by jflute (2024/09/30)
+        // https://jflute.hatenadiary.jp/entry/20110531/1306825539
     }
 
     // ===================================================================================
