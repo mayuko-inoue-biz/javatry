@@ -387,6 +387,13 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // インターフェース：クラスが持ってる振る舞い
         // みたいな感じ？
         // _/_/_/_/_/_/_/_/_/_/
+        
+        // [ふぉろー]
+        // オブジェクト指向という哲学(コンセプト)
+        // インターフェースという哲学(コンセプト)
+        // それぞれ別物です。
+        // オブジェクト指向の多重継承(Javaはない)の話もした
+        // https://dbflute.seasar.org/ja/manual/topic/programming/objectop/index.html
     }
 
     // ===================================================================================
