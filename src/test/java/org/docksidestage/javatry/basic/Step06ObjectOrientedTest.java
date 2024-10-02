@@ -25,6 +25,8 @@ import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
 import org.docksidestage.unit.PlainTestCase;
 
+// TODO mayukorin [読み物課題] 別に、プルリクレビューの前にレビューしてもらっていいんだからね by jflute (2024/10/02)
+// https://jflute.hatenadiary.jp/entry/20170630/reviewbefore
 /**
  * The test of object-oriented. <br>
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
