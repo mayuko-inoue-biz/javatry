@@ -25,7 +25,7 @@ import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO mayukorin [読み物課題] 別に、プルリクレビューの前にレビューしてもらっていいんだからね by jflute (2024/10/02)
+// TODO done mayukorin [読み物課題] 別に、プルリクレビューの前にレビューしてもらっていいんだからね by jflute (2024/10/02)
 // https://jflute.hatenadiary.jp/entry/20170630/reviewbefore
 /**
  * The test of object-oriented. <br>
@@ -400,7 +400,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // オブジェクト指向やインターフェースに限らず...
         // Javaに限らず...
         // 何事でもコンセプトを理解するようにすることで知識のつながりを辿ることができて応用力につながる。
-        // TODO mayukorin [読み物課題] 実装方法よりも機能概念を by jflute (2024/09/30)
+        // TODO done mayukorin [読み物課題] 実装方法よりも機能概念を by jflute (2024/09/30)
         // https://jflute.hatenadiary.jp/entry/20110531/1306825539
     }
 
