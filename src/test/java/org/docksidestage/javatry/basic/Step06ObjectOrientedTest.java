@@ -26,6 +26,10 @@ import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
 import org.docksidestage.javatry.basic.st6.dbms.St6MySql;
 import org.docksidestage.javatry.basic.st6.dbms.St6PostgreSql;
 import org.docksidestage.javatry.basic.st6.dbms.St6Sql;
+import org.docksidestage.javatry.basic.st6.os.St6Mac;
+import org.docksidestage.javatry.basic.st6.os.St6OldWindows;
+import org.docksidestage.javatry.basic.st6.os.St6OperationSystem;
+import org.docksidestage.javatry.basic.st6.os.St6Windows;
 import org.docksidestage.unit.PlainTestCase;
 
 // TODO done mayukorin [読み物課題] 別に、プルリクレビューの前にレビューしてもらっていいんだからね by jflute (2024/10/02)
@@ -475,6 +479,14 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_specialization_extractToConcrete() {
         // your confirmation code here
+        doBuildUserResourcePath(new St6Mac("1"), "test.txt"); // /Users/1/test.txt になるはず
+        doBuildUserResourcePath(new St6Windows("1"), "test.txt"); // \Users\1\test.txt になるはず
+        doBuildUserResourcePath(new St6OldWindows("1"), "test.txt"); // \Documents and Settigs\1\test.txt になるはず
+        // なった
+    }
+
+    private void doBuildUserResourcePath(St6OperationSystem os, String relativePath) {
+        log(os.buildUserResourcePath(relativePath));
     }
 
     // ===================================================================================
