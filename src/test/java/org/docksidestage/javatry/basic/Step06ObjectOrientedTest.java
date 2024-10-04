@@ -23,6 +23,9 @@ import org.docksidestage.bizfw.basic.objanimal.jumper.HighJumper;
 import org.docksidestage.bizfw.basic.objanimal.loud.AlarmClock;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
+import org.docksidestage.javatry.basic.st6.dbms.St6MySql;
+import org.docksidestage.javatry.basic.st6.dbms.St6PostgreSql;
+import org.docksidestage.javatry.basic.st6.dbms.St6Sql;
 import org.docksidestage.unit.PlainTestCase;
 
 // TODO done mayukorin [読み物課題] 別に、プルリクレビューの前にレビューしてもらっていいんだからね by jflute (2024/10/02)
@@ -457,6 +460,13 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_generalization_extractToAbstract() {
         // your confirmation code here
+        doBuildPagingQuery(new St6MySql(), 3, 1); // limit 0, 3 になるはず
+        doBuildPagingQuery(new St6PostgreSql(), 3, 1); // offset 0 limit 3 になるはず
+        // なった
+    }
+    
+    private void doBuildPagingQuery(St6Sql sql, int pageSize, int pageNumber) {
+        log(sql.buildPagingQuery(pageSize, pageNumber));
     }
 
     /**
