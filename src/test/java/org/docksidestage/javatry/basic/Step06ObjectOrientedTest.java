@@ -498,6 +498,11 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_withDelegation() {
         // your confirmation code here
+        Animal dog = new Dog();
+        BarkedSound sound = dog.bark();
+        String sea = sound.getBarkWord();
+        log(sea); // wan になるはず
+        // なった
     }
 
     /**
