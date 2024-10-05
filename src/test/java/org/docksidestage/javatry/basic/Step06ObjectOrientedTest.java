@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 
 import org.docksidestage.bizfw.basic.buyticket.*;
 import org.docksidestage.bizfw.basic.objanimal.*;
+import org.docksidestage.bizfw.basic.objanimal.barking.BarkedSound;
 import org.docksidestage.bizfw.basic.objanimal.jumper.HighJumper;
 import org.docksidestage.bizfw.basic.objanimal.loud.AlarmClock;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
@@ -524,6 +525,14 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_withPackageRefactoring() {
         // your confirmation code here
+        Animal dog = new Dog();
+        BarkedSound sound = dog.bark();
+        String sea = sound.getBarkWord();
+        log(sea); // wan になるはず
+        // なった
+        // TODO m.inoue BarkingProcess を barking パッケージに移動すると、animal.breatheIn() にアクセスできない問題発生する (2024/10/05)
+        // 解決策として、breatheIn() を protected から public にする方法しか思いつかないのでそうしたけど
+        // 微妙な気がする
     }
 
     /**

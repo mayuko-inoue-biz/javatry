@@ -15,7 +15,7 @@ public class Turtle extends Animal {
     // ===================================================================================
     //                                                                                Bark
     //                                                                              ======
-    protected String getBarkWord() {
+    public String getBarkWord() {
         return "kyu";
     }
 }

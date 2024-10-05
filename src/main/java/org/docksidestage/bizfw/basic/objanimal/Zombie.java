@@ -54,13 +54,13 @@ public class Zombie extends Animal {
     //                                                                               Bark
     //                                                                              ======
     @Override
-    protected void breatheIn() {
+    public void breatheIn() {
         super.breatheIn();
         zombieDiary.countBreatheIn();
     }
 
     @Override
-    protected String getBarkWord() {
+    public String getBarkWord() {
         return "uooo"; // what in English?
     }
 

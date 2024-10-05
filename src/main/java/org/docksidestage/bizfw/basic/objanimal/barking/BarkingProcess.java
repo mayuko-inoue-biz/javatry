@@ -1,4 +1,6 @@
-package org.docksidestage.bizfw.basic.objanimal;
+package org.docksidestage.bizfw.basic.objanimal.barking;
+
+import org.docksidestage.bizfw.basic.objanimal.Animal;
 
 /**
  * @author mayukorin

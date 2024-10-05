@@ -15,7 +15,7 @@
  */
 package org.docksidestage.javatry.debug;
 
-import org.docksidestage.bizfw.basic.objanimal.BarkedSound;
+import org.docksidestage.bizfw.basic.objanimal.barking.BarkedSound;
 import org.docksidestage.bizfw.basic.objanimal.Dog;
 import org.docksidestage.unit.PlainTestCase;
 

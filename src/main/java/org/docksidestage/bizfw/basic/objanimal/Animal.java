@@ -15,6 +15,8 @@
  */
 package org.docksidestage.bizfw.basic.objanimal;
 
+import org.docksidestage.bizfw.basic.objanimal.barking.BarkedSound;
+import org.docksidestage.bizfw.basic.objanimal.barking.BarkingProcess;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,19 +55,19 @@ public abstract class Animal implements Loudable {
         return new BarkingProcess(this).execute();
     }
 
-    protected void breatheIn() { // actually depends on barking
+    public void breatheIn() { // actually depends on barking
         logger.debug("...Breathing in for barking"); // dummy implementation
         downHitPoint();
     }
 
-    protected void prepareAbdominalMuscle() { // also actually depends on barking
+    public void prepareAbdominalMuscle() { // also actually depends on barking
         logger.debug("...Using my abdominal muscle for barking"); // dummy implementation
         downHitPoint();
     }
 
-    protected abstract String getBarkWord();
+    public abstract String getBarkWord();
 
-    protected BarkedSound doBark(String barkWord) {
+    public BarkedSound doBark(String barkWord) {
         downHitPoint();
         return new BarkedSound(barkWord);
     }
