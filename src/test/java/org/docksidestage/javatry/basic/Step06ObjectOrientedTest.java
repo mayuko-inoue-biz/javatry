@@ -532,7 +532,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // なった
         // TODO m.inoue BarkingProcess を barking パッケージに移動すると、animal.breatheIn() にアクセスできない問題発生する (2024/10/05)
         // 解決策として、breatheIn() を protected から public にする方法しか思いつかないのでそうしたけど
-        // 微妙な気がする
+        // 外部から downHitPoint() を実行できて hitPoint が変更できるのでそれは微妙すぎる
     }
 
     /**
