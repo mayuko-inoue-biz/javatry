@@ -236,6 +236,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // いや、でも呼び出されるのか..?一旦呼び出されるとして答えを書いてみよう
         // 「wan, 7」になったから、new Dog() で親の Animal()コンストラクタも呼び出されて初期値10から-3になるっぽい
         // 調べたところ、子コンストラクタで親コンストラクタが呼ばれていない場合、引数なしの親コンストラクタが自動で呼び出されるらしい
+        // TODO mayukorin [いいね] yes, super()が省略可能なので書いてないだけなんですよね by jflute (2024/10/08)
+        // 子どもが初期化されるためには、親も初期化されなければならない(しかも先に)、というコンセプトなんですね。
+        // 継承してるからにはということで。
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -265,6 +268,11 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // 「wan, 7」になった
         // Animal animal で代入するときは、createAnyAnimal()の返り値として宣言してる型は関係なく、
         // 中身の実際の型を見てるのか
+        // TODO mayukorin [いいね] 自信持って大丈夫！その通り。 by jflute (2024/10/08)
+        // 変数を経由してメソッドが呼び出されるのインスタンスは、実際に中に入ってるインスタンス。
+        // 変数の型って、単なる「この箱に入れられるのはAnimalだけだよ」って定義しているだけ、
+        // 変数を使う人は「ああ、この箱の中に入ってるのはAnimalなんだね」って認識してるだけ。
+        // 中にはDogが入っている。動くのはDogだし、インスタンスとして存在しているのもDogだけ。
     }
 
     private Animal createAnyAnimal() {
@@ -331,6 +339,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // どの具象クラスなのか意識せずにメソッドを呼び出すことができる
         // 具象クラスを変更したいときも、new でインスタンスを生成する部分の名前を変更すれば良いだけ
         // _/_/_/_/_/_/_/_/_/_/
+        // TODO jflute 次回1on1にて、現実の世界のでポリモーフィズムについて話をする (2024/09/24)
     }
 
     // ===================================================================================
@@ -408,7 +417,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // オブジェクト指向やインターフェースに限らず...
         // Javaに限らず...
         // 何事でもコンセプトを理解するようにすることで知識のつながりを辿ることができて応用力につながる。
-        // TODO done mayukorin [読み物課題] 実装方法よりも機能概念を by jflute (2024/09/30)
+        // done mayukorin [読み物課題] 実装方法よりも機能概念を by jflute (2024/09/30)
         // https://jflute.hatenadiary.jp/entry/20110531/1306825539
     }
 
@@ -489,6 +498,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     private void doBuildUserResourcePath(St6OperationSystem os, String relativePath) {
         log(os.buildUserResourcePath(relativePath));
     }
+    // TODO jflute 1on1にて、再利用に関する思考のエクササイズをする予定 (2024/10/08)
 
     // ===================================================================================
     //                                                                           Good Luck
@@ -533,6 +543,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // TODO m.inoue BarkingProcess を barking パッケージに移動すると、animal.breatheIn() にアクセスできない問題発生する (2024/10/05)
         // 解決策として、breatheIn() を protected から public にする方法しか思いつかないのでそうしたけど
         // 外部から downHitPoint() を実行できて hitPoint が変更できるのでそれは微妙すぎる
+        // TODO mayukorin [ふぉろー] yes, その点を微妙すぎると表現する感覚はとても素晴らしい by jflute (2024/10/08)
     }
 
     /**

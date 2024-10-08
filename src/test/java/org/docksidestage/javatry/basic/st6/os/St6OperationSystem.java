@@ -36,6 +36,7 @@ public abstract class St6OperationSystem {
     // ===================================================================================
     //                                                                      User Directory
     //                                                                      ==============
+    // TODO mayukorin [いいね] ちゃんと流れが再利用できている！ by jflute (2024/10/08)
     public String buildUserResourcePath(String relativePath) {
         String fileSeparator = getFileSeparator();
         String userDirectory = getUserDirectory();
@@ -43,6 +44,7 @@ public abstract class St6OperationSystem {
         return resourcePath.replace("/", fileSeparator);
     }
 
+    // TODO mayukorin protectedを付けないと、抽象クラスとサブクラスでpackageを分けた時にオーバーライドできなくなる by jflute (2024/10/08)
     abstract String getFileSeparator();
     abstract String getUserDirectory();
 }
