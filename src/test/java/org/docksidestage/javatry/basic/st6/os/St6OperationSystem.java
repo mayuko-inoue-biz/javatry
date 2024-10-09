@@ -36,7 +36,7 @@ public abstract class St6OperationSystem {
     // ===================================================================================
     //                                                                      User Directory
     //                                                                      ==============
-    // TODO mayukorin [いいね] ちゃんと流れが再利用できている！ by jflute (2024/10/08)
+    // TODO done mayukorin [いいね] ちゃんと流れが再利用できている！ by jflute (2024/10/08)
     public String buildUserResourcePath(String relativePath) {
         String fileSeparator = getFileSeparator();
         String userDirectory = getUserDirectory();
@@ -44,7 +44,9 @@ public abstract class St6OperationSystem {
         return resourcePath.replace("/", fileSeparator);
     }
 
-    // TODO mayukorin protectedを付けないと、抽象クラスとサブクラスでpackageを分けた時にオーバーライドできなくなる by jflute (2024/10/08)
-    abstract String getFileSeparator();
-    abstract String getUserDirectory();
+    // TODO done mayukorin protectedを付けないと、抽象クラスとサブクラスでpackageを分けた時にオーバーライドできなくなる by jflute (2024/10/08)
+    // TODO jflute 抽象クラスとサブクラスでpackageを分けたい意図をお聞きしたいです by m.inoue (2024/10/09)
+    // ファイルの階層で抽象クラスを見つけやすくする意図でしょうか（確かに、サブクラスが増えたときに同一パッケージだとどれが抽象クラスかすぐ見つけにくい問題は出てくる気がしました）？
+    abstract protected String getFileSeparator();
+    abstract protected String getUserDirectory();
 }
