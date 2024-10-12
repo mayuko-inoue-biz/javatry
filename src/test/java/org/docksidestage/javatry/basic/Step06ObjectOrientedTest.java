@@ -540,10 +540,17 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         String sea = sound.getBarkWord();
         log(sea); // wan になるはず
         // なった
-        // TODO m.inoue BarkingProcess を barking パッケージに移動すると、animal.breatheIn() にアクセスできない問題発生する (2024/10/05)
+        // TODO done m.inoue BarkingProcess を barking パッケージに移動すると、animal.breatheIn() にアクセスできない問題発生する (2024/10/05)
         // 解決策として、breatheIn() を protected から public にする方法しか思いつかないのでそうしたけど
         // 外部から downHitPoint() を実行できて hitPoint が変更できるのでそれは微妙すぎる
         // TODO done mayukorin [ふぉろー] yes, その点を微妙すぎると表現する感覚はとても素晴らしい by jflute (2024/10/08)
+        // TODO m.inoue 各barking methodの中で、animalのインスタンス変数に依存しない処理（logger.debug）だけ BarkingProcess に切り出し、
+        //  それをAnimalの各barking methodで呼び出すようにした
+        //  今は、各barking methodの中で、animal に依存しない処理 → animal のインスタンス変数に依存する処理 のように綺麗に分かれてるのでいけるけど、
+        //  今後、依存しない処理 → 依存する処理 → 依存しない処理 → 依存する処理 のように
+        //  animalのインスタンス変数に関与する処理が間に複雑に入ってきたら
+        //  この方法だと可読性が下がり微妙な気がする
+        //  でもこれ以外に方法思いつかないなぁ (2024/10/12)
     }
 
     /**

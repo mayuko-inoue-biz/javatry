@@ -18,19 +18,12 @@ package org.docksidestage.bizfw.basic.objanimal;
 import org.docksidestage.bizfw.basic.objanimal.barking.BarkedSound;
 import org.docksidestage.bizfw.basic.objanimal.barking.BarkingProcess;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The object for animal(動物).
  * @author jflute
  */
 public abstract class Animal implements Loudable {
-
-    // ===================================================================================
-    //                                                                          Definition
-    //                                                                          ==========
-    private static final Logger logger = LoggerFactory.getLogger(Animal.class);
 
     // ===================================================================================
     //                                                                           Attribute
@@ -52,24 +45,29 @@ public abstract class Animal implements Loudable {
     //                                                                               Bark
     //                                                                              ======
     public BarkedSound bark() {
-        return new BarkingProcess(this).execute();
+        this.breatheIn();
+        this.prepareAbdominalMuscle();
+        String barkWord = this.getBarkWord();
+        BarkedSound barkedSound = this.doBark(barkWord);
+        return barkedSound;
     }
 
-    public void breatheIn() { // actually depends on barking
-        logger.debug("...Breathing in for barking"); // dummy implementation
+    protected void breatheIn() { // actually depends on barking
+        BarkingProcess.doBreatheIn();
         downHitPoint();
     }
 
-    public void prepareAbdominalMuscle() { // also actually depends on barking
-        logger.debug("...Using my abdominal muscle for barking"); // dummy implementation
+    protected void prepareAbdominalMuscle() { // also actually depends on barking
+        BarkingProcess.doPrepareAbdominalMuscle();
         downHitPoint();
     }
 
-    public abstract String getBarkWord();
+    protected abstract String getBarkWord();
 
-    public BarkedSound doBark(String barkWord) {
+    protected BarkedSound doBark(String barkWord) {
         downHitPoint();
-        return new BarkedSound(barkWord);
+        BarkedSound barkedSound = BarkingProcess.makeSounds(barkWord);
+        return barkedSound;
     }
 
     // ===================================================================================
