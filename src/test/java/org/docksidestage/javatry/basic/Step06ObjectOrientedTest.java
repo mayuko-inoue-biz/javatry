@@ -33,7 +33,7 @@ import org.docksidestage.javatry.basic.st6.os.St6OperationSystem;
 import org.docksidestage.javatry.basic.st6.os.St6Windows;
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO done mayukorin [読み物課題] 別に、プルリクレビューの前にレビューしてもらっていいんだからね by jflute (2024/10/02)
+// done mayukorin [読み物課題] 別に、プルリクレビューの前にレビューしてもらっていいんだからね by jflute (2024/10/02)
 // https://jflute.hatenadiary.jp/entry/20170630/reviewbefore
 /**
  * The test of object-oriented. <br>
@@ -211,7 +211,8 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     // [ふぉろー] シンプルで良い！一方で、関連を見つけるのが難しいことではあるので学んでいく必要はある。
     // TODO jflute 次回1on1にて、科目クラスの話をする (2024/09/24)
 
-    // TODO jflute 次回1on1ここから (2024/09/24)
+    // done jflute 次回1on1ここから (2024/09/24)
+    // できるだけリモートレビューで。
     // ===================================================================================
     //                                                              Polymorphism Beginning
     //                                                              ======================
@@ -236,7 +237,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // いや、でも呼び出されるのか..?一旦呼び出されるとして答えを書いてみよう
         // 「wan, 7」になったから、new Dog() で親の Animal()コンストラクタも呼び出されて初期値10から-3になるっぽい
         // 調べたところ、子コンストラクタで親コンストラクタが呼ばれていない場合、引数なしの親コンストラクタが自動で呼び出されるらしい
-        // TODO done mayukorin [いいね] yes, super()が省略可能なので書いてないだけなんですよね by jflute (2024/10/08)
+        // done mayukorin [いいね] yes, super()が省略可能なので書いてないだけなんですよね by jflute (2024/10/08)
         // 子どもが初期化されるためには、親も初期化されなければならない(しかも先に)、というコンセプトなんですね。
         // 継承してるからにはということで。
     }
@@ -268,7 +269,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // 「wan, 7」になった
         // Animal animal で代入するときは、createAnyAnimal()の返り値として宣言してる型は関係なく、
         // 中身の実際の型を見てるのか
-        // TODO done mayukorin [いいね] 自信持って大丈夫！その通り。 by jflute (2024/10/08)
+        // done mayukorin [いいね] 自信持って大丈夫！その通り。 by jflute (2024/10/08)
         // 変数を経由してメソッドが呼び出されるのインスタンスは、実際に中に入ってるインスタンス。
         // 変数の型って、単なる「この箱に入れられるのはAnimalだけだよ」って定義しているだけ、
         // 変数を使う人は「ああ、この箱の中に入ってるのはAnimalなんだね」って認識してるだけ。
@@ -419,6 +420,8 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // 何事でもコンセプトを理解するようにすることで知識のつながりを辿ることができて応用力につながる。
         // done mayukorin [読み物課題] 実装方法よりも機能概念を by jflute (2024/09/30)
         // https://jflute.hatenadiary.jp/entry/20110531/1306825539
+        
+        // TODO jflute 1on1にて、インターフェースの機能ドリブンと抽象物ドリブンの使い方について話する (2024/10/14)
     }
 
     // ===================================================================================
@@ -540,10 +543,10 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         String sea = sound.getBarkWord();
         log(sea); // wan になるはず
         // なった
-        // TODO done m.inoue BarkingProcess を barking パッケージに移動すると、animal.breatheIn() にアクセスできない問題発生する (2024/10/05)
+        // done m.inoue BarkingProcess を barking パッケージに移動すると、animal.breatheIn() にアクセスできない問題発生する (2024/10/05)
         // 解決策として、breatheIn() を protected から public にする方法しか思いつかないのでそうしたけど
         // 外部から downHitPoint() を実行できて hitPoint が変更できるのでそれは微妙すぎる
-        // TODO done mayukorin [ふぉろー] yes, その点を微妙すぎると表現する感覚はとても素晴らしい by jflute (2024/10/08)
+        // done mayukorin [ふぉろー] yes, その点を微妙すぎると表現する感覚はとても素晴らしい by jflute (2024/10/08)
         // TODO m.inoue 各barking methodの中で、animalのインスタンス変数に依存しない処理（logger.debug）だけ BarkingProcess に切り出し、
         //  それをAnimalの各barking methodで呼び出すようにした
         //  今は、各barking methodの中で、animal に依存しない処理 → animal のインスタンス変数に依存する処理 のように綺麗に分かれてるのでいけるけど、
@@ -551,6 +554,18 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //  animalのインスタンス変数に関与する処理が間に複雑に入ってきたら
         //  この方法だと可読性が下がり微妙な気がする
         //  でもこれ以外に方法思いつかないなぁ (2024/10/12)
+        // TODO mayukorin [ふぉろー] いっぱい考えてて苦しんでて素晴らしいです(^^。良い体験できてると思います。 by jflute (2024/10/14)
+        // 確かに、今bark()に流れが戻ってきてしまって、元々の目的だった「抽象クラス肥大化を抑制するためにも」が半減してしまっています。
+        //
+        // 二つ路線があって...
+        // A. breatheIn()はあくまでAnimal, でもpublicにしないでもBarkingProcessで呼び出せる工夫をなんとかしてする
+        // B. breatheIn()はコメントに「actually depends on barking」あるのでBarking依存処理ということで、
+        //    BarkingProcessにまんま持っていってしまう。だが、Zombieがオーバーライドして日記を付けているので、
+        //    それをどうにか工夫して維持する。(downHitPoint()も似た話でCatがオーバーライドしている)
+        //
+        // どっちも工夫が必要になります。
+        // オブジェクト指向のトレーニングとしては "B" が勉強になるので、良ければ "B" でチャレンジしてみてみるのはどうでしょう？
+        // どのみち...Bでも行き着く先は "A" と同じ悩みは出てくるような気もするので、両方苦しめてお得ですね(^^
     }
 
     /**
@@ -567,5 +582,6 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // ゾンビ以外のサブクラスでは共通の処理としてあるので Animal に定義したいけど
         // ゾンビでその共通の処理がないため Animal に定義できない的なことが起こりそう
         // _/_/_/_/_/_/_/_/_/_/
+        // TODO jflute 1on1にてバイオハザードの話をする予定 (2024/10/14)
     }
 }
