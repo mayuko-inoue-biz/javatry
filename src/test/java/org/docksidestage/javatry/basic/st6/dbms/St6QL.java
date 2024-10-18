@@ -7,7 +7,7 @@ package org.docksidestage.javatry.basic.st6.dbms;
 // SQL よりも大きな枠組みに「クエリ言語」という概念がある
 // 「クエリ言語」自体にPagingQueryの仕様があると考えて良いかも
 // なので抽象クラスの名前 SQL → QL にしてみる？
-// TODO done mayukorin [ふぉろー] 考えてくださりありがとうございます。考えること自体がトレーニングなのでOKです by jflute (2024/10/14)
+// done mayukorin [ふぉろー] 考えてくださりありがとうございます。考えること自体がトレーニングなのでOKです by jflute (2024/10/14)
 // ある程度MySQLとPostgreSQLを知らないとわからないことではあって、MySQLとかPostgreSQLでググってそれが何であるのか？
 // 「MySQL PostgreSQL 何？」でググってみると、GoogleのAIが「どちらもリレーショナルデータベース管理システム（RDBMS）として」って言います。
 // そして「RDBMS 種類」でググってみると、「MySQL、PostgreSQL、MariaDB、Microsoft SQL Server、Oracle Database、 IBM DB2」と言います。

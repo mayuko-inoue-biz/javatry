@@ -45,9 +45,9 @@ public abstract class St6OperationSystem {
     }
 
     // done mayukorin protectedを付けないと、抽象クラスとサブクラスでpackageを分けた時にオーバーライドできなくなる by jflute (2024/10/08)
-    // TODO jflute 抽象クラスとサブクラスでpackageを分けたい意図をお聞きしたいです by m.inoue (2024/10/09)
+    // done jflute 抽象クラスとサブクラスでpackageを分けたい意図をお聞きしたいです by m.inoue (2024/10/09)
     // ファイルの階層で抽象クラスを見つけやすくする意図でしょうか（確かに、サブクラスが増えたときに同一パッケージだとどれが抽象クラスかすぐ見つけにくい問題は出てくる気がしました）？
-    // TODO done mayukorin [へんじ] Good Question! まず一つは見やすさの観点があります。 by jflute (2024/10/14)
+    // done mayukorin [へんじ] Good Question! まず一つは見やすさの観点があります。 by jflute (2024/10/14)
     // 抽象クラスの名前の付け方によっては大量の具象クラスの.javaファイルに埋もれて見つけづらくなります。重要人物なので目立たせたいですね。
     // ただ、よく抽象クラスには AbstractColorBox というようにクラス名にも Abstract を付けることが多いです。
     // すると自然と一番上に来て目立つという。
@@ -57,7 +57,7 @@ public abstract class St6OperationSystem {
     // アプリで具象クラスを作ってフレームワークにインスタンスを渡して動作させるって使われ方も多いです。
     // この場合、packageは絶対に変わりますので、abstractメソッドは絶対にprotectedということになります。
     // なるほど...！！意図的にパッケージを変えたいというよりも、抽象クラスを使う以上そうせざるを得ないケースが多いのですね！教えていただきありがとうございます！ by m.inoue (2024/10/16)
-    // TODO done mayukorin 細かいですが、感覚的にはabstract protectedでなくprotected abstractの方が多いかなと by jflute (2024/10/14)
+    // done mayukorin 細かいですが、感覚的にはabstract protectedでなくprotected abstractの方が多いかなと by jflute (2024/10/14)
     // Javaの文法的にはどっちでも大丈夫っていう風になってはいるのですが。合わせてもらえると嬉しいです。(可視性が常に先頭ということで)
     protected abstract String getFileSeparator();
     protected abstract String getUserDirectory();
