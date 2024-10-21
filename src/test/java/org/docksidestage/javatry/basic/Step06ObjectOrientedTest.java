@@ -209,7 +209,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     // 関連する特性やそれに関する処理をまとめたもの
     // _/_/_/_/_/_/_/_/_/_/
     // [ふぉろー] シンプルで良い！一方で、関連を見つけるのが難しいことではあるので学んでいく必要はある。
-    // TODO jflute 次回1on1にて、科目クラスの話をする (2024/09/24)
+    // done jflute 次回1on1にて、科目クラスの話をする (2024/09/24)
+    //Kamoku kokugo = new Kamoku(10, "sea"); // 国語
+    //Kamoku suugaku = new Kamoku(12, "land"); // 数学
 
     // done jflute 次回1on1ここから (2024/09/24)
     // できるだけリモートレビューで。
@@ -340,7 +342,8 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // どの具象クラスなのか意識せずにメソッドを呼び出すことができる
         // 具象クラスを変更したいときも、new でインスタンスを生成する部分の名前を変更すれば良いだけ
         // _/_/_/_/_/_/_/_/_/_/
-        // TODO jflute 次回1on1にて、現実の世界のでポリモーフィズムについて話をする (2024/09/24)
+        // done jflute 次回1on1にて、現実の世界のでポリモーフィズムについて話をする (2024/09/24)
+        // 受付の話、面談者の話など。
     }
 
     // ===================================================================================
@@ -414,14 +417,17 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // それぞれ別物です。
         // オブジェクト指向の多重継承(Javaはない)の話もした
         // https://dbflute.seasar.org/ja/manual/topic/programming/objectop/index.html
-        
+
         // オブジェクト指向やインターフェースに限らず...
         // Javaに限らず...
         // 何事でもコンセプトを理解するようにすることで知識のつながりを辿ることができて応用力につながる。
         // done mayukorin [読み物課題] 実装方法よりも機能概念を by jflute (2024/09/30)
         // https://jflute.hatenadiary.jp/entry/20110531/1306825539
-        
-        // TODO jflute 1on1にて、インターフェースの機能ドリブンと抽象物ドリブンの使い方について話する (2024/10/14)
+
+        // done jflute 1on1にて、インターフェースの機能ドリブンと抽象物ドリブンの使い方について話する (2024/10/14)
+        // ColorBox と AbstractColorBox のように、対外的なポリモーフィズムのメリットをinterfaceに任せるやり方もある。
+        // この場合、AbstractColorBoxは内部的な構造を構築するために特化したクラスとなる。
+        // interfaceに少し寄ってる考え方かも知れないけど、ぼくはよくやっている。
     }
 
     // ===================================================================================
