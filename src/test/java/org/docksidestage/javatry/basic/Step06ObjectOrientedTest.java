@@ -545,9 +545,13 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     public void test_objectOriented_writing_withPackageRefactoring() {
         // your confirmation code here
         Animal dog = new Dog();
-        BarkedSound sound = dog.bark();
-        String sea = sound.getBarkWord();
+        BarkedSound dogSound = dog.bark();
+        String sea = dogSound.getBarkWord();
         log(sea); // wan になるはず
+        Animal zombie = new Zombie();
+        BarkedSound zombieSound = zombie.bark();
+        String land = zombieSound.getBarkWord();
+        log(land); // uooo になるはず
         // なった
         // done m.inoue BarkingProcess を barking パッケージに移動すると、animal.breatheIn() にアクセスできない問題発生する (2024/10/05)
         // 解決策として、breatheIn() を protected から public にする方法しか思いつかないのでそうしたけど
@@ -573,6 +577,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // オブジェクト指向のトレーニングとしては "B" が勉強になるので、良ければ "B" でチャレンジしてみてみるのはどうでしょう？
         // どのみち...Bでも行き着く先は "A" と同じ悩みは出てくるような気もするので、両方苦しめてお得ですね(^^
         // なるほど...教えていただきありがとうございます！！Bで頑張ってみます！ by m.inoue (2024/10/16)
+        // 一旦、BarkingProcessに、Barking依存処理・Barkingの一連の流れのメソッドを持ってきた
+        // Zombie オーバーライド問題は、ZombieBarkingProcessクラスを作ることで解決させた
+        // ただ、downHitPoint を今 publicにして BarkingProcessからアクセスできてる問題があるのでそれもこれから解決する必要がある。
     }
 
     /**

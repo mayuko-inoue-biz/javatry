@@ -45,35 +45,16 @@ public abstract class Animal implements Loudable {
     //                                                                               Bark
     //                                                                              ======
     public BarkedSound bark() {
-        this.breatheIn();
-        this.prepareAbdominalMuscle();
-        String barkWord = this.getBarkWord();
-        BarkedSound barkedSound = this.doBark(barkWord);
-        return barkedSound;
+        return new BarkingProcess(this).bark();
     }
 
-    protected void breatheIn() { // actually depends on barking
-        BarkingProcess.doBreatheIn();
-        downHitPoint();
-    }
+    public abstract String getBarkWord();
 
-    protected void prepareAbdominalMuscle() { // also actually depends on barking
-        BarkingProcess.doPrepareAbdominalMuscle();
-        downHitPoint();
-    }
-
-    protected abstract String getBarkWord();
-
-    protected BarkedSound doBark(String barkWord) {
-        downHitPoint();
-        BarkedSound barkedSound = BarkingProcess.makeSounds(barkWord);
-        return barkedSound;
-    }
 
     // ===================================================================================
     //                                                                           Hit Point
     //                                                                           =========
-    protected void downHitPoint() {
+    public void downHitPoint() {
         --hitPoint;
         if (hitPoint <= 0) {
             throw new IllegalStateException("I'm very tired, so I want to sleep" + getBarkWord());
