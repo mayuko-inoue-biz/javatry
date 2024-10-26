@@ -552,6 +552,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         BarkedSound zombieSound = zombie.bark();
         String land = zombieSound.getBarkWord();
         log(land); // uooo になるはず
+        log(((Zombie)zombie).getZombieDiary().getBreatheInCount()); // 1 になるはず
         // なった
         // done m.inoue BarkingProcess を barking パッケージに移動すると、animal.breatheIn() にアクセスできない問題発生する (2024/10/05)
         // 解決策として、breatheIn() を protected から public にする方法しか思いつかないのでそうしたけど
