@@ -29,27 +29,27 @@ public class BarkingProcess {
     // ===================================================================================
     //                                                                       barkingMethod
     //                                                                       =============
-    public BarkedSound bark() {
+    public BarkedSound execute() {
         this.breatheIn();
         this.prepareAbdominalMuscle();
-        String barkWord = animal.getBarkWord();
+        String barkWord = animal.callGetBarkWord("BarkingProcess");
         BarkedSound barkedSound = this.doBark(barkWord);
         return barkedSound;
     }
 
     protected void breatheIn() { // actually depends on barking
         logger.debug("...Breathing in for barking"); // dummy implementation
-        animal.downHitPoint();
+        animal.callDownHitPoint("BarkingProcess");
     }
 
     protected void prepareAbdominalMuscle() { // also actually depends on barking
         logger.debug("...Using my abdominal muscle for barking"); // dummy implementation
-        animal.downHitPoint();
+        animal.callDownHitPoint("BarkingProcess");
     }
 
     protected BarkedSound doBark(String barkWord) {
-        animal.downHitPoint();
-        BarkedSound barkedSound = new BarkedSound(barkWord);;
+        animal.callDownHitPoint("BarkingProcess");
+        BarkedSound barkedSound = new BarkedSound(barkWord);
         return barkedSound;
     }
 }

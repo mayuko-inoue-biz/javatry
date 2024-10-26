@@ -15,6 +15,9 @@
  */
 package org.docksidestage.bizfw.basic.objanimal;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.docksidestage.bizfw.basic.objanimal.barking.BarkedSound;
 import org.docksidestage.bizfw.basic.objanimal.barking.BarkingProcess;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
@@ -24,6 +27,11 @@ import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
  * @author jflute
  */
 public abstract class Animal implements Loudable {
+
+    // ===================================================================================
+    //                                                                          Definition
+    //                                                                          ==========
+    private static final List<String> ClassesWithAccessToProtectedMethod = Arrays.asList("BarkingProcess");
 
     // ===================================================================================
     //                                                                           Attribute
@@ -45,16 +53,16 @@ public abstract class Animal implements Loudable {
     //                                                                               Bark
     //                                                                              ======
     public BarkedSound bark() {
-        return new BarkingProcess(this).bark();
+        return new BarkingProcess(this).execute();
     }
 
-    public abstract String getBarkWord();
+    protected abstract String getBarkWord();
 
 
     // ===================================================================================
     //                                                                           Hit Point
     //                                                                           =========
-    public void downHitPoint() {
+    protected void downHitPoint() {
         --hitPoint;
         if (hitPoint <= 0) {
             throw new IllegalStateException("I'm very tired, so I want to sleep" + getBarkWord());
@@ -74,5 +82,35 @@ public abstract class Animal implements Loudable {
     //                                                                            ========
     public int getHitPoint() {
         return hitPoint;
+    }
+
+    // ===================================================================================
+    //                                                  Access Control to protected method
+    //                                                                            ========
+    /**
+     * クラスによりアクセス制御をして getBarkWord() を実行するメソッド.
+     * @param CallerClassName このメソッドの呼び出し元クラス名 (NotNull)
+     * @return Animalの鳴き声 (NotNull)
+     * @throws IllegalStateException getBarkWord()のアクセスが許可されていないクラスからcallGetBarkWord()が呼び出された場合
+     */
+    public String callGetBarkWord(String CallerClassName) {
+        assertCanAccessClass(CallerClassName);
+        return getBarkWord();
+    }
+
+    /**
+     * クラスによりアクセス制御をして downHitPoint() を実行するメソッド.
+     * @param CallerClassName このメソッドの呼び出し元クラス名 (NotNull)
+     * @throws IllegalStateException downHitPoint()のアクセスが許可されていないクラスからcallDownHitPoint()が呼び出された場合
+     */
+    public void callDownHitPoint(String CallerClassName) {
+        assertCanAccessClass(CallerClassName);
+        downHitPoint();
+    }
+
+    private void assertCanAccessClass(String className) {
+        if (!ClassesWithAccessToProtectedMethod.contains(className)) {
+            throw new IllegalStateException("Can't access to protected method: caller class = " + className);
+        }
     }
 }
