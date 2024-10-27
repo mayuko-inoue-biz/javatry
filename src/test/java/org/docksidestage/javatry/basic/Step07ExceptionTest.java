@@ -47,7 +47,9 @@ public class Step07ExceptionTest extends PlainTestCase {
         } finally {
             sea.append("broadway");
         }
-        log(sea); // your answer? =>
+        log(sea); // your answer? = > hangarbroadway
+        // thrower.land() で投げられた IllegalStateException を catch するから & 最後に finally 実行されるから
+        // あってた
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -60,7 +62,9 @@ public class Step07ExceptionTest extends PlainTestCase {
         } catch (IllegalStateException e) {
             sea = e.getMessage();
         }
-        log(sea); // your answer? =>
+        log(sea); // your answer? => oneman at showbase
+        // thrower.land() で投げられた IllegalStateException の message を出力するから
+        // あってた
     }
 
     /**
@@ -75,7 +79,10 @@ public class Step07ExceptionTest extends PlainTestCase {
         } catch (IllegalStateException e) {
             log(e);
         }
-        // your answer? => 
+        // your answer? =>
+        // クラス名：St7BasicExceptionThrower
+        // メソッド名：oneman
+        // 行番号：40
     }
 
     // ===================================================================================
@@ -88,35 +95,40 @@ public class Step07ExceptionTest extends PlainTestCase {
     public void test_exception_hierarchy_Runtime_instanceof_RuntimeException() {
         Object exp = new IllegalStateException("mystic");
         boolean sea = exp instanceof RuntimeException;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => true
+        // コードを見ると、IllegalStateException は RuntimeException を継承しているらしい
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_exception_hierarchy_Runtime_instanceof_Exception() {
         Object exp = new IllegalStateException("mystic");
         boolean sea = exp instanceof Exception;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => true
+        // コードを見ると、IllegalStateException は RuntimeException, その先の Exception を継承しているらしい
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_exception_hierarchy_Runtime_instanceof_Error() {
         Object exp = new IllegalStateException("mystic");
         boolean sea = exp instanceof Error;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => false
+        // コードを見ると、Exception は Error を継承しているわけではない。
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_exception_hierarchy_Runtime_instanceof_Throwable() {
         Object exp = new IllegalStateException("mystic");
         boolean sea = exp instanceof Throwable;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => true
+        // コードを見ると、Exception は Throwable を継承している。
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_exception_hierarchy_Throwable_instanceof_Exception() {
         Object exp = new Throwable("mystic");
         boolean sea = exp instanceof Exception;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => false
+        // コードを見ると、Exception は Throwable を継承している関係なので、これは False
     }
 
     // ===================================================================================
