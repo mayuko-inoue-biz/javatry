@@ -87,6 +87,7 @@ public abstract class Animal implements Loudable {
     // ===================================================================================
     //                                                  Access Control to protected method
     //                                                                            ========
+    // TODO mayukorin [いいね] 発想自体はとてもすごい！ by jflute (2024/10/28)
     /**
      * クラスによりアクセス制御をして getBarkWord() を実行するメソッド.
      * @param CallerClassName このメソッドの呼び出し元クラス名 (NotNull)
@@ -109,6 +110,16 @@ public abstract class Animal implements Loudable {
     }
 
     private void assertCanAccessClass(String className) {
+        // [ふぉろー] もし本気でcallerチェックをするなら、StackTraceを使うってのもアリ by jflute (2024/10/28)
+        // でも、通常業務のプログラムの中でここまですることはほぼなくて、
+        // フレームワークとかで共通的に＆隠蔽して使うってことの方がほとんどではある。
+        //StackTraceElement[] stackTrace = new RuntimeException().getStackTrace();
+        //StackTraceElement firstElement = stackTrace[1];
+        //String className2 = firstElement.getClassName();
+        //if ("BarkingProcess".equals(className2)) {
+        //    // OK
+        //}
+        
         if (!ClassesWithAccessToProtectedMethod.contains(className)) {
             throw new IllegalStateException("Can't access to protected method: caller class = " + className);
         }

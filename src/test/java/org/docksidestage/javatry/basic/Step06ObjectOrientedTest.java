@@ -558,14 +558,14 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // 解決策として、breatheIn() を protected から public にする方法しか思いつかないのでそうしたけど
         // 外部から downHitPoint() を実行できて hitPoint が変更できるのでそれは微妙すぎる
         // done mayukorin [ふぉろー] yes, その点を微妙すぎると表現する感覚はとても素晴らしい by jflute (2024/10/08)
-        // TODO m.inoue 各barking methodの中で、animalのインスタンス変数に依存しない処理（logger.debug）だけ BarkingProcess に切り出し、
+        // done m.inoue 各barking methodの中で、animalのインスタンス変数に依存しない処理（logger.debug）だけ BarkingProcess に切り出し、
         //  それをAnimalの各barking methodで呼び出すようにした
         //  今は、各barking methodの中で、animal に依存しない処理 → animal のインスタンス変数に依存する処理 のように綺麗に分かれてるのでいけるけど、
         //  今後、依存しない処理 → 依存する処理 → 依存しない処理 → 依存する処理 のように
         //  animalのインスタンス変数に関与する処理が間に複雑に入ってきたら
         //  この方法だと可読性が下がり微妙な気がする
         //  でもこれ以外に方法思いつかないなぁ (2024/10/12)
-        // TODO mayukorin [ふぉろー] いっぱい考えてて苦しんでて素晴らしいです(^^。良い体験できてると思います。 by jflute (2024/10/14)
+        // done mayukorin [ふぉろー] いっぱい考えてて苦しんでて素晴らしいです(^^。良い体験できてると思います。 by jflute (2024/10/14)
         // 確かに、今bark()に流れが戻ってきてしまって、元々の目的だった「抽象クラス肥大化を抑制するためにも」が半減してしまっています。
         //
         // 二つ路線があって...
@@ -581,6 +581,11 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // 一旦、BarkingProcessに、Barking依存処理・Barkingの一連の流れのメソッドを持ってきた
         // Zombie オーバーライド問題は、ZombieBarkingProcessクラスを作ることで解決させた
         // ただ、downHitPoint を今 publicにして BarkingProcessからアクセスできてる問題があるのでそれもこれから解決する必要がある。
+        //
+        // TODO mayukorin 修行++: "B" は自力でしっかり解決してもらいました... by jflute (2024/10/28)
+        // "A" は、チェックは掛かるようになったけども、callerを意識する少々トリッキーな実装なので、
+        // できれば完全解決したいところ。(隠蔽した上でBarkingProcessを満たす)
+        // ただ、これはstep8をやってからチャレンジした方がわかりやすいかも。
     }
 
     /**

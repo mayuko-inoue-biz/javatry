@@ -57,6 +57,8 @@ public class Zombie extends Animal {
     // ===================================================================================
     //                                                                               Bark
     //                                                                              ======
+    // TODO mayukorin bark()まるごとだと、ちょっとオーバーライドが広いので... by jflute (2024/10/28)
+    // 差し替えたいのはnewする対象だけで、execute()を呼び出すとかは共通的なので一箇所にしたい。
     @Override
     public BarkedSound bark() {
         return new ZombieBarkingProcess(this).execute();
