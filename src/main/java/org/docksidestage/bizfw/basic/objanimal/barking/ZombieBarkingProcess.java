@@ -11,7 +11,7 @@ public class ZombieBarkingProcess extends BarkingProcess {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    Zombie zombie;
+    protected Zombie zombie;
 
     // ===================================================================================
     //                                                                         Constructor
