@@ -53,11 +53,15 @@ public abstract class Animal implements Loudable {
     //                                                                               Bark
     //                                                                              ======
     public BarkedSound bark() {
-        return new BarkingProcess(this).execute();
+        BarkingProcess barkingProcess = getBarkingProcess();
+        return barkingProcess.execute();
+    }
+
+    protected BarkingProcess getBarkingProcess() {
+        return new BarkingProcess(this);
     }
 
     protected abstract String getBarkWord();
-
 
     // ===================================================================================
     //                                                                           Hit Point
@@ -87,7 +91,7 @@ public abstract class Animal implements Loudable {
     // ===================================================================================
     //                                                  Access Control to protected method
     //                                                                            ========
-    // TODO mayukorin [いいね] 発想自体はとてもすごい！ by jflute (2024/10/28)
+    // TODO done mayukorin [いいね] 発想自体はとてもすごい！ by jflute (2024/10/28)
     /**
      * クラスによりアクセス制御をして getBarkWord() を実行するメソッド.
      * @param CallerClassName このメソッドの呼び出し元クラス名 (NotNull)

@@ -17,9 +17,9 @@ public class BarkingProcess {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    // TODO mayukorin protectedの方が適切かなと (サブクラスは使っても良いということで) by jflute (2024/10/28)
+    // TODO done mayukorin protectedの方が適切かなと (サブクラスは使っても良いということで) by jflute (2024/10/28)
     // (現状だと、ZombieBarkingProcessとBarkingProcessがパッケージ分かれるとまたコンパイルエラー)
-    Animal animal;
+    protected Animal animal;
 
     // ===================================================================================
     //                                                                         Constructor
