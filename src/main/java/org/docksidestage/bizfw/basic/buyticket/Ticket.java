@@ -138,7 +138,7 @@ public class Ticket {
         // done mayukorin せっかくなので、IntelliJのショートカット使って、privateメソッド化いくつかやってみましょう by jflute (2024/09/20)
         // done mayukorin [いいね] timeやdateの必要性を加味して、引数をデザインしてるのGood by jflute (2024/09/24)
         TimeManager timeManager = createTimeManager();
-        LocalDateTime currentDateTime = timeManager.getLocalDateTime();
+        LocalDateTime currentDateTime = timeManager.getCurrentDateTime();
         assertCanInParkTime(currentDateTime.toLocalTime());
         assertNotUsedUpTicket();
         assertDailyInPark(currentDateTime.toLocalDate());

@@ -18,7 +18,7 @@ public class CurrentTimeManager implements TimeManager {
      * @return 現在の LocalDateTime（NotNull）
      */
     @Override
-    public LocalDateTime getLocalDateTime() {
+    public LocalDateTime getCurrentDateTime() {
         return LocalDateTime.now();
     }
 }

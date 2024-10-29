@@ -32,7 +32,7 @@ public class TestTimeManager implements TimeManager {
      * @return コンストラクタで指定した LocalDateTime（NotNull）
      */
     @Override
-    public LocalDateTime getLocalDateTime() {
+    public LocalDateTime getCurrentDateTime() {
         return specifiedLocalDateTime;
     }
 }
