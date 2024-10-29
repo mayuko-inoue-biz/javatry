@@ -112,6 +112,19 @@ public class Ticket {
     // テスト以外でdoInPark() するときも、TestTimeManager を引数に指定すると変な時間指定できる
     // 2.doInPark呼び出し側で毎回CurrentTimeManagerとTestTimeManagerを意識する必要はあるのか？
     // 毎回指定しなきゃいけないとなるとミスが起こりそう (本当はCurrentTimeManagerを指定しないといけなかったのに、TestTimeManagerを指定してた等)
+    //
+    // TODO mayukorin [ふぉろー]ここまで考えてできたのは素晴らしいですね。自己分析も完璧です。 by jflute (2024/10/29)
+    // あと一方、TimeManagerの実態(インスタンス)をTicket内部で解決できたらいいわけですね。
+    //
+    // mainコードからすると、引数でTimeManagerを入れることなくただdoInPark()と呼び出せば勝手に現在日時も解決してくれるように。
+    // (本物のTimeManagerが採用される)
+    //
+    // でも、testメソッドから呼び出すときはその実態をTestTimeManagerに差し替えたいと。
+    // 正面(doInPark())から差し替えるとmainコードの方も指定しないといけなくなってしまいますが、
+    // 裏口から差し替えられるようになっていれば...
+    // そういえば、すでにstep6やってるので、具象クラスが具象クラスを継承して一部挙動を変えるとかやってるし...
+    // createメソッドというnewするメソッド(Factoryメソッド)だけをオーバーライドするってのもやっていますね。
+    //
     /**
      * Ticketを使ってInParkするためのメソッド
      * @param timeManager メソッド内で時刻を取得するためのインターフェース (NotNull)。テストで時刻を指定したい場合は TestTimeManager、それ以外で現在時刻を取得したい場合は CurrentTimeManager を指定する

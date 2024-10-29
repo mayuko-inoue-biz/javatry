@@ -22,7 +22,7 @@ import org.docksidestage.bizfw.basic.objanimal.barking.BarkedSound;
 import org.docksidestage.bizfw.basic.objanimal.barking.BarkingProcess;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 
-// TODO done mayukorin そういえば、既存クラスにも関わったらauthorをお願いします〜 by jflute (2024/10/29)
+// done mayukorin そういえば、既存クラスにも関わったらauthorをお願いします〜 by jflute (2024/10/29)
 /**
  * The object for animal(動物).
  * @author jflute
@@ -59,7 +59,7 @@ public abstract class Animal implements Loudable {
         return barkingProcess.execute();
     }
 
-    // TODO done mayukorin ちょっと状況違うけど、こちらの記事を参考に... by jflute (2024/10/29)
+    // done mayukorin ちょっと状況違うけど、こちらの記事を参考に... by jflute (2024/10/29)
     //
     // // 単純な話、getであんまり検索したくない
     // https://jflute.hatenadiary.jp/entry/20151020/stopgetselect

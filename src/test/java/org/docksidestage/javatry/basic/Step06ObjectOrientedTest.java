@@ -589,10 +589,10 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // ただ、これはstep8をやってからチャレンジした方がわかりやすいかも。
     }
 
-    // TODO done mayukorin [読み物課題] プログラマーに求められるデザイン脳 by jflute (2024/10/29)
+    // done mayukorin [読み物課題] プログラマーに求められるデザイン脳 by jflute (2024/10/29)
     // https://jflute.hatenadiary.jp/entry/20170623/desigraming
     
-    // TODO done mayukorin [読み物課題] 実装方法よりも機能概念を by jflute (2024/10/29)
+    // done mayukorin [読み物課題] 実装方法よりも機能概念を by jflute (2024/10/29)
     // https://jflute.hatenadiary.jp/entry/20110531/1306825539
     // ↑でリンクされている...
     // o 知識を得るためのプロセスを

@@ -11,7 +11,7 @@ public class ZombieBarkingProcess extends BarkingProcess {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    // TODO done mayukorin finalを付けちゃって良いです〜 by jflute (2024/10/29)
+    // done mayukorin finalを付けちゃって良いです〜 by jflute (2024/10/29)
     protected final Zombie zombie;
 
     // ===================================================================================
