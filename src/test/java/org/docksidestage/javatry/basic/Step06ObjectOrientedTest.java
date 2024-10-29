@@ -15,16 +15,14 @@
  */
 package org.docksidestage.javatry.basic;
 
-import java.time.LocalDateTime;
-
 import org.docksidestage.bizfw.basic.buyticket.*;
+import org.docksidestage.bizfw.basic.buyticket.test.TestTicketBooth;
 import org.docksidestage.bizfw.basic.objanimal.*;
 import org.docksidestage.bizfw.basic.objanimal.barking.BarkedSound;
 import org.docksidestage.bizfw.basic.objanimal.jumper.HighJumper;
 import org.docksidestage.bizfw.basic.objanimal.loud.AlarmClock;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
-import org.docksidestage.bizfw.basic.time.TestTimeManager;
 import org.docksidestage.javatry.basic.st6.dbms.St6MySql;
 import org.docksidestage.javatry.basic.st6.dbms.St6PostgreSql;
 import org.docksidestage.javatry.basic.st6.dbms.St6QL;
@@ -138,7 +136,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [ticket booth info]
         //
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TestTicketBooth();
 
         // *booth has these properties:
         //int oneDayPrice = 7400;
@@ -174,7 +172,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [do in park now!!!]
         //
-        ticket.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 17, 12, 0)));
+        ticket.doInPark();
 
         // *doInPark() has this process:
         //if (alreadyIn) {

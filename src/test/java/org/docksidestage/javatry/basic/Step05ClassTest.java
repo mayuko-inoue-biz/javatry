@@ -19,8 +19,7 @@ import java.time.LocalDateTime;
 
 import org.docksidestage.bizfw.basic.buyticket.*;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
-import org.docksidestage.bizfw.basic.time.CurrentTimeManager;
-import org.docksidestage.bizfw.basic.time.TestTimeManager;
+import org.docksidestage.bizfw.basic.buyticket.test.TestTicketBooth;
 import org.docksidestage.unit.PlainTestCase;
 
 // done mayukorin unusedのimport by jflute (2024/08/23)
@@ -45,7 +44,7 @@ public class Step05ClassTest extends PlainTestCase {
      * (メソッド終了時の変数 sea の中身は？)
      */
     public void test_class_howToUse_basic() {
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TestTicketBooth();
         booth.buyOneDayPassport(7400);
         int sea = booth.getOneDayPassportQuantity();
         log(sea); // your answer? => 9
@@ -55,7 +54,7 @@ public class Step05ClassTest extends PlainTestCase {
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_class_howToUse_overpay() {
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TestTicketBooth();
         booth.buyOneDayPassport(10000);
         Integer sea = booth.getSalesProceeds();
         log(sea); // your answer? => 10000
@@ -67,7 +66,7 @@ public class Step05ClassTest extends PlainTestCase {
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_class_howToUse_nosales() {
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TestTicketBooth();
         Integer sea = booth.getSalesProceeds();
         log(sea); // your answer? => null
         // salesProceeds の初期値は null & Integer 型の sea に代入してもエラーにはならないため。
@@ -86,7 +85,7 @@ public class Step05ClassTest extends PlainTestCase {
     }
 
     private Integer doTest_class_ticket_wrongQuantity() {
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TestTicketBooth();
         int handedMoney = 7399;
         try {
             booth.buyOneDayPassport(handedMoney);
@@ -117,7 +116,7 @@ public class Step05ClassTest extends PlainTestCase {
      * (受け取ったお金の分だけ売上が増えていく問題をクラスを修正して解決しましょう (以前のエクササイズのanswerの修正を忘れずに))
      */
     public void test_class_letsFix_salesProceedsIncrease() {
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TestTicketBooth();
         booth.buyOneDayPassport(10000);
         Integer sea = booth.getSalesProceeds();
         log(sea); // should be same as one-day price, visual check here
@@ -130,7 +129,7 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_letsFix_makeMethod_twoday() {
         // uncomment after making the method
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TestTicketBooth();
         int money = 14000;
         // done mayukorin "(booth.buyTwoDayPassport(money))" の括弧、気持ちはわかるけど、やってる人いないので... by jflute (2024/08/16)
         // 一方で、文法上消してもいい括弧でも、人間の誤解を防ぐために明示的に括弧を付けることはよくなるので、それはそれで良い
@@ -154,7 +153,7 @@ public class Step05ClassTest extends PlainTestCase {
      * (OneDayとTwoDayで冗長なロジックがあったら、クラス内のprivateメソッドなどで再利用しましょう (修正前と修正後の実行結果を確認))
      */
     public void test_class_letsFix_refactor_recycle() {
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TestTicketBooth();
         booth.buyOneDayPassport(10000);
         log(booth.getOneDayPassportQuantity(), booth.getSalesProceeds()); // should be same as before-fix
         // 修正前：9, 7400
@@ -177,11 +176,11 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_return_ticket() {
         // uncomment out after modifying the method
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TestTicketBooth();
         Ticket oneDayPassport = booth.buyOneDayPassport(10000);
         log(oneDayPassport.getDisplayPrice()); // should be same as one-day price
         log(oneDayPassport.isUsedUp()); // should be false
-        oneDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 17, 12, 0)));
+        oneDayPassport.doInPark();
         log(oneDayPassport.isUsedUp()); // should be true
         // false, true になった
     }
@@ -192,7 +191,7 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_return_whole() {
         // uncomment after modifying the method
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TestTicketBooth();
         int handedMoney = 20000;
         TicketBuyResult buyResult = booth.buyTwoDayPassport(handedMoney);
         Ticket twoDayPassport = buyResult.getTicket();
@@ -222,15 +221,15 @@ public class Step05ClassTest extends PlainTestCase {
     // done mayukorin [へんじ] まあステートマシン図に書いた内容が、業務要件なのであれば対応しなきゃいけない by jflute (2024/08/23)
     public void test_class_moreFix_usePluralDays() {
         // your confirmation code here
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TestTicketBooth();
         TicketBuyResult buyResult = booth.buyTwoDayPassport(20000);
         Ticket twoDayPassport = buyResult.getTicket();
         // 1日目にインする
         log(twoDayPassport.isUsedUp()); // should be false
-        twoDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 17, 12, 0)));
+        twoDayPassport.doInPark();
         log(twoDayPassport.isUsedUp()); // should be false
         // 2日目にインする
-        twoDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 18, 12, 0)));
+        twoDayPassport.doInPark(); // 現在testでinPark()ごとに時刻が指定できなくなっているのでException発生する
         log(twoDayPassport.isUsedUp()); // should be true
         // false, false, true になった
     }
@@ -241,7 +240,7 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_whetherTicketType() {
         // uncomment when you implement this exercise
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TestTicketBooth();
         Ticket oneDayPassport = booth.buyOneDayPassport(10000);
         showTicketIfNeeds(oneDayPassport); // should be other
         TicketBuyResult buyResult = booth.buyTwoDayPassport(20000);
@@ -268,29 +267,29 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_wonder_four() {
         // your confirmation code here
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TestTicketBooth();
         TicketBuyResult buyResult = booth.buyFourDayPassport(22400);
         Ticket fourDayPassport = buyResult.getTicket();
         // 1日目にインする
         log(fourDayPassport.isUsedUp()); // should be false
-        fourDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 17, 12, 0)));
+        fourDayPassport.doInPark();
         log(fourDayPassport.isUsedUp()); // should be false
         // 2日目にインする
-        fourDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 18, 12, 0)));
+        fourDayPassport.doInPark(); // 現在testでinPark()ごとに時刻が指定できなくなっているのでException発生する
         log(fourDayPassport.isUsedUp()); // should be false
         // 3日目にインする
-        fourDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 19, 12, 0)));
+        fourDayPassport.doInPark();
         log(fourDayPassport.isUsedUp()); // should be false
         // 4日目
         // 21:00にインしようとする
         LocalDateTime ninePMTime = LocalDateTime.of(2017, 11, 17, 21, 0);
         try {
-            fourDayPassport.doInPark(new TestTimeManager(ninePMTime));
+            fourDayPassport.doInPark();
         } catch (IllegalStateException continued) {
             log("Failed to in park: current hour=" + ninePMTime.getHour(), continued);
             log(fourDayPassport.isUsedUp()); // should be false
             // 開園している正午にイン
-            fourDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 20, 12, 0)));
+            fourDayPassport.doInPark();
             log(fourDayPassport.isUsedUp()); // should be true
             // should be と同じになった。
         }
@@ -302,24 +301,24 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_wonder_night() {
         // your confirmation code here
-        TicketBooth booth = new TicketBooth();
+        TicketBooth booth = new TestTicketBooth();
         TicketBuyResult buyResult = booth.buyNightOnlyTwoDayPassport(7400);
         Ticket nightOnlyTwoDayPassport = buyResult.getTicket();
         // 1日目にインする
         log(nightOnlyTwoDayPassport.isUsedUp()); // should be false
-        nightOnlyTwoDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 17, 18, 0)));
+        nightOnlyTwoDayPassport.doInPark();
         log(nightOnlyTwoDayPassport.isUsedUp()); // should be false
 
         // 2日目にインする
         // 正午にインしようとする
         LocalDateTime lunchDateTime = LocalDateTime.of(2017, 11, 18, 12, 0);
         try {
-            nightOnlyTwoDayPassport.doInPark(new TestTimeManager(lunchDateTime));
+            nightOnlyTwoDayPassport.doInPark();
         } catch (IllegalStateException continued) {
             log("Failed to in park: current hour=" + lunchDateTime.getHour(), continued);
             log(nightOnlyTwoDayPassport.isUsedUp()); // should be false
             // 18:00にイン
-            nightOnlyTwoDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 18, 18, 0)));
+            nightOnlyTwoDayPassport.doInPark(); // 現在testでinPark()ごとに時刻が指定できなくなっているのでException発生する
             log(nightOnlyTwoDayPassport.isUsedUp()); // should be true
         }
         // should be と同じになった。
@@ -349,6 +348,6 @@ public class Step05ClassTest extends PlainTestCase {
         // your confirmation code here
         TicketBooth booth = new TicketBooth();
         Ticket oneDayPassport = booth.buyOneDayPassport(10000);
-        oneDayPassport.doInPark(new CurrentTimeManager());
+        oneDayPassport.doInPark();
     }
 }

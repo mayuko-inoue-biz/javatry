@@ -86,12 +86,16 @@ public class TicketBooth {
         for (TicketType ticketType : TicketType.values()) { // ordinalの順でループ
             List<Ticket> tickets = new ArrayList<>();
             for (int i = 0; i < ticketType.getInitialQuantity(); i++) {
-                tickets.add(new Ticket(ticketType));
+                tickets.add(createTicket(ticketType));
             }
 
             ticketStock.put(ticketType, tickets);
         }
         return ticketStock;
+    }
+
+    protected Ticket createTicket(TicketType ticketType) {
+        return new Ticket(ticketType);
     }
 
     // ===================================================================================

@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
+import org.docksidestage.bizfw.basic.time.CurrentTimeManager;
 import org.docksidestage.bizfw.basic.time.TimeManager;
 
 // done mayukorin せっかくの作品なので自分の名前を by jflute (2024/08/23)
@@ -125,19 +126,27 @@ public class Ticket {
     // そういえば、すでにstep6やってるので、具象クラスが具象クラスを継承して一部挙動を変えるとかやってるし...
     // createメソッドというnewするメソッド(Factoryメソッド)だけをオーバーライドするってのもやっていますね。
     //
+    // managerをinPark()ではなく裏で差し替えられるようにした
+    // ・createするmanagerを変えるために、Ticketを継承したTestTicketを作成。
+    // ・テストではTestTicketを使うようにした
+    // ただ、このままだとtestでinPark()ごとに時刻が指定できなくなっているので今度はそれを修正する必要あり
     /**
      * Ticketを使ってInParkするためのメソッド
-     * @param timeManager メソッド内で時刻を取得するためのインターフェース (NotNull)。テストで時刻を指定したい場合は TestTimeManager、それ以外で現在時刻を取得したい場合は CurrentTimeManager を指定する
      * @throws IllegalStateException チケットを使用できない時間帯の場合、チケットを既に使い切ってしまっていた場合、初回以外で連日でInParkしていない場合
      */
-    public void doInPark(TimeManager timeManager) {
+    public void doInPark() {
         // done mayukorin せっかくなので、IntelliJのショートカット使って、privateメソッド化いくつかやってみましょう by jflute (2024/09/20)
         // done mayukorin [いいね] timeやdateの必要性を加味して、引数をデザインしてるのGood by jflute (2024/09/24)
+        TimeManager timeManager = createTimeManager();
         LocalDateTime currentDateTime = timeManager.getLocalDateTime();
         assertCanInParkTime(currentDateTime.toLocalTime());
         assertNotUsedUpTicket();
         assertDailyInPark(currentDateTime.toLocalDate());
         useTicketForOneDay(currentDateTime.toLocalDate());
+    }
+
+    protected TimeManager createTimeManager() {
+        return new CurrentTimeManager();
     }
 
     private void assertCanInParkTime(LocalTime currentTime) {
