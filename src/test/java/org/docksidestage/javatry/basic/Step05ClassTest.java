@@ -44,6 +44,8 @@ public class Step05ClassTest extends PlainTestCase {
      * (メソッド終了時の変数 sea の中身は？)
      */
     public void test_class_howToUse_basic() {
+        // TODO mayukorin 現在日時を細工するテストケースだけでTestTicketBoothを使うで良いです by jflute (2024/10/29)
+        // 現在日時を気にしないテストケースでは、できる限りplainなTicketBoothを使った方が安心感ありますし。
         TicketBooth booth = new TestTicketBooth();
         booth.buyOneDayPassport(7400);
         int sea = booth.getOneDayPassportQuantity();
