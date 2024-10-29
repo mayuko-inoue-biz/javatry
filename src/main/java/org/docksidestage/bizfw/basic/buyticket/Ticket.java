@@ -103,6 +103,20 @@ public class Ticket {
     // switchCurrentDate(() -> {
     //     return LocalDateTime.of(2000, 1, 1, 1, 1);
     // });
+    // TODO m.inoue 以下のようにして、テストでは指定した時刻をdoInPark内で使うようにしてそれ以外では現在時刻を使うようにした (2024/10/29)
+    // 現在時刻を返すCurrentTimeManagerと指定した時刻を返すTestTimeManagerを作成
+    // doInPark呼び出し側でそのクラスを使い分けて,doInParkの引数に指定
+    // doInPark側はどちらのクラスなのか意識せず時刻を取得できる（引数は2つのクラスのインターフェースTimeManagerにしてるため）
+    // ただ以下の問題がある気がする。
+    // 1.テスト以外でも変な時間を渡すことができる問題は結局解決していない
+    // テスト以外でdoInPark() するときも、TestTimeManager を引数に指定すると変な時間指定できる
+    // 2.doInPark呼び出し側で毎回CurrentTimeManagerとTestTimeManagerを意識する必要はあるのか？
+    // 毎回指定しなきゃいけないとなるとミスが起こりそう (本当はCurrentTimeManagerを指定しないといけなかったのに、TestTimeManagerを指定してた等)
+    /**
+     * Ticketを使ってInParkするためのメソッド
+     * @param timeManager メソッド内で時刻を取得するためのインターフェース (NotNull)。テストで時刻を指定したい場合は TestTimeManager、それ以外で現在時刻を取得したい場合は CurrentTimeManager を指定する
+     * @throws IllegalStateException チケットを使用できない時間帯の場合、チケットを既に使い切ってしまっていた場合、初回以外で連日でInParkしていない場合
+     */
     public void doInPark(TimeManager timeManager) {
         // done mayukorin せっかくなので、IntelliJのショートカット使って、privateメソッド化いくつかやってみましょう by jflute (2024/09/20)
         // done mayukorin [いいね] timeやdateの必要性を加味して、引数をデザインしてるのGood by jflute (2024/09/24)

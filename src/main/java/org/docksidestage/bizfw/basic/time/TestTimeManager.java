@@ -11,7 +11,8 @@ public class TestTimeManager implements TimeManager {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    private LocalDateTime specifiedLocalDateTime;
+    /** 指定した LocalDateTime (NotNull) */
+    private final LocalDateTime specifiedLocalDateTime;
 
     // ===================================================================================
     //                                                                         Constructor
