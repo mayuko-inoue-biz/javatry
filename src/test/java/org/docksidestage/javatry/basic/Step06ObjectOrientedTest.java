@@ -24,6 +24,7 @@ import org.docksidestage.bizfw.basic.objanimal.jumper.HighJumper;
 import org.docksidestage.bizfw.basic.objanimal.loud.AlarmClock;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
+import org.docksidestage.bizfw.basic.time.TestTimeManager;
 import org.docksidestage.javatry.basic.st6.dbms.St6MySql;
 import org.docksidestage.javatry.basic.st6.dbms.St6PostgreSql;
 import org.docksidestage.javatry.basic.st6.dbms.St6QL;
@@ -173,7 +174,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [do in park now!!!]
         //
-        ticket.doInPark(LocalDateTime.of(2017, 11, 17, 12, 0));
+        ticket.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 17, 12, 0)));
 
         // *doInPark() has this process:
         //if (alreadyIn) {

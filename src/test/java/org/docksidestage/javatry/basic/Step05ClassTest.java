@@ -19,6 +19,8 @@ import java.time.LocalDateTime;
 
 import org.docksidestage.bizfw.basic.buyticket.*;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
+import org.docksidestage.bizfw.basic.time.CurrentTimeManager;
+import org.docksidestage.bizfw.basic.time.TestTimeManager;
 import org.docksidestage.unit.PlainTestCase;
 
 // done mayukorin unusedのimport by jflute (2024/08/23)
@@ -179,7 +181,7 @@ public class Step05ClassTest extends PlainTestCase {
         Ticket oneDayPassport = booth.buyOneDayPassport(10000);
         log(oneDayPassport.getDisplayPrice()); // should be same as one-day price
         log(oneDayPassport.isUsedUp()); // should be false
-        oneDayPassport.doInPark(LocalDateTime.of(2017, 11, 17, 12, 0));
+        oneDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 17, 12, 0)));
         log(oneDayPassport.isUsedUp()); // should be true
         // false, true になった
     }
@@ -225,10 +227,10 @@ public class Step05ClassTest extends PlainTestCase {
         Ticket twoDayPassport = buyResult.getTicket();
         // 1日目にインする
         log(twoDayPassport.isUsedUp()); // should be false
-        twoDayPassport.doInPark(LocalDateTime.of(2017, 11, 17, 12, 0));
+        twoDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 17, 12, 0)));
         log(twoDayPassport.isUsedUp()); // should be false
         // 2日目にインする
-        twoDayPassport.doInPark(LocalDateTime.of(2017, 11, 18, 12, 0));
+        twoDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 18, 12, 0)));
         log(twoDayPassport.isUsedUp()); // should be true
         // false, false, true になった
     }
@@ -271,24 +273,24 @@ public class Step05ClassTest extends PlainTestCase {
         Ticket fourDayPassport = buyResult.getTicket();
         // 1日目にインする
         log(fourDayPassport.isUsedUp()); // should be false
-        fourDayPassport.doInPark(LocalDateTime.of(2017, 11, 17, 12, 0));
+        fourDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 17, 12, 0)));
         log(fourDayPassport.isUsedUp()); // should be false
         // 2日目にインする
-        fourDayPassport.doInPark(LocalDateTime.of(2017, 11, 18, 12, 0));
+        fourDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 18, 12, 0)));
         log(fourDayPassport.isUsedUp()); // should be false
         // 3日目にインする
-        fourDayPassport.doInPark(LocalDateTime.of(2017, 11, 19, 12, 0));
+        fourDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 19, 12, 0)));
         log(fourDayPassport.isUsedUp()); // should be false
         // 4日目
         // 21:00にインしようとする
         LocalDateTime ninePMTime = LocalDateTime.of(2017, 11, 17, 21, 0);
         try {
-            fourDayPassport.doInPark(ninePMTime);
+            fourDayPassport.doInPark(new TestTimeManager(ninePMTime));
         } catch (IllegalStateException continued) {
             log("Failed to in park: current hour=" + ninePMTime.getHour(), continued);
             log(fourDayPassport.isUsedUp()); // should be false
             // 開園している正午にイン
-            fourDayPassport.doInPark(LocalDateTime.of(2017, 11, 20, 12, 0));
+            fourDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 20, 12, 0)));
             log(fourDayPassport.isUsedUp()); // should be true
             // should be と同じになった。
         }
@@ -305,19 +307,19 @@ public class Step05ClassTest extends PlainTestCase {
         Ticket nightOnlyTwoDayPassport = buyResult.getTicket();
         // 1日目にインする
         log(nightOnlyTwoDayPassport.isUsedUp()); // should be false
-        nightOnlyTwoDayPassport.doInPark(LocalDateTime.of(2017, 11, 17, 18, 0));
+        nightOnlyTwoDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 17, 18, 0)));
         log(nightOnlyTwoDayPassport.isUsedUp()); // should be false
 
         // 2日目にインする
         // 正午にインしようとする
         LocalDateTime lunchDateTime = LocalDateTime.of(2017, 11, 18, 12, 0);
         try {
-            nightOnlyTwoDayPassport.doInPark(lunchDateTime);
+            nightOnlyTwoDayPassport.doInPark(new TestTimeManager(lunchDateTime));
         } catch (IllegalStateException continued) {
             log("Failed to in park: current hour=" + lunchDateTime.getHour(), continued);
             log(nightOnlyTwoDayPassport.isUsedUp()); // should be false
             // 18:00にイン
-            nightOnlyTwoDayPassport.doInPark(LocalDateTime.of(2017, 11, 18, 18, 0));
+            nightOnlyTwoDayPassport.doInPark(new TestTimeManager(LocalDateTime.of(2017, 11, 18, 18, 0)));
             log(nightOnlyTwoDayPassport.isUsedUp()); // should be true
         }
         // should be と同じになった。
@@ -338,5 +340,15 @@ public class Step05ClassTest extends PlainTestCase {
     public void test_class_moreFix_yourSuperComments() {
         // your confirmation code here
         // ab9e9ac で追加してみた
+    }
+
+    /**
+     * 現在時刻でdoInParkできるか確認する
+     */
+    public void test_current_date_time_buy_ticket() {
+        // your confirmation code here
+        TicketBooth booth = new TicketBooth();
+        Ticket oneDayPassport = booth.buyOneDayPassport(10000);
+        oneDayPassport.doInPark(new CurrentTimeManager());
     }
 }
