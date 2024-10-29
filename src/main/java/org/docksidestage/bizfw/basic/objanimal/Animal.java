@@ -22,10 +22,11 @@ import org.docksidestage.bizfw.basic.objanimal.barking.BarkedSound;
 import org.docksidestage.bizfw.basic.objanimal.barking.BarkingProcess;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 
-// TODO mayukorin そういえば、既存クラスにも関わったらauthorをお願いします〜 by jflute (2024/10/29)
+// TODO done mayukorin そういえば、既存クラスにも関わったらauthorをお願いします〜 by jflute (2024/10/29)
 /**
  * The object for animal(動物).
  * @author jflute
+ * @author mayukorin
  */
 public abstract class Animal implements Loudable {
 
@@ -54,11 +55,11 @@ public abstract class Animal implements Loudable {
     //                                                                               Bark
     //                                                                              ======
     public BarkedSound bark() {
-        BarkingProcess barkingProcess = getBarkingProcess();
+        BarkingProcess barkingProcess = createBarkingProcess();
         return barkingProcess.execute();
     }
 
-    // TODO mayukorin ちょっと状況違うけど、こちらの記事を参考に... by jflute (2024/10/29)
+    // TODO done mayukorin ちょっと状況違うけど、こちらの記事を参考に... by jflute (2024/10/29)
     //
     // // 単純な話、getであんまり検索したくない
     // https://jflute.hatenadiary.jp/entry/20151020/stopgetselect
@@ -69,7 +70,7 @@ public abstract class Animal implements Loudable {
     //
     // 一方で、getBarkWord()はgetで良いでしょう。本当に単に取得してるだけなので。
     //
-    protected BarkingProcess getBarkingProcess() {
+    protected BarkingProcess createBarkingProcess() {
         return new BarkingProcess(this);
     }
 

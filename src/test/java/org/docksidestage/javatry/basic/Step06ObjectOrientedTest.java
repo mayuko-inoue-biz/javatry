@@ -589,15 +589,17 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // ただ、これはstep8をやってからチャレンジした方がわかりやすいかも。
     }
 
-    // TODO mayukorin [読み物課題] プログラマーに求められるデザイン脳 by jflute (2024/10/29)
+    // TODO done mayukorin [読み物課題] プログラマーに求められるデザイン脳 by jflute (2024/10/29)
     // https://jflute.hatenadiary.jp/entry/20170623/desigraming
     
-    // TODO mayukorin [読み物課題] 実装方法よりも機能概念を by jflute (2024/10/29)
+    // TODO done mayukorin [読み物課題] 実装方法よりも機能概念を by jflute (2024/10/29)
     // https://jflute.hatenadiary.jp/entry/20110531/1306825539
     // ↑でリンクされている...
     // o 知識を得るためのプロセスを
     // o 答えよりも答えを導くプロセスを
     // の記事もぜひ(^^
+    // 読みました！ありがとうございます！答えを導くためのプロセスの記事が特に印象に残りました！
+    // 「分からなくなったら先輩にすぐ聞く」ことを心がけているのですが、そのときに答えだけ注目するのではなく、答えを導くまでの先輩の考え方にも注目したいと思いました！
     
     /**
      * Is Zombie correct as sub-class of Animal? Analyze it in thirty seconds. (thinking only) <br>

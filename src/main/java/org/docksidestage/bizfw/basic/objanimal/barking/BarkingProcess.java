@@ -19,8 +19,8 @@ public class BarkingProcess {
     //                                                                           =========
     // done mayukorin protectedの方が適切かなと (サブクラスは使っても良いということで) by jflute (2024/10/28)
     // (現状だと、ZombieBarkingProcessとBarkingProcessがパッケージ分かれるとまたコンパイルエラー)
-    // TODO mayukorin そういえば、ここもfinalが欲しいところですね by jflute (2024/10/29)
-    protected Animal animal;
+    // TODO done mayukorin そういえば、ここもfinalが欲しいところですね by jflute (2024/10/29)
+    protected final Animal animal;
 
     // ===================================================================================
     //                                                                         Constructor
