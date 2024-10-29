@@ -22,6 +22,7 @@ import org.docksidestage.bizfw.basic.objanimal.barking.BarkedSound;
 import org.docksidestage.bizfw.basic.objanimal.barking.BarkingProcess;
 import org.docksidestage.bizfw.basic.objanimal.loud.Loudable;
 
+// TODO mayukorin そういえば、既存クラスにも関わったらauthorをお願いします〜 by jflute (2024/10/29)
 /**
  * The object for animal(動物).
  * @author jflute
@@ -57,6 +58,17 @@ public abstract class Animal implements Loudable {
         return barkingProcess.execute();
     }
 
+    // TODO mayukorin ちょっと状況違うけど、こちらの記事を参考に... by jflute (2024/10/29)
+    //
+    // // 単純な話、getであんまり検索したくない
+    // https://jflute.hatenadiary.jp/entry/20151020/stopgetselect
+    //
+    // インスタンスを生成するメソッドは、createとかnewとか使うことが多いです。
+    // // フレームワークでの例: LastaFilter.java
+    // https://github.com/lastaflute/lastaflute/blob/0912a7e03ee4054c965f9934a5ae0c3a7c2e4434/src/main/java/org/lastaflute/web/LastaFilter.java#L65
+    //
+    // 一方で、getBarkWord()はgetで良いでしょう。本当に単に取得してるだけなので。
+    //
     protected BarkingProcess getBarkingProcess() {
         return new BarkingProcess(this);
     }
@@ -91,7 +103,7 @@ public abstract class Animal implements Loudable {
     // ===================================================================================
     //                                                  Access Control to protected method
     //                                                                            ========
-    // TODO done mayukorin [いいね] 発想自体はとてもすごい！ by jflute (2024/10/28)
+    // done mayukorin [いいね] 発想自体はとてもすごい！ by jflute (2024/10/28)
     /**
      * クラスによりアクセス制御をして getBarkWord() を実行するメソッド.
      * @param CallerClassName このメソッドの呼び出し元クラス名 (NotNull)

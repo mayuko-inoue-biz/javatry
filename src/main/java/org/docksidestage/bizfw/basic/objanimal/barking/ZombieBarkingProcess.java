@@ -2,7 +2,7 @@ package org.docksidestage.bizfw.basic.objanimal.barking;
 
 import org.docksidestage.bizfw.basic.objanimal.Zombie;
 
-// TODO done mayukorin ↑importのunused by jflute (2024/10/28)
+// done mayukorin ↑importのunused by jflute (2024/10/28)
 /**
  * @author mayukorin
  */
@@ -11,6 +11,7 @@ public class ZombieBarkingProcess extends BarkingProcess {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
+    // TODO mayukorin finalを付けちゃって良いです〜 by jflute (2024/10/29)
     protected Zombie zombie;
 
     // ===================================================================================
@@ -27,8 +28,8 @@ public class ZombieBarkingProcess extends BarkingProcess {
     @Override
     protected void breatheIn() {
         super.breatheIn();
-        // TODO done mayukorin [いいね] コメントは素晴らしい、どうしようもないときはコメントを by jflute (2024/10/28)
-        // TODO done mayukorin 一方で、ConstructorでZombieのまま保持してもいいかと by jflute (2024/10/28)
+        // done mayukorin [いいね] コメントは素晴らしい、どうしようもないときはコメントを by jflute (2024/10/28)
+        // done mayukorin 一方で、ConstructorでZombieのまま保持してもいいかと by jflute (2024/10/28)
         zombie.getZombieDiary().countBreatheIn();
     }
 }

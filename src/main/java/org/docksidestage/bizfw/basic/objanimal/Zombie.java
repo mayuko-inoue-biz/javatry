@@ -56,7 +56,7 @@ public class Zombie extends Animal {
     // ===================================================================================
     //                                                                               Bark
     //                                                                              ======
-    // TODO done mayukorin bark()まるごとだと、ちょっとオーバーライドが広いので... by jflute (2024/10/28)
+    // done mayukorin bark()まるごとだと、ちょっとオーバーライドが広いので... by jflute (2024/10/28)
     // 差し替えたいのはnewする対象だけで、execute()を呼び出すとかは共通的なので一箇所にしたい。
     @Override
     protected BarkingProcess getBarkingProcess() {

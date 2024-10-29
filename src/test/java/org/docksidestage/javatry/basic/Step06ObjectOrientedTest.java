@@ -588,6 +588,16 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // ただ、これはstep8をやってからチャレンジした方がわかりやすいかも。
     }
 
+    // TODO mayukorin [読み物課題] プログラマーに求められるデザイン脳 by jflute (2024/10/29)
+    // https://jflute.hatenadiary.jp/entry/20170623/desigraming
+    
+    // TODO mayukorin [読み物課題] 実装方法よりも機能概念を by jflute (2024/10/29)
+    // https://jflute.hatenadiary.jp/entry/20110531/1306825539
+    // ↑でリンクされている...
+    // o 知識を得るためのプロセスを
+    // o 答えよりも答えを導くプロセスを
+    // の記事もぜひ(^^
+    
     /**
      * Is Zombie correct as sub-class of Animal? Analyze it in thirty seconds. (thinking only) <br>
      * (ゾンビは動物クラスのサブクラスとして適切でしょうか？30秒だけ考えてみましょう (考えるだけでOK))
