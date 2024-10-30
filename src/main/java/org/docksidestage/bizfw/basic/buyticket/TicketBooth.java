@@ -17,6 +17,8 @@ package org.docksidestage.bizfw.basic.buyticket;
 
 import java.util.*;
 
+import org.docksidestage.bizfw.basic.time.CurrentTimeManager;
+
 // done mayukorin せっかくの作品なので自分の名前を by jflute (2024/08/30)
 // done mayukorin [読み物課題] 行動経済学でした by jflute (2024/08/30)
 // https://twitter.com/jflute/status/840176230414483460
@@ -44,7 +46,7 @@ public class TicketBooth {
     // done mayukorin せっかくのコメントなので、JavaDoc形式で書いて ticketStock に関連付けてみましょう by jflute (2024/08/30)
     // /** */ 形式で書いたコメントはJavaDocとして認識され、直後の変数やメソッドに紐づくようになります。
     /** チケット種別(key)ごとのチケットの在庫(value)、valueのListのサイズが0になったらその種別は売り切れ (NotNull) */
-    private final Map<TicketType, List<Ticket>> ticketStock;
+    protected final Map<TicketType, List<Ticket>> ticketStock;
     // Map の Key の指定間違いを防止するために、key に Enum を用いることにした。
     // Price や、Quantity、DAY も全て Enum に集約した方が管理しやすいと思ったのでそうした。
     // [ふぉろー] EnumMapのHashMapとのパフォーマンスの違いについて説明した by jflute (2024/08/30)
@@ -95,7 +97,7 @@ public class TicketBooth {
     }
 
     protected Ticket createTicket(TicketType ticketType) {
-        return new Ticket(ticketType);
+        return new Ticket(ticketType, new CurrentTimeManager());
     }
 
     // ===================================================================================

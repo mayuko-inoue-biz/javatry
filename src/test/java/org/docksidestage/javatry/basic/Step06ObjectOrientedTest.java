@@ -16,7 +16,6 @@
 package org.docksidestage.javatry.basic;
 
 import org.docksidestage.bizfw.basic.buyticket.*;
-import org.docksidestage.bizfw.basic.buyticket.test.TestTicketBooth;
 import org.docksidestage.bizfw.basic.objanimal.*;
 import org.docksidestage.bizfw.basic.objanimal.barking.BarkedSound;
 import org.docksidestage.bizfw.basic.objanimal.jumper.HighJumper;
@@ -136,7 +135,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [ticket booth info]
         //
-        TicketBooth booth = new TestTicketBooth();
+        TicketBooth booth = new TicketBooth();
 
         // *booth has these properties:
         //int oneDayPrice = 7400;

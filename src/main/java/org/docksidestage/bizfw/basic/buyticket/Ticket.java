@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
-import org.docksidestage.bizfw.basic.time.CurrentTimeManager;
 import org.docksidestage.bizfw.basic.time.TimeManager;
 
 // done mayukorin せっかくの作品なので自分の名前を by jflute (2024/08/23)
@@ -64,6 +63,10 @@ public class Ticket {
     /** チケット最新使用日 (NullAllowed：チケットを使ってInParkするまでnull) */
     private LocalDate lastUsedDate;
 
+    /** inPark時に時刻の取得に用いる (NotNull) */
+    // TestTicketBooth のcreateTicketで一瞬Nullを代入するが、その直後setTestTimeManagerToTestTicketsInStockでTimeManagerを代入する
+    protected TimeManager timeManager;
+
     // [インスタンス変数周りの思い出]
     // done m.inoue Ticket が TicketType の initialQuantity, Price, initialAvailableDays にアクセスできる必要はない気がする (2024/09/06)
     // [ふぉろー] 確かにその通りだけど、見えちゃっても特に問題ない程度ではある。内部構造ってほどのものでもないし。
@@ -78,7 +81,7 @@ public class Ticket {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public Ticket(TicketType ticketType) {
+    public Ticket(TicketType ticketType, TimeManager timeManager) {
         // Ticket の使用可能日数、値段は
         // 初期化時のticketType.getInitialAvailableDays()、ticketType.getPrice()から更新される可能性がある.
         // Ticketを使えば、Ticketの使用可能日数はticketType.getInitialAvailableDays()から減っていく
@@ -90,6 +93,7 @@ public class Ticket {
         this.inParkBeginTime = ticketType.getInParkBeginTime();
         this.inParkEndTime = ticketType.getInParkEndTime();
         this.remainingAvailableDays = ticketType.getInitialAvailableDays();
+        this.timeManager = timeManager;
     }
 
     // ===================================================================================
@@ -131,6 +135,11 @@ public class Ticket {
     // ・テストではTestTicketを使うようにした
     // ただ、このままだとtestでinPark()ごとに時刻が指定できなくなっているので今度はそれを修正する必要あり
     // TODO done mayukorin [いいね] ちゃんと残課題の分析も言葉にできているのが素晴らしい by jflute (2024/10/29)
+    //
+    // managerをTestにフィールドとして定義し、test時は外で生成したmanagerをTestTicketに代入+日付変えたいときは、外でmanagerの日付を変更することにより、
+    // testでは、指定した時刻でInParkできるように & inPark() 自体は main コードと変わらないようにした
+    // ただ、今思ったけど、外で生成したmanagerをTestTicketに代入するのではなく、testTicket内で生成したmanagerを外で取得して、外からそのmanagerの時刻を変更するのでも良かった気がする
+    //
     /**
      * Ticketを使ってInParkするためのメソッド
      * @throws IllegalStateException チケットを使用できない時間帯の場合、チケットを既に使い切ってしまっていた場合、初回以外で連日でInParkしていない場合
@@ -138,16 +147,11 @@ public class Ticket {
     public void doInPark() {
         // done mayukorin せっかくなので、IntelliJのショートカット使って、privateメソッド化いくつかやってみましょう by jflute (2024/09/20)
         // done mayukorin [いいね] timeやdateの必要性を加味して、引数をデザインしてるのGood by jflute (2024/09/24)
-        TimeManager timeManager = createTimeManager();
         LocalDateTime currentDateTime = timeManager.getCurrentDateTime();
         assertCanInParkTime(currentDateTime.toLocalTime());
         assertNotUsedUpTicket();
         assertDailyInPark(currentDateTime.toLocalDate());
         useTicketForOneDay(currentDateTime.toLocalDate());
-    }
-
-    protected TimeManager createTimeManager() {
-        return new CurrentTimeManager();
     }
 
     private void assertCanInParkTime(LocalTime currentTime) {

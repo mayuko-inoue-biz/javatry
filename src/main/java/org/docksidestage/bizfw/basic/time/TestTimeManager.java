@@ -12,7 +12,7 @@ public class TestTimeManager implements TimeManager {
     //                                                                           Attribute
     //                                                                           =========
     /** 指定した LocalDateTime (NotNull) */
-    private final LocalDateTime specifiedLocalDateTime;
+    private LocalDateTime specifiedLocalDateTime;
 
     // ===================================================================================
     //                                                                         Constructor
@@ -25,11 +25,22 @@ public class TestTimeManager implements TimeManager {
     }
 
     // ===================================================================================
+    //                                                                            Accessor
+    //                                                                            ========
+    /**
+     * 指定したい LocalDateTime を変えるためのメソッド
+     * @param specifiedLocalDateTime 指定したいLocalDateTime（NotNull）
+     */
+    public void setSpecifiedLocalDateTime(LocalDateTime specifiedLocalDateTime) {
+        this.specifiedLocalDateTime = specifiedLocalDateTime;
+    }
+
+    // ===================================================================================
     //                                                                       localDateTime
     //                                                                         ===========
     /**
      * 指定した LocalDateTime を取得するためのメソッド
-     * @return コンストラクタで指定した LocalDateTime（NotNull）
+     * @return LocalDateTime（NotNull）
      */
     @Override
     public LocalDateTime getCurrentDateTime() {
