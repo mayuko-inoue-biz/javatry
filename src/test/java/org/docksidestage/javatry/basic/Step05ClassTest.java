@@ -235,7 +235,7 @@ public class Step05ClassTest extends PlainTestCase {
         log(twoDayPassport.isUsedUp()); // should be false
         // 2日目にインする
         testTimeManager.setSpecifiedLocalDateTime(LocalDateTime.of(2017, 11, 18, 12, 0));
-        twoDayPassport.doInPark(); // 現在testでinPark()ごとに時刻が指定できなくなっているのでException発生する
+        twoDayPassport.doInPark();
         log(twoDayPassport.isUsedUp()); // should be true
         // false, false, true になった
     }
@@ -283,7 +283,7 @@ public class Step05ClassTest extends PlainTestCase {
         log(fourDayPassport.isUsedUp()); // should be false
         // 2日目にインする
         testTimeManager.setSpecifiedLocalDateTime(LocalDateTime.of(2017, 11, 18, 12, 0));
-        fourDayPassport.doInPark(); // 現在testでinPark()ごとに時刻が指定できなくなっているのでException発生する
+        fourDayPassport.doInPark();
         log(fourDayPassport.isUsedUp()); // should be false
         // 3日目にインする
         testTimeManager.setSpecifiedLocalDateTime(LocalDateTime.of(2017, 11, 19, 12, 0));
@@ -332,7 +332,7 @@ public class Step05ClassTest extends PlainTestCase {
             log(nightOnlyTwoDayPassport.isUsedUp()); // should be false
             // 18:00にイン
             testTimeManager.setSpecifiedLocalDateTime(LocalDateTime.of(2017, 11, 18, 18, 0));
-            nightOnlyTwoDayPassport.doInPark(); // 現在testでinPark()ごとに時刻が指定できなくなっているのでException発生する
+            nightOnlyTwoDayPassport.doInPark();
             log(nightOnlyTwoDayPassport.isUsedUp()); // should be true
         }
         // should be と同じになった。
