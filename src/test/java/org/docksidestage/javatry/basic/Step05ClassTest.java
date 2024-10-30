@@ -44,9 +44,9 @@ public class Step05ClassTest extends PlainTestCase {
      * (メソッド終了時の変数 sea の中身は？)
      */
     public void test_class_howToUse_basic() {
-        // TODO mayukorin 現在日時を細工するテストケースだけでTestTicketBoothを使うで良いです by jflute (2024/10/29)
+        // TODO done mayukorin 現在日時を細工するテストケースだけでTestTicketBoothを使うで良いです by jflute (2024/10/29)
         // 現在日時を気にしないテストケースでは、できる限りplainなTicketBoothを使った方が安心感ありますし。
-        TicketBooth booth = new TestTicketBooth();
+        TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(7400);
         int sea = booth.getOneDayPassportQuantity();
         log(sea); // your answer? => 9
@@ -56,7 +56,7 @@ public class Step05ClassTest extends PlainTestCase {
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_class_howToUse_overpay() {
-        TicketBooth booth = new TestTicketBooth();
+        TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(10000);
         Integer sea = booth.getSalesProceeds();
         log(sea); // your answer? => 10000
@@ -68,7 +68,7 @@ public class Step05ClassTest extends PlainTestCase {
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_class_howToUse_nosales() {
-        TicketBooth booth = new TestTicketBooth();
+        TicketBooth booth = new TicketBooth();
         Integer sea = booth.getSalesProceeds();
         log(sea); // your answer? => null
         // salesProceeds の初期値は null & Integer 型の sea に代入してもエラーにはならないため。
@@ -87,7 +87,7 @@ public class Step05ClassTest extends PlainTestCase {
     }
 
     private Integer doTest_class_ticket_wrongQuantity() {
-        TicketBooth booth = new TestTicketBooth();
+        TicketBooth booth = new TicketBooth();
         int handedMoney = 7399;
         try {
             booth.buyOneDayPassport(handedMoney);
@@ -118,7 +118,7 @@ public class Step05ClassTest extends PlainTestCase {
      * (受け取ったお金の分だけ売上が増えていく問題をクラスを修正して解決しましょう (以前のエクササイズのanswerの修正を忘れずに))
      */
     public void test_class_letsFix_salesProceedsIncrease() {
-        TicketBooth booth = new TestTicketBooth();
+        TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(10000);
         Integer sea = booth.getSalesProceeds();
         log(sea); // should be same as one-day price, visual check here
@@ -131,7 +131,7 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_letsFix_makeMethod_twoday() {
         // uncomment after making the method
-        TicketBooth booth = new TestTicketBooth();
+        TicketBooth booth = new TicketBooth();
         int money = 14000;
         // done mayukorin "(booth.buyTwoDayPassport(money))" の括弧、気持ちはわかるけど、やってる人いないので... by jflute (2024/08/16)
         // 一方で、文法上消してもいい括弧でも、人間の誤解を防ぐために明示的に括弧を付けることはよくなるので、それはそれで良い
@@ -155,7 +155,7 @@ public class Step05ClassTest extends PlainTestCase {
      * (OneDayとTwoDayで冗長なロジックがあったら、クラス内のprivateメソッドなどで再利用しましょう (修正前と修正後の実行結果を確認))
      */
     public void test_class_letsFix_refactor_recycle() {
-        TicketBooth booth = new TestTicketBooth();
+        TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(10000);
         log(booth.getOneDayPassportQuantity(), booth.getSalesProceeds()); // should be same as before-fix
         // 修正前：9, 7400
@@ -193,7 +193,7 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_return_whole() {
         // uncomment after modifying the method
-        TicketBooth booth = new TestTicketBooth();
+        TicketBooth booth = new TicketBooth();
         int handedMoney = 20000;
         TicketBuyResult buyResult = booth.buyTwoDayPassport(handedMoney);
         Ticket twoDayPassport = buyResult.getTicket();
@@ -242,7 +242,7 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_whetherTicketType() {
         // uncomment when you implement this exercise
-        TicketBooth booth = new TestTicketBooth();
+        TicketBooth booth = new TicketBooth();
         Ticket oneDayPassport = booth.buyOneDayPassport(10000);
         showTicketIfNeeds(oneDayPassport); // should be other
         TicketBuyResult buyResult = booth.buyTwoDayPassport(20000);

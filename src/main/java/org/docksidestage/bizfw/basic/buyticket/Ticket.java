@@ -130,7 +130,7 @@ public class Ticket {
     // ・createするmanagerを変えるために、Ticketを継承したTestTicketを作成。
     // ・テストではTestTicketを使うようにした
     // ただ、このままだとtestでinPark()ごとに時刻が指定できなくなっているので今度はそれを修正する必要あり
-    // TODO mayukorin [いいね] ちゃんと残課題の分析も言葉にできているのが素晴らしい by jflute (2024/10/29)
+    // TODO done mayukorin [いいね] ちゃんと残課題の分析も言葉にできているのが素晴らしい by jflute (2024/10/29)
     /**
      * Ticketを使ってInParkするためのメソッド
      * @throws IllegalStateException チケットを使用できない時間帯の場合、チケットを既に使い切ってしまっていた場合、初回以外で連日でInParkしていない場合
