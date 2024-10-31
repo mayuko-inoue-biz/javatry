@@ -15,6 +15,9 @@
  */
 package org.docksidestage.javatry.basic;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.docksidestage.bizfw.basic.supercar.SupercarClient;
 import org.docksidestage.javatry.basic.st7.St7BasicExceptionThrower;
 import org.docksidestage.javatry.basic.st7.St7ConstructorChallengeException;
@@ -147,7 +150,7 @@ public class Step07ExceptionTest extends PlainTestCase {
         } catch (NullPointerException e) {
             log(e);
         }
-        // your answer? => 
+        // your answer? => land, 145行目(land.toLowerCase())
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -161,7 +164,7 @@ public class Step07ExceptionTest extends PlainTestCase {
         } catch (NullPointerException e) {
             log(e);
         }
-        // your answer? => 
+        // your answer? => piari, 159行目(piari.length())
     }
 
     /**
@@ -173,11 +176,14 @@ public class Step07ExceptionTest extends PlainTestCase {
             String sea = "mystic";
             String land = !!!sea.equals("mystic") ? null : "oneman";
             String piari = !!!sea.equals("mystic") ? "plaza" : null;
-            int sum = land.length() + piari.length();
+            int landLength = land.length();
+            int piariLength = piari.length();
+            int sum = landLength + piariLength;
             log(sum);
         } catch (NullPointerException e) {
             log(e);
         }
+        // nullPointerExceptionになり得るメソッドを個別に1行ずつ実行するようにした
     }
 
     // ===================================================================================
@@ -188,6 +194,17 @@ public class Step07ExceptionTest extends PlainTestCase {
      * (new java.io.File(".") の canonical path を取得してログに表示、I/Oエラーの時はメッセージとスタックトレースを代わりに表示)
      */
     public void test_exception_checkedException_basic() {
+        try {
+            File file = new File(".");
+            String canonicalPath = file.getCanonicalPath();
+            log(canonicalPath);
+        } catch (IOException | SecurityException e) {
+            log(e);
+        }
+        // ドキュメント（以下）をみたところ、getCanonicalPath() は、IOExceptionだけではなくSecurityExceptionも投げるようなので、どちらもキャッチするようにした
+        // https://docs.oracle.com/javase/jp/8/docs/api/java/io/File.html#getCanonicalPath--
+        // しかし、getCanonicalPath()でthrowするのはIOExceptionのみ
+        // getCanonicalPath()でthrowしたいExceptionとそうでないExceptionの違いは何なのか、後で考えてみたい
     }
 
     // ===================================================================================
