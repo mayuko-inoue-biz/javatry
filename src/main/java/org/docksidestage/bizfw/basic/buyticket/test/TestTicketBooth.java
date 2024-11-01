@@ -5,6 +5,7 @@ import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketType;
 import org.docksidestage.bizfw.basic.time.TestTimeManager;
 
+// TODO mayukorin javadoc by jflute (2024/11/01)
 public class TestTicketBooth extends TicketBooth {
 
     // ===================================================================================
@@ -17,6 +18,9 @@ public class TestTicketBooth extends TicketBooth {
 
     @Override
     protected Ticket createTicket(TicketType ticketType) {
+        // TODO mayukorin [いいね] コメントはとても素晴らしい by jflute (2024/11/01)
+        // TODO mayukorin 後でsetterではなく、もうここでTestTimeManagerが入れられたら世話ないのに by jflute (2024/11/01)
+        // hint: もはやマッチ棒パズル (このクラス内の修正だけでいける!?)
         return new TestTicket(ticketType, null); // 後ほどsetTestTimeManagerToTestTicketsInStockでtimeManagerを代入するのでここでは一旦nullを入れる
     }
 

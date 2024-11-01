@@ -63,6 +63,7 @@ public class Ticket {
     /** チケット最新使用日 (NullAllowed：チケットを使ってInParkするまでnull) */
     private LocalDate lastUsedDate;
 
+    // TODO mayukorin final付けられるかなと。定義位置も固定の属性にカテゴライズしてもいいかなと by jflute (2024/11/01)
     /** inPark時に時刻の取得に用いる (NotNull) */
     // TestTicketBooth のcreateTicketで一瞬Nullを代入するが、その直後setTestTimeManagerToTestTicketsInStockでTimeManagerを代入する
     protected TimeManager timeManager;
@@ -108,7 +109,7 @@ public class Ticket {
     // switchCurrentDate(() -> {
     //     return LocalDateTime.of(2000, 1, 1, 1, 1);
     // });
-    // TODO m.inoue 以下のようにして、テストでは指定した時刻をdoInPark内で使うようにしてそれ以外では現在時刻を使うようにした (2024/10/29)
+    // done m.inoue 以下のようにして、テストでは指定した時刻をdoInPark内で使うようにしてそれ以外では現在時刻を使うようにした (2024/10/29)
     // 現在時刻を返すCurrentTimeManagerと指定した時刻を返すTestTimeManagerを作成
     // doInPark呼び出し側でそのクラスを使い分けて,doInParkの引数に指定
     // doInPark側はどちらのクラスなのか意識せず時刻を取得できる（引数は2つのクラスのインターフェースTimeManagerにしてるため）
@@ -118,7 +119,7 @@ public class Ticket {
     // 2.doInPark呼び出し側で毎回CurrentTimeManagerとTestTimeManagerを意識する必要はあるのか？
     // 毎回指定しなきゃいけないとなるとミスが起こりそう (本当はCurrentTimeManagerを指定しないといけなかったのに、TestTimeManagerを指定してた等)
     //
-    // TODO mayukorin [ふぉろー]ここまで考えてできたのは素晴らしいですね。自己分析も完璧です。 by jflute (2024/10/29)
+    // done mayukorin [ふぉろー]ここまで考えてできたのは素晴らしいですね。自己分析も完璧です。 by jflute (2024/10/29)
     // あと一方、TimeManagerの実態(インスタンス)をTicket内部で解決できたらいいわけですね。
     //
     // mainコードからすると、引数でTimeManagerを入れることなくただdoInPark()と呼び出せば勝手に現在日時も解決してくれるように。
@@ -134,7 +135,7 @@ public class Ticket {
     // ・createするmanagerを変えるために、Ticketを継承したTestTicketを作成。
     // ・テストではTestTicketを使うようにした
     // ただ、このままだとtestでinPark()ごとに時刻が指定できなくなっているので今度はそれを修正する必要あり
-    // TODO done mayukorin [いいね] ちゃんと残課題の分析も言葉にできているのが素晴らしい by jflute (2024/10/29)
+    // done mayukorin [いいね] ちゃんと残課題の分析も言葉にできているのが素晴らしい by jflute (2024/10/29)
     //
     // managerをTestにフィールドとして定義し、test時は外で生成したmanagerをTestTicketに代入+日付変えたいときは、外でmanagerの日付を変更することにより、
     // testでは、指定した時刻でInParkできるように & inPark() 自体は main コードと変わらないようにした

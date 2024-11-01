@@ -505,7 +505,13 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     private void doBuildUserResourcePath(St6OperationSystem os, String relativePath) {
         log(os.buildUserResourcePath(relativePath));
     }
-    // TODO jflute 1on1にて、再利用に関する思考のエクササイズをする予定 (2024/10/08)
+    // done jflute 1on1にて、再利用に関する思考のエクササイズをする予定 (2024/10/08)
+    //
+    // getUserDirectory() :: return "/Users/" + loginId;
+    // 再び、意味が同じだから再利用する、コードが同じでも意味が違えば修正のとき片方だけ修正とかになる。
+    // 再利用したときのメソッド名(概念の名前)が思い付かないのであれば、そこに意味が存在せずたまたま同じなだけかもしれない。
+    // 
+    // TODO jflute 1on1にて、もういっこの再利用に関する思考のエクササイズをする予定 (2024/11/01)
 
     // ===================================================================================
     //                                                                           Good Luck
