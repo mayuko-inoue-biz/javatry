@@ -1,15 +1,17 @@
-package org.docksidestage.bizfw.basic.buyticket.test;
+package org.docksidestage.javatry.basic.st6.buyticket;
 
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketType;
-import org.docksidestage.bizfw.basic.time.TestTimeManager;
-import org.docksidestage.bizfw.basic.time.TimeManager;
 
-// TODO mayukorin javadoc by jflute (2024/11/01)
+// TODO done mayukorin javadoc by jflute (2024/11/01)
+/**
+ * Ticketクラスのtest用に使うクラス
+ * @author mayukorin
+ */
 public class TestTicket extends Ticket {
 
-    // TODO mayukorin ConstructorでTestTimeManagerを受け取れるようにしたいところ by jflute (2024/11/01)
-    public TestTicket(TicketType ticketType, TimeManager timeManager) {
+    // TODO done mayukorin ConstructorでTestTimeManagerを受け取れるようにしたいところ by jflute (2024/11/01)
+    public TestTicket(TicketType ticketType, TestTimeManager timeManager) {
         super(ticketType, timeManager);
     }
 
@@ -17,7 +19,8 @@ public class TestTicket extends Ticket {
     // というのは、仮で入れて、そのまま修正するタイミングもなく放置されるとかよくあることで...
     // すると、この日付はちゃんとした決められた値なのか？仮の値なのか？後から読んだ人がわからなくなるのです。
 
-    public void setTimeManager(TestTimeManager timeManager) {
-        super.timeManager = timeManager;
-    }
+//    [思い出]
+//    public void setTimeManager(TestTimeManager timeManager) {
+//        super.timeManager = timeManager;
+//    }
 }

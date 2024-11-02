@@ -57,16 +57,17 @@ public class Ticket {
     /** アウトしていなければいけない時間、この時間にはアウト状態になっているべき (NotNull) */
     private final LocalTime inParkEndTime;
 
+    // TODO done mayukorin final付けられるかなと。定義位置も固定の属性にカテゴライズしてもいいかなと by jflute (2024/11/01)
+    /** inPark時に時刻の取得に用いる (NotNull) */
+    // [思い出]
+    // TestTicketBooth のcreateTicketで一瞬Nullを代入するが、その直後setTestTimeManagerToTestTicketsInStockでTimeManagerを代入する
+    private final TimeManager timeManager;
+
     /** チケットの残り使用可能日数 (NotNull) */
     private int remainingAvailableDays;
 
     /** チケット最新使用日 (NullAllowed：チケットを使ってInParkするまでnull) */
     private LocalDate lastUsedDate;
-
-    // TODO mayukorin final付けられるかなと。定義位置も固定の属性にカテゴライズしてもいいかなと by jflute (2024/11/01)
-    /** inPark時に時刻の取得に用いる (NotNull) */
-    // TestTicketBooth のcreateTicketで一瞬Nullを代入するが、その直後setTestTimeManagerToTestTicketsInStockでTimeManagerを代入する
-    protected TimeManager timeManager;
 
     // [インスタンス変数周りの思い出]
     // done m.inoue Ticket が TicketType の initialQuantity, Price, initialAvailableDays にアクセスできる必要はない気がする (2024/09/06)

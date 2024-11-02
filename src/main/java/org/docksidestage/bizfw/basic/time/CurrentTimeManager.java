@@ -2,9 +2,7 @@ package org.docksidestage.bizfw.basic.time;
 
 import java.time.LocalDateTime;
 
-import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
-
-// TODO mayukorin import文 by jflute (2024/11/01)
+// TODO done mayukorin import文 by jflute (2024/11/01)
 /**
  * 現在の LocalDateTime を返すクラス
  * @author mayukorin
