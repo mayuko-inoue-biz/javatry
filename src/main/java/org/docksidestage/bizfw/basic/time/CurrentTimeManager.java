@@ -2,7 +2,7 @@ package org.docksidestage.bizfw.basic.time;
 
 import java.time.LocalDateTime;
 
-// TODO done mayukorin import文 by jflute (2024/11/01)
+// done mayukorin import文 by jflute (2024/11/01)
 /**
  * 現在の LocalDateTime を返すクラス
  * @author mayukorin

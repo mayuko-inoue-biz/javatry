@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import org.docksidestage.bizfw.basic.time.TimeManager;
 
-// TODO done mayukorin src/main/javaは本番リリースするものだけにして、test用はsrc/test/javaに置きたい by jflute (2024/11/01)
+// done mayukorin src/main/javaは本番リリースするものだけにして、test用はsrc/test/javaに置きたい by jflute (2024/11/01)
 // basic/buyticketパッケージを作ってもいいし...st6/buyticketパッケージを作ってもいいし...
 /**
  * 指定した LocalDateTime を返すクラス
@@ -31,8 +31,10 @@ public class TestTimeManager implements TimeManager {
     // ===================================================================================
     //                                                                            Switcher
     //                                                                            ========
-    // TODO done mayukorin "途中でまた変えられる" みたいなニュアンスが一言あるとわかりやすいかも by jflute (2024/11/01)
-    // TODO done mayukorin switchCurrentDateTime()とか、メソッド名にニュアンスを入れても良いかも by jflute (2024/11/01)
+    // done mayukorin "途中でまた変えられる" みたいなニュアンスが一言あるとわかりやすいかも by jflute (2024/11/01)
+    // done mayukorin switchCurrentDateTime()とか、メソッド名にニュアンスを入れても良いかも by jflute (2024/11/01)
+    // TODO mayukorin テスト専用のクラスでもあるので、もうpublicにしちゃっても別に良いかなってのはありますね by jflute (2024/11/06)
+    // (protectedでpackageスコープアクセスだとわかりづらさが若干あるので、無理に隠蔽しなくてもと)
     /**
      * 指定したい LocalDateTime を変えるためのメソッド
      * @param specifiedLocalDateTime 指定したいLocalDateTime（NotNull）
@@ -41,7 +43,7 @@ public class TestTimeManager implements TimeManager {
         this.specifiedLocalDateTime = specifiedLocalDateTime;
     }
 
-    // TODO done mayukorin localDateTimeってタグコメントがザクっと過ぎるので...現在日時とかでも by jflute (2024/11/01)
+    // done mayukorin localDateTimeってタグコメントがザクっと過ぎるので...現在日時とかでも by jflute (2024/11/01)
     // ===================================================================================
     //                                                                              現在日時
     //                                                                         ===========

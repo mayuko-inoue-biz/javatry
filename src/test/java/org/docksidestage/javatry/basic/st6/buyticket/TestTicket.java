@@ -3,14 +3,14 @@ package org.docksidestage.javatry.basic.st6.buyticket;
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketType;
 
-// TODO done mayukorin javadoc by jflute (2024/11/01)
+// done mayukorin javadoc by jflute (2024/11/01)
 /**
  * Ticketクラスのtest用に使うクラス
  * @author mayukorin
  */
 public class TestTicket extends Ticket {
 
-    // TODO done mayukorin ConstructorでTestTimeManagerを受け取れるようにしたいところ by jflute (2024/11/01)
+    // done mayukorin ConstructorでTestTimeManagerを受け取れるようにしたいところ by jflute (2024/11/01)
     public TestTicket(TicketType ticketType, TestTimeManager timeManager) {
         super(ticketType, timeManager);
     }
