@@ -22,11 +22,21 @@ public class TestTicketBooth extends TicketBooth {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
+    // TODO mayukorin switchメソッドがpublicで、1テスト内で複数回switchさせられることが前提なのであれば... by jflute (2024/11/07)
+    // コンストラクターでは受け取らず何もせず、switchしたい人は(最初の一回も)自分でswitchしてもらうようにした方がシンプルかなと。
+    // 現状のTestTicketBoothが日付を差し替えること前提のテスト用TicketBoothになってるというのも汎用性が低いかなと。
+    // TODO mayukorin localDateTimeだとニュアンスが何もないので、後で使っているspecifiedLocalDateTimeとか by jflute (2024/11/07)
+    // あと、specifiedLocalDateTimeとspecifiedCurrentDateTimeでブレてる。
+    // (あと、LocalDateTimeのLocalはかなりクラス構造の便宜上の名前なので、変数名にあまり表現しなくても良いかなと)
     public TestTicketBooth(LocalDateTime localDateTime) {
         super();
         switchCurrentDateTime(localDateTime);
     }
 
+    // [ふぉろー] TestTicketに差し替えるのであればオーバーライドの粒度はこれでOK。
+    // 一方で、現状ではTestTicket何にもしてないので、実質本物のTicketをテストでnewしちゃっても問題なし。
+    // であれば、差し替えたいのはTimeManagerだけになるので、オーバーライドの粒度はもっと小さくても良い。
+    // (一方で一方で、TestTicket現状では何もテスト処理入ってないけど、将来入る可能性もあるから、あっても良い)
     @Override
     protected Ticket createTicket(TicketType ticketType) {
         // [思い出]
@@ -42,9 +52,13 @@ public class TestTicketBooth extends TicketBooth {
         // 外指定のtestTimeManagerをTestTicketBoothのコンストラクタから引数としてcreateTicket()に渡していく方法しか思いつかない
         // しかし、コンストラクタでは、super()より前は何も実行できないので、前者は難しそう。
         // 後者も、引数として渡すにはTicketBooth のコンストラクタも大幅に変えなきゃいけないので、やりたくない
-        // TODO mayukorin [いいね] おおぉ、もう TestTimeManager を唯一のものにして保持するようにしたのですね。 by jflute (2024/11/06)
+        // done mayukorin [いいね] おおぉ、もう TestTimeManager を唯一のものにして保持するようにしたのですね。 by jflute (2024/11/06)
         // テストなのである程度の割り切りもアリなのでこれはこれで良いと思います。
         // 細かいところは1on1でフォローします。(マッチ棒の話とか)
+        // [ふぉろー] createTicket()は、super()で呼ばれることになっているので、
+        // サブクラスの方のインスタンス変数とかで渡そうと思っても、タイミング的に間に合わない。
+        // なので、staticな唯一のTimeManagerインスタンスをあらかじめ用意しておいて、
+        // そいつに日付をswitchさせていくっていうやり方しかなさそうなのでまゆこりんさんすごい！
         return new TestTicket(ticketType, testTimeManager);
     }
 

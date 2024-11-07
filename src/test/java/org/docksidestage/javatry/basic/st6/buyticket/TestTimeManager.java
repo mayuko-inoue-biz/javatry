@@ -21,6 +21,10 @@ public class TestTimeManager implements TimeManager {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
+    // TODO mayukorin TetTicketBoothではnullを突っ込んでるので(NotNull)ではなく(NullAllowed)になる by jflute (2024/11/07)
+    // TODO mayukorin 一方で、現状はnull受け取りしか想定されていないので、そもそもコンストラクターで受け取らなくても良いのでは？ by jflute (2024/11/07)
+    // デフォルトでは、specifiedは何も初期化せず、switchされて初めて値が入るようにして...
+    // getのときspecifiedがなければ本物の現在日時を戻すようにするとか。(e.g. 本物のTimeManagerを保持して利用する)
     /**
      * @param specifiedLocalDateTime 指定したいLocalDateTime（NotNull）
      */
