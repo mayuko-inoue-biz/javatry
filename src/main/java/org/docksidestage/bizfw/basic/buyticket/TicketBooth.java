@@ -96,7 +96,8 @@ public class TicketBooth {
         return ticketStock;
     }
 
-    // TODO mayukorin IntelliJでオーバーライドしてるメソッドに移動するショートカットをぜひ by jflute (2024/11/07)
+    // TODO done mayukorin IntelliJでオーバーライドしてるメソッドに移動するショートカットをぜひ by jflute (2024/11/07)
+    // command + option + B でした！
     protected Ticket createTicket(TicketType ticketType) {
         return new Ticket(ticketType, new CurrentTimeManager());
     }

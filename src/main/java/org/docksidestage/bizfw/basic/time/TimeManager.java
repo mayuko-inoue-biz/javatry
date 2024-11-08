@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 
 // done mayukorin [いいね] javadoc素晴らしい！ by jflute (2024/10/29)
 /**
- * LocalDateTimeを取得するためのインターフェース <br>
- * テスト時は外部からLocalDateTimeを指定してそれを返すようにしたい、
+ * CurrentDateTimeを取得するためのインターフェース <br>
+ * テスト時は外部からCurrentDateTimeを指定してそれを返すようにしたい、
  * それ以外は現在時刻を返すようにしたい場合に使える <br>
  * テスト時：TestTimeManager <br>
  * それ以外：CurrentTimeManger <br>

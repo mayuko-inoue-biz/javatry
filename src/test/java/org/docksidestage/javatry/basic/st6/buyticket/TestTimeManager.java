@@ -2,49 +2,50 @@ package org.docksidestage.javatry.basic.st6.buyticket;
 
 import java.time.LocalDateTime;
 
+import org.docksidestage.bizfw.basic.time.CurrentTimeManager;
 import org.docksidestage.bizfw.basic.time.TimeManager;
 
 // done mayukorin src/main/javaは本番リリースするものだけにして、test用はsrc/test/javaに置きたい by jflute (2024/11/01)
 // basic/buyticketパッケージを作ってもいいし...st6/buyticketパッケージを作ってもいいし...
 /**
- * 指定した LocalDateTime を返すクラス
+ * 指定した CurrentDateTime を返すクラス
  * @author mayukorin
  */
 public class TestTimeManager implements TimeManager {
 
     // ===================================================================================
+    //                                                                          Definition
+    //                                                                          ==========
+    private static final CurrentTimeManager currentTimeManager = new CurrentTimeManager();
+
+    // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** 指定した LocalDateTime (NotNull) */
-    private LocalDateTime specifiedLocalDateTime;
+    /** 指定した CurrentDateTime (NullAllowed: doSwitchCurrentDateTime()が呼ばれて初めて値が入る) */
+    private LocalDateTime specifiedCurrentDateTime;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    // TODO mayukorin TetTicketBoothではnullを突っ込んでるので(NotNull)ではなく(NullAllowed)になる by jflute (2024/11/07)
-    // TODO mayukorin 一方で、現状はnull受け取りしか想定されていないので、そもそもコンストラクターで受け取らなくても良いのでは？ by jflute (2024/11/07)
+    // TODO done mayukorin TetTicketBoothではnullを突っ込んでるので(NotNull)ではなく(NullAllowed)になる by jflute (2024/11/07)
+    // TODO done mayukorin 一方で、現状はnull受け取りしか想定されていないので、そもそもコンストラクターで受け取らなくても良いのでは？ by jflute (2024/11/07)
     // デフォルトでは、specifiedは何も初期化せず、switchされて初めて値が入るようにして...
     // getのときspecifiedがなければ本物の現在日時を戻すようにするとか。(e.g. 本物のTimeManagerを保持して利用する)
-    /**
-     * @param specifiedLocalDateTime 指定したいLocalDateTime（NotNull）
-     */
-    protected TestTimeManager(LocalDateTime specifiedLocalDateTime) {
-        this.specifiedLocalDateTime = specifiedLocalDateTime;
-    }
+    protected TestTimeManager() {}
 
     // ===================================================================================
     //                                                                            Switcher
     //                                                                            ========
     // done mayukorin "途中でまた変えられる" みたいなニュアンスが一言あるとわかりやすいかも by jflute (2024/11/01)
     // done mayukorin switchCurrentDateTime()とか、メソッド名にニュアンスを入れても良いかも by jflute (2024/11/01)
-    // TODO mayukorin テスト専用のクラスでもあるので、もうpublicにしちゃっても別に良いかなってのはありますね by jflute (2024/11/06)
+    // TODO done mayukorin テスト専用のクラスでもあるので、もうpublicにしちゃっても別に良いかなってのはありますね by jflute (2024/11/06)
     // (protectedでpackageスコープアクセスだとわかりづらさが若干あるので、無理に隠蔽しなくてもと)
     /**
-     * 指定したい LocalDateTime を変えるためのメソッド
-     * @param specifiedLocalDateTime 指定したいLocalDateTime（NotNull）
+     * 指定したい CurrentDateTime を変えるためのメソッド
+     * @param specifiedCurrentDateTime 指定したいCurrentDateTime（NotNull）
      */
-    protected void doSwitchCurrentDateTime(LocalDateTime specifiedLocalDateTime) {
-        this.specifiedLocalDateTime = specifiedLocalDateTime;
+    public void doSwitchCurrentDateTime(LocalDateTime specifiedCurrentDateTime) {
+        this.specifiedCurrentDateTime = specifiedCurrentDateTime;
     }
 
     // done mayukorin localDateTimeってタグコメントがザクっと過ぎるので...現在日時とかでも by jflute (2024/11/01)
@@ -52,11 +53,14 @@ public class TestTimeManager implements TimeManager {
     //                                                                              現在日時
     //                                                                         ===========
     /**
-     * 指定した LocalDateTime を取得するためのメソッド
-     * @return LocalDateTime（NotNull）
+     * このメソッド呼び出し前にdoSwitchCurrentDateTime()でCurrentDateTimeを指定していたらそのCurrentDateTimeを返す<br>
+     * 指定していなければ、現在日時を返す
      */
     @Override
     public LocalDateTime getCurrentDateTime() {
-        return specifiedLocalDateTime;
+        if (specifiedCurrentDateTime == null) {
+            return currentTimeManager.getCurrentDateTime();
+        }
+        return specifiedCurrentDateTime;
     }
 }

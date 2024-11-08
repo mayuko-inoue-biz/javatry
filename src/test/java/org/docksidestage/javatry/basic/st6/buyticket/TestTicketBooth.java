@@ -15,22 +15,22 @@ import org.docksidestage.bizfw.basic.buyticket.TicketType;
 public class TestTicketBooth extends TicketBooth {
 
     // ===================================================================================
-    //                                                                           Attribute
-    //                                                                           =========
-    private static final TestTimeManager testTimeManager = new TestTimeManager(null);
+    //                                                                          Definition
+    //                                                                          ==========
+    private static final TestTimeManager testTimeManager = new TestTimeManager();
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    // TODO mayukorin switchメソッドがpublicで、1テスト内で複数回switchさせられることが前提なのであれば... by jflute (2024/11/07)
+    // TODO done mayukorin switchメソッドがpublicで、1テスト内で複数回switchさせられることが前提なのであれば... by jflute (2024/11/07)
     // コンストラクターでは受け取らず何もせず、switchしたい人は(最初の一回も)自分でswitchしてもらうようにした方がシンプルかなと。
     // 現状のTestTicketBoothが日付を差し替えること前提のテスト用TicketBoothになってるというのも汎用性が低いかなと。
-    // TODO mayukorin localDateTimeだとニュアンスが何もないので、後で使っているspecifiedLocalDateTimeとか by jflute (2024/11/07)
+    // TODO done mayukorin localDateTimeだとニュアンスが何もないので、後で使っているspecifiedLocalDateTimeとか by jflute (2024/11/07)
     // あと、specifiedLocalDateTimeとspecifiedCurrentDateTimeでブレてる。
     // (あと、LocalDateTimeのLocalはかなりクラス構造の便宜上の名前なので、変数名にあまり表現しなくても良いかなと)
-    public TestTicketBooth(LocalDateTime localDateTime) {
+    public TestTicketBooth(LocalDateTime specifiedCurrentDateTime) {
         super();
-        switchCurrentDateTime(localDateTime);
+        switchCurrentDateTime(specifiedCurrentDateTime);
     }
 
     // [ふぉろー] TestTicketに差し替えるのであればオーバーライドの粒度はこれでOK。
