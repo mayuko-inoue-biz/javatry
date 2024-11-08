@@ -225,9 +225,21 @@ public class Step07ExceptionTest extends PlainTestCase {
             Throwable cause = e.getCause();
             sea = cause.getMessage();
             land = cause.getClass().getSimpleName();
-            log(sea); // your answer? => 
-            log(land); // your answer? => 
-            log(e); // your answer? => 
+            log(sea); // your answer? =>
+            // Failed to call the second help method: symbol=1
+            // throwCauseFirstLevel()でのnew IllegalStateExceptionの第一引数がmessageらしいからそれが表示される?
+            // 答え：Failed to call the third help method: symbol=-1
+            // e.getCause() の Cause は、そのExceptionが発生した原因的なイメージ？
+            // Exception new 時に第2引数に指定する Exceptionみたい
+            log(land); // your answer? => Integer?
+            // 答え：classはExceptionのクラス
+            // IllegalArgumentException
+            log(e); // your answer? => 分からない
+            // 答え：一連のExceptionが全て出力されてた
+            // at をよくみてみると、
+            // at Exception がNewされた場所
+            // at そのメソッドの呼び出し元..
+            // みたいな感じで出力されてるんだ
         }
     }
 
@@ -274,9 +286,11 @@ public class Step07ExceptionTest extends PlainTestCase {
             // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
             // What happens? Write situation and cause here. (何が起きた？状況と原因をここに書いてみましょう)
             // - - - - - - - - - -
-            //
-            //
-            //
+            // 前提：
+            // SuperCarの工場では、SuperCarの注文を受けてからSuperCarを製造するようになっている。
+            // SuperCarを製造する中で、SpecialなScrewを作る工程がある
+            // 状況：SpecialなScrewを作ることができないため、SuperCarの注文を受けてもSuperCarを製造できない。
+            // specialなScrewを作ることができない原因：kawaii faceという規格のScrewを作っていたが、その規格がサポートされなくなったため
             // _/_/_/_/_/_/_/_/_/_/
         }
     }
