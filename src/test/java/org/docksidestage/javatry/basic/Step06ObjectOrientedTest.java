@@ -629,6 +629,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // ゾンビ以外のサブクラスでは共通の処理としてあるので Animal に定義したいけど
         // ゾンビでその共通の処理がないため Animal に定義できない的なことが起こりそう
         // _/_/_/_/_/_/_/_/_/_/
-        // TODO jflute 1on1にてバイオハザードの話をする予定 (2024/10/14)
+        // done jflute 1on1にてバイオハザードの話をする予定 (2024/10/14)
+        // 話した by jflute
     }
 }

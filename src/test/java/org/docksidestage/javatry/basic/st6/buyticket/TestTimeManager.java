@@ -27,8 +27,8 @@ public class TestTimeManager implements TimeManager {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    // TODO done mayukorin TetTicketBoothではnullを突っ込んでるので(NotNull)ではなく(NullAllowed)になる by jflute (2024/11/07)
-    // TODO done mayukorin 一方で、現状はnull受け取りしか想定されていないので、そもそもコンストラクターで受け取らなくても良いのでは？ by jflute (2024/11/07)
+    // done mayukorin TetTicketBoothではnullを突っ込んでるので(NotNull)ではなく(NullAllowed)になる by jflute (2024/11/07)
+    // done mayukorin 一方で、現状はnull受け取りしか想定されていないので、そもそもコンストラクターで受け取らなくても良いのでは？ by jflute (2024/11/07)
     // デフォルトでは、specifiedは何も初期化せず、switchされて初めて値が入るようにして...
     // getのときspecifiedがなければ本物の現在日時を戻すようにするとか。(e.g. 本物のTimeManagerを保持して利用する)
     protected TestTimeManager() {}
@@ -38,8 +38,9 @@ public class TestTimeManager implements TimeManager {
     //                                                                            ========
     // done mayukorin "途中でまた変えられる" みたいなニュアンスが一言あるとわかりやすいかも by jflute (2024/11/01)
     // done mayukorin switchCurrentDateTime()とか、メソッド名にニュアンスを入れても良いかも by jflute (2024/11/01)
-    // TODO done mayukorin テスト専用のクラスでもあるので、もうpublicにしちゃっても別に良いかなってのはありますね by jflute (2024/11/06)
+    // done mayukorin テスト専用のクラスでもあるので、もうpublicにしちゃっても別に良いかなってのはありますね by jflute (2024/11/06)
     // (protectedでpackageスコープアクセスだとわかりづらさが若干あるので、無理に隠蔽しなくてもと)
+    // TODO mayukorin ここはもう do じゃなくて単なる switch でいいかなと (クラスが分かれてるし) by jflute (2024/11/11)
     /**
      * 指定したい CurrentDateTime を変えるためのメソッド
      * @param specifiedCurrentDateTime 指定したいCurrentDateTime（NotNull）

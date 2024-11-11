@@ -96,8 +96,9 @@ public class TicketBooth {
         return ticketStock;
     }
 
-    // TODO done mayukorin IntelliJでオーバーライドしてるメソッドに移動するショートカットをぜひ by jflute (2024/11/07)
+    // done mayukorin IntelliJでオーバーライドしてるメソッドに移動するショートカットをぜひ by jflute (2024/11/07)
     // command + option + B でした！
+    // 階層構造を開く control + H も良さそうです。両方使いましょう by jflute (2024/11/11)
     protected Ticket createTicket(TicketType ticketType) {
         return new Ticket(ticketType, new CurrentTimeManager());
     }
