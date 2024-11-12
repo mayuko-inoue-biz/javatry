@@ -21,7 +21,7 @@ public class TestTimeManager implements TimeManager {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** 指定した CurrentDateTime (NullAllowed: doSwitchCurrentDateTime()が呼ばれて初めて値が入る) */
+    /** 指定した CurrentDateTime (NullAllowed: switchCurrentDateTime()が呼ばれて初めて値が入る) */
     private LocalDateTime specifiedCurrentDateTime;
 
     // ===================================================================================
@@ -40,12 +40,12 @@ public class TestTimeManager implements TimeManager {
     // done mayukorin switchCurrentDateTime()とか、メソッド名にニュアンスを入れても良いかも by jflute (2024/11/01)
     // done mayukorin テスト専用のクラスでもあるので、もうpublicにしちゃっても別に良いかなってのはありますね by jflute (2024/11/06)
     // (protectedでpackageスコープアクセスだとわかりづらさが若干あるので、無理に隠蔽しなくてもと)
-    // TODO mayukorin ここはもう do じゃなくて単なる switch でいいかなと (クラスが分かれてるし) by jflute (2024/11/11)
+    // TODO done mayukorin ここはもう do じゃなくて単なる switch でいいかなと (クラスが分かれてるし) by jflute (2024/11/11)
     /**
      * 指定したい CurrentDateTime を変えるためのメソッド
      * @param specifiedCurrentDateTime 指定したいCurrentDateTime（NotNull）
      */
-    public void doSwitchCurrentDateTime(LocalDateTime specifiedCurrentDateTime) {
+    public void switchCurrentDateTime(LocalDateTime specifiedCurrentDateTime) {
         this.specifiedCurrentDateTime = specifiedCurrentDateTime;
     }
 
@@ -54,7 +54,7 @@ public class TestTimeManager implements TimeManager {
     //                                                                              現在日時
     //                                                                         ===========
     /**
-     * このメソッド呼び出し前にdoSwitchCurrentDateTime()でCurrentDateTimeを指定していたらそのCurrentDateTimeを返す<br>
+     * このメソッド呼び出し前にswitchCurrentDateTime()でCurrentDateTimeを指定していたらそのCurrentDateTimeを返す<br>
      * 指定していなければ、現在日時を返す
      */
     @Override

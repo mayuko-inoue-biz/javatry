@@ -23,7 +23,7 @@ import org.docksidestage.javatry.basic.st7.St7BasicExceptionThrower;
 import org.docksidestage.javatry.basic.st7.St7ConstructorChallengeException;
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO mayukorin [読み物課題] 良かったことを続けるために、良かったことを見失わないこと by jflute (2024/11/11)
+// TODO done mayukorin [読み物課題] 良かったことを続けるために、良かったことを見失わないこと by jflute (2024/11/11)
 // https://jflute.hatenadiary.jp/entry/20170826/keepgoodtime
 // 1on1でのKPTの話から。自分の良かったところ、を分析してあげてくださいという話。
 /**
@@ -92,7 +92,7 @@ public class Step07ExceptionTest extends PlainTestCase {
         
         // [1on1でのふぉろー] まずは、例外スタックトレースの読み方を知ることが大切。
         // 読み方を知っていればだんだん読み慣れていって、読もうという気になる。
-        // TODO mayukorin [読み物課題] エラーメッセージ読め読め大合唱 by jflute (2024/11/11)
+        // TODO done mayukorin [読み物課題] エラーメッセージ読め読め大合唱 by jflute (2024/11/11)
         // https://jflute.hatenadiary.jp/entry/20130522/errorsinging
     }
 

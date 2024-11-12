@@ -178,7 +178,8 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_return_ticket() {
         // uncomment out after modifying the method
-        TicketBooth booth = new TestTicketBooth(LocalDateTime.of(2017, 11, 17, 12, 0));
+        TestTicketBooth booth = new TestTicketBooth();
+        booth.switchCurrentDateTime(LocalDateTime.of(2017, 11, 17, 12, 0));
         Ticket oneDayPassport = booth.buyOneDayPassport(10000);
         log(oneDayPassport.getDisplayPrice()); // should be same as one-day price
         log(oneDayPassport.isUsedUp()); // should be false
@@ -223,7 +224,8 @@ public class Step05ClassTest extends PlainTestCase {
     // done mayukorin [へんじ] まあステートマシン図に書いた内容が、業務要件なのであれば対応しなきゃいけない by jflute (2024/08/23)
     public void test_class_moreFix_usePluralDays() {
         // your confirmation code here
-        TestTicketBooth booth = new TestTicketBooth(LocalDateTime.of(2017, 11, 17, 12, 0));
+        TestTicketBooth booth = new TestTicketBooth();
+        booth.switchCurrentDateTime(LocalDateTime.of(2017, 11, 17, 12, 0));
         TicketBuyResult buyResult = booth.buyTwoDayPassport(20000);
         Ticket twoDayPassport = buyResult.getTicket();
         // 1日目にインする
@@ -270,7 +272,8 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_wonder_four() {
         // your confirmation code here
-        TestTicketBooth booth = new TestTicketBooth(LocalDateTime.of(2017, 11, 17, 12, 0));
+        TestTicketBooth booth = new TestTicketBooth();
+        booth.switchCurrentDateTime(LocalDateTime.of(2017, 11, 17, 12, 0));
         TicketBuyResult buyResult = booth.buyFourDayPassport(22400);
         Ticket fourDayPassport = buyResult.getTicket();
         // 1日目にインする
@@ -308,7 +311,8 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_wonder_night() {
         // your confirmation code here
-        TestTicketBooth booth = new TestTicketBooth(LocalDateTime.of(2017, 11, 17, 18, 0));
+        TestTicketBooth booth = new TestTicketBooth();
+        booth.switchCurrentDateTime(LocalDateTime.of(2017, 11, 17, 18, 0));
         TicketBuyResult buyResult = booth.buyNightOnlyTwoDayPassport(7400);
         Ticket nightOnlyTwoDayPassport = buyResult.getTicket();
         // 1日目にインする
