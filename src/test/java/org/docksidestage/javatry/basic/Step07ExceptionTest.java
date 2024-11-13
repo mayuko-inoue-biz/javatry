@@ -331,6 +331,7 @@ public class Step07ExceptionTest extends PlainTestCase {
             fail("always exception but none");
         } catch (RuntimeException e) {
             log("*No hint here for training.", e);
+            // Supercarを作るための各層のクラスでそれぞれ例外を投げてみた
         }
     }
 
