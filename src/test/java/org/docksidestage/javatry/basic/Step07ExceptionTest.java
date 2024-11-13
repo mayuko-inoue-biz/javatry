@@ -309,10 +309,13 @@ public class Step07ExceptionTest extends PlainTestCase {
             // What happens? Write situation and cause here. (何が起きた？状況と原因をここに書いてみましょう)
             // - - - - - - - - - -
             // 前提：
-            // SuperCarの工場では、SuperCarの注文を受けてからSuperCarを製造するようになっている。
-            // SuperCarを製造する中で、SpecialなScrewを作る工程がある
-            // 状況：SpecialなScrewを作ることができないため、SuperCarの注文を受けてもSuperCarを製造できない。
-            // specialなScrewを作ることができない原因：kawaii faceという規格のScrewを作っていたが、その規格がサポートされなくなったため
+            // SuperCarの工場では、注文を受けてから車を製造するようになっている。
+            // 車を製造する過程で、ネジを作る工程がある
+            // 作るネジは、注文によって変わる
+            // 状況：
+            // ネジを作ことができないため、注文を受けても車を製造できない。
+            // ネジを作ることができない原因：
+            // 注文を受けて、kawaii faceという規格のネジを作っていたが、その規格がサポートされなくなったため
             // _/_/_/_/_/_/_/_/_/_/
         }
     }

@@ -18,6 +18,8 @@ package org.docksidestage.bizfw.basic.supercar;
 import org.docksidestage.bizfw.basic.screw.ScrewSpec;
 import org.docksidestage.bizfw.basic.screw.SpecialScrew;
 import org.docksidestage.bizfw.basic.screw.SpecialScrewManufacturer;
+import org.docksidestage.bizfw.basic.screw.exception.ScrewCannotMakeBySpecException;
+import org.docksidestage.bizfw.basic.screw.exception.SteeringWheelCannotMakeException;
 
 /**
  * The manufacturer(製造業者) of supercar steering wheel(車のハンドル).
@@ -35,10 +37,13 @@ public class SupercarSteeringWheelManufacturer {
         String specText = componentDB.findClincherSpecText(steeringWheelId);
         ScrewSpec screwSpec = new ScrewSpec(specText);
 
-        SpecialScrewManufacturer screwManufacturer = createSpecialScrewManufacturer();
-        SpecialScrew screw = screwManufacturer.makeSpecialScrew(screwSpec);
-
-        return new SteeringWheel(screw);
+        try {
+            SpecialScrewManufacturer screwManufacturer = createSpecialScrewManufacturer();
+            SpecialScrew screw = screwManufacturer.makeSpecialScrew(screwSpec);
+            return new SteeringWheel(screw);
+        } catch (ScrewCannotMakeBySpecException e) {
+            throw new SteeringWheelCannotMakeException("we cannot make steering wheel because we cannot make screw: steeringWheelId=" + steeringWheelId + ", screwSpec=" + specText, e);
+        }
     }
 
     protected SpecialScrewManufacturer createSpecialScrewManufacturer() {

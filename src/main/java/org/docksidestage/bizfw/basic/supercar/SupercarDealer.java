@@ -15,6 +15,8 @@
  */
 package org.docksidestage.bizfw.basic.supercar;
 
+import org.docksidestage.bizfw.basic.screw.exception.SuperCarCannotMakeException;
+import org.docksidestage.bizfw.basic.screw.exception.SuperCarCannotProvideException;
 import org.docksidestage.bizfw.basic.supercar.SupercarManufacturer.Supercar;
 
 /**
@@ -24,15 +26,19 @@ import org.docksidestage.bizfw.basic.supercar.SupercarManufacturer.Supercar;
 public class SupercarDealer {
 
     public Supercar orderSupercar(String clientRequirement) {
-        SupercarManufacturer supercarManufacturer = createSupercarManufacturer();
-        if (clientRequirement.contains("steering wheel is like sea")) {
-            return supercarManufacturer.makeSupercar("piari");
-        } else if (clientRequirement.contains("steering wheel is useful on land")) {
-            return supercarManufacturer.makeSupercar("land");
-        } else if (clientRequirement.contains("steering wheel has many shop")) {
-            return supercarManufacturer.makeSupercar("piari");
-        } else {
-            throw new IllegalStateException("Cannot understand the client requirement: " + clientRequirement);
+        try {
+            SupercarManufacturer supercarManufacturer = createSupercarManufacturer();
+            if (clientRequirement.contains("steering wheel is like sea")) {
+                return supercarManufacturer.makeSupercar("piari");
+            } else if (clientRequirement.contains("steering wheel is useful on land")) {
+                return supercarManufacturer.makeSupercar("land");
+            } else if (clientRequirement.contains("steering wheel has many shop")) {
+                return supercarManufacturer.makeSupercar("piari");
+            } else {
+                throw new IllegalStateException("Cannot understand the client requirement: " + clientRequirement);
+            }
+        } catch (SuperCarCannotMakeException e) {
+            throw new SuperCarCannotProvideException("we cannot provide super car because we cannot make super car: clientRequirement=" + clientRequirement, e);
         }
     }
 
