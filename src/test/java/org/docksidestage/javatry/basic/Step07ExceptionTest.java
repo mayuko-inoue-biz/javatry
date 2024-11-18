@@ -23,7 +23,7 @@ import org.docksidestage.javatry.basic.st7.St7BasicExceptionThrower;
 import org.docksidestage.javatry.basic.st7.St7ConstructorChallengeException;
 import org.docksidestage.unit.PlainTestCase;
 
-// TODO done mayukorin [読み物課題] 良かったことを続けるために、良かったことを見失わないこと by jflute (2024/11/11)
+// done mayukorin [読み物課題] 良かったことを続けるために、良かったことを見失わないこと by jflute (2024/11/11)
 // https://jflute.hatenadiary.jp/entry/20170826/keepgoodtime
 // 1on1でのKPTの話から。自分の良かったところ、を分析してあげてくださいという話。
 /**
@@ -92,7 +92,7 @@ public class Step07ExceptionTest extends PlainTestCase {
         
         // [1on1でのふぉろー] まずは、例外スタックトレースの読み方を知ることが大切。
         // 読み方を知っていればだんだん読み慣れていって、読もうという気になる。
-        // TODO done mayukorin [読み物課題] エラーメッセージ読め読め大合唱 by jflute (2024/11/11)
+        // done mayukorin [読み物課題] エラーメッセージ読め読め大合唱 by jflute (2024/11/11)
         // https://jflute.hatenadiary.jp/entry/20130522/errorsinging
     }
 
@@ -155,7 +155,7 @@ public class Step07ExceptionTest extends PlainTestCase {
     // エラーメッセージと呼んだり、例外メッセージと呼んだり。
     // (Javaの実装を意識している文脈のときはできるだけ例外メッセージと呼ぶかな!?)
 
-    // TODO jflute 次回1on1ここから (2024/11/11)
+    // done jflute 次回1on1ここから (2024/11/11)
     // ===================================================================================
     //                                                                         NullPointer
     //                                                                         ===========
@@ -206,6 +206,13 @@ public class Step07ExceptionTest extends PlainTestCase {
             log(e);
         }
         // nullPointerExceptionになり得るメソッドを個別に1行ずつ実行するようにした
+        // [1on1でのふぉろー] 実際に切り出すかは、個人的には7,8割くらいな感覚。
+        // 可能性ありそうだなと思ったらときにやるくらいな感じ。
+        // 一方で、Java17 (!?) くらいからは、NullPointerの例外メッセージで教えてくれる。
+        // ただ、どのみち1行になんこも処理を入れまくるのは良いことでもないので、切り出す習慣自体は良い。
+        // 
+        // 一方で一方で、方法論を覚えてるだけだと、実践で(思い付かなくて)発揮できないこともよくある。
+        // その方法論が習慣付いてないと、とっさに思い付かなかったりするので、反復練習が大事。
     }
 
     // ===================================================================================
@@ -227,6 +234,13 @@ public class Step07ExceptionTest extends PlainTestCase {
         // https://docs.oracle.com/javase/jp/8/docs/api/java/io/File.html#getCanonicalPath--
         // しかし、getCanonicalPath()でthrowするのはIOExceptionのみ
         // getCanonicalPath()でthrowしたいExceptionとそうでないExceptionの違いは何なのか、後で考えてみたい
+        
+        // チェック例外 (Checked Exception) と言われるもの。
+        // 普段(!?)の例外が非チェック例外と言える。
+        // チェック例外は例外ハンドリングをコンパイルセーフにさせる理想的な文法でありつつ...流行ってない。
+        // 流行ってない理由を一緒に考察。(でも、知っておかないと、いざってときに対処できないので一度経験しておく)
+        // 文法的なところでは、RuntimeExceptionとRuntimeExceptionを継承した例外は非チェック例外。
+        // (実は、全体のクラス構造で言うと、チェック例外が全体的で、非チェック例外が局所的だったりする)
     }
 
     // ===================================================================================
@@ -291,6 +305,10 @@ public class Step07ExceptionTest extends PlainTestCase {
             Integer.valueOf("piari");
         }
     }
+    
+    // [1on1でのフォロー] 例外が例外を保持することができる構造になっている。
+    // なぜ？ (すべての機能や構造には意味があるからそうなっているはず)
+    // TODO jflute 次回1on1, なぜを聞く (できると何が嬉しいのか？できないと何で困るのか？) (2024/11/18)
 
     // ===================================================================================
     //                                                                         Translation

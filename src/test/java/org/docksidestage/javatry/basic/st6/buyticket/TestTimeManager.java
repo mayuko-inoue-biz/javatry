@@ -40,7 +40,7 @@ public class TestTimeManager implements TimeManager {
     // done mayukorin switchCurrentDateTime()とか、メソッド名にニュアンスを入れても良いかも by jflute (2024/11/01)
     // done mayukorin テスト専用のクラスでもあるので、もうpublicにしちゃっても別に良いかなってのはありますね by jflute (2024/11/06)
     // (protectedでpackageスコープアクセスだとわかりづらさが若干あるので、無理に隠蔽しなくてもと)
-    // TODO done mayukorin ここはもう do じゃなくて単なる switch でいいかなと (クラスが分かれてるし) by jflute (2024/11/11)
+    // done mayukorin ここはもう do じゃなくて単なる switch でいいかなと (クラスが分かれてるし) by jflute (2024/11/11)
     /**
      * 指定したい CurrentDateTime を変えるためのメソッド
      * @param specifiedCurrentDateTime 指定したいCurrentDateTime（NotNull）
