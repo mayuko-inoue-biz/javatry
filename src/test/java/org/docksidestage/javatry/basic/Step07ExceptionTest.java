@@ -308,7 +308,16 @@ public class Step07ExceptionTest extends PlainTestCase {
     
     // [1on1でのフォロー] 例外が例外を保持することができる構造になっている。
     // なぜ？ (すべての機能や構造には意味があるからそうなっているはず)
-    // TODO jflute 次回1on1, なぜを聞く (できると何が嬉しいのか？できないと何で困るのか？) (2024/11/18)
+    // done jflute 次回1on1, なぜを聞く (できると何が嬉しいのか？できないと何で困るのか？) (2024/11/18)
+    // 1on1にて例外の翻訳の話した。 (2024/11/25)
+    //
+    // 1つのエラー事象に付き、複数のエラーメッセージがある。レイヤーごとの言い分がある。
+    // https://dbflute.seasar.org/ja/manual/topic/programming/java/exception.html
+    //
+    // catchすべき例外を見つけ出すコツ:
+    // o テストの期待値の洗い出しの経験をたくさん積む
+    // o 呼び出してるメソッドがなんの例外をthrowするのか？の把握/意識を少しでも
+    //
 
     // ===================================================================================
     //                                                                         Translation
@@ -351,6 +360,7 @@ public class Step07ExceptionTest extends PlainTestCase {
             log("*No hint here for training.", e);
             // Supercarを作るための各層のクラスでそれぞれ例外を投げてみた
         }
+        // [1on1でのふぉろー] DBFluteの例外メッセージをちょろっと見てみた。
     }
 
     // ===================================================================================
@@ -372,6 +382,7 @@ public class Step07ExceptionTest extends PlainTestCase {
         try {
             helpThrowIllegalState();
         } catch (IllegalStateException e) {
+            // [1on1でのふぉろー] good
             throw new St7ConstructorChallengeException("Failed to do something.", e);
         }
     }
@@ -398,5 +409,6 @@ public class Step07ExceptionTest extends PlainTestCase {
         //
         //
         // _/_/_/_/_/_/_/_/_/_/
+        // 1on1でのふぉろーで話をしたのでここはOK
     }
 }
