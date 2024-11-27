@@ -33,7 +33,7 @@ import org.docksidestage.unit.PlainTestCase;
  * Operate as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りに実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author mayukorin
  */
 public class Step08Java8FunctionTest extends PlainTestCase {
 
@@ -68,11 +68,16 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         log("...Executing lambda expression style callback");
         helpCallbackConsumer(stage -> log(stage + ": " + title));
 
-        // your answer? => 
+        // your answer? => 同じな気がする。
+        // 合ってた
 
         // cannot reassign because it is used at callback process
         //title = "wave";
     }
+
+    // TODO jflute 勉強のため、コールバック処理（引数として関数を渡せる）があると何が嬉しいのか知りたいです。by m.inoue (2024/11/27)
+    // 自分の予想：処理の流れは同じで1箇所だけ処理の中身を変えたい場合、コールバック処理があればその処理の中身だけ書くだけで良く、面倒さがないのが嬉しい。
+    // 仮にコールバック処理がなかったら、その1箇所だけのためにインターフェースを自作してその処理をオーバーライドするクラスを作成する必要がある。
 
     /**
      * What is order of strings by log(). (write answer as comma-separated) <br>
@@ -84,7 +89,8 @@ public class Step08Java8FunctionTest extends PlainTestCase {
             log(stage);
         });
         log("lost river");
-        // your answer? => 
+        // your answer? => harbor, broadway, dockside, hangar, lost river
+        // 合ってた
     }
 
     private class St8BasicConsumer implements Consumer<String> {
@@ -116,7 +122,8 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         String sea = helpCallbackFunction(number -> {
             return label + ": " + number;
         });
-        log(sea); // your answer? => 
+        log(sea); // your answer? => number: 7
+        // 合ってた
     }
 
     private String helpCallbackFunction(Function<Integer, String> oneArgLambda) {
@@ -141,17 +148,15 @@ public class Step08Java8FunctionTest extends PlainTestCase {
      * </pre>
      */
     public void test_java8_lambda_convertStyle_basic() {
-        helpCallbackSupplier(new Supplier<String>() { // sea
-            public String get() {
-                return "broadway";
-            }
+        helpCallbackSupplier(() -> {
+            return "broadway";
         });
 
-        helpCallbackSupplier(() -> { // land
-            return "dockside";
-        });
+        helpCallbackSupplier(() -> "dockside");
 
-        helpCallbackSupplier(() -> "hangar"); // piari
+        helpCallbackSupplier(() -> {
+            return "lost river";
+        });
     }
 
     private void helpCallbackSupplier(Supplier<String> oneArgLambda) {
