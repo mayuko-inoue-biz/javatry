@@ -75,9 +75,11 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         //title = "wave";
     }
 
-    // TODO jflute 勉強のため、コールバック処理（引数として関数を渡せる）があると何が嬉しいのか知りたいです。by m.inoue (2024/11/27)
+    // done jflute 勉強のため、コールバック処理（引数として関数を渡せる）があると何が嬉しいのか知りたいです。by m.inoue (2024/11/27)
     // 自分の予想：処理の流れは同じで1箇所だけ処理の中身を変えたい場合、コールバック処理があればその処理の中身だけ書くだけで良く、面倒さがないのが嬉しい。
     // 仮にコールバック処理がなかったら、その1箇所だけのためにインターフェースを自作してその処理をオーバーライドするクラスを作成する必要がある。
+    // [1on1でのフォロー] yesという感じ。(1on1では色々と説明)
+    // (構造なしで)1個だけちゃちゃっと差し替える差分プログラミングに最適。
 
     /**
      * What is order of strings by log(). (write answer as comma-separated) <br>
@@ -157,6 +159,8 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         helpCallbackSupplier(() -> {
             return "lost river";
         });
+        // [1on1でのフォロー] ソースコードの見やすさを調整する一つの道具になる話
+        // TODO mayukorin 宿題: IntelliJでblock/expressionを切り替えるショートカットは？ by jflute (2024/12/02)
     }
 
     private void helpCallbackSupplier(Supplier<String> oneArgLambda) {
