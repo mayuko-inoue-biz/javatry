@@ -161,6 +161,7 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         });
         // [1on1でのフォロー] ソースコードの見やすさを調整する一つの道具になる話
         // TODO mayukorin 宿題: IntelliJでblock/expressionを切り替えるショートカットは？ by jflute (2024/12/02)
+        // 調査中です！
     }
 
     private void helpCallbackSupplier(Supplier<String> oneArgLambda) {

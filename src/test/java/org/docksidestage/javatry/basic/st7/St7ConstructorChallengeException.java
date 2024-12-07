@@ -17,6 +17,7 @@ package org.docksidestage.javatry.basic.st7;
 
 /**
  * @author jflute
+ * @author mayukorin
  */
 public class St7ConstructorChallengeException extends RuntimeException {
 
