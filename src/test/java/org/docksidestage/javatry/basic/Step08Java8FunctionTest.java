@@ -186,7 +186,11 @@ public class Step08Java8FunctionTest extends PlainTestCase {
             St8Member member = optMember.get();
             log(member.getMemberId(), member.getMemberName());
         }
-        // your answer? => 
+        // your answer? => yes
+        // 合ってた
+        // 上と下で呼び出してるSt8DbFacadeメソッドは同じで、違いはメソッドの返り値にOptional.ofNullableを適用してるかどうか
+        // Optional.ofNullableは、中身がnullだったらOptionalを返してnullじゃなかったらその値を返すらしい
+        // 今回中身はnull
     }
 
     /**
@@ -202,7 +206,10 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         optMember.ifPresent(member -> {
             log(member.getMemberId(), member.getMemberName());
         });
-        // your answer? => 
+        // your answer? => yes
+        // 合ってた
+        // 下は、callbackで書いている
+        // callbackの引数は、Optionalのvalue=optMember
     }
 
     /**
@@ -262,13 +269,21 @@ public class Step08Java8FunctionTest extends PlainTestCase {
                 .map(wdl -> wdl.getWithdrawalId()) // ID here
                 .orElse(defaultWithdrawalId);
 
-        log(sea); // your answer? => 
-        log(land); // your answer? => 
-        log(piari); // your answer? => 
-        log(bonvo); // your answer? => 
-        log(dstore); // your answer? => 
-        log(amba); // your answer? => 
-        log(miraco); // your answer? => 
+        log(sea); // your answer? => music
+        // traditional style：oldmemberFirst のフィールドをどんどん深ぼってnullだったらseaに代入する的な処理をif文でネストでやってる。
+        log(land); // your answer? => music
+        // map style：callback関数を実行してその戻り値をOptionalに包んで返してくれる
+        log(piari); // your answer? => music
+        // flatMap style：map との違いは、Optionalを返すcallbackを指定すること。Optionalでcallbackが返すので、flashMap自体はOptionalで包んだりしないっぽい
+        log(bonvo); // your answer? => music
+        log(dstore); // your answer? => *no reason: someone was not present
+        // map(wdl -> wdl.oldgetPrimaryReason()) では、primaryReasonがnullなため、Empty な Optional が返される
+        log(amba); // your answer? => *no reason: someone was not present
+        // mb.getWithdrawal()では、withdrawlがnullなため、Empty な Optional が返される
+        // flatMap(wdl -> wdl.getPrimaryReason())でも、Empty な Optional が返される (JavaDoc に value (Optional<T>のT型のvalue)がなかった場合、Empty な Optional が返されると書いてあるため)
+        // orElse が適用されて *no reason: someone was not present
+        log(miraco); // your answer? => 12
+        // あってた
     }
 
     /**
@@ -287,7 +302,8 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         } catch (IllegalStateException e) {
             sea = e.getMessage();
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wave
+        // あってた
     }
 
     // ===================================================================================
@@ -306,14 +322,16 @@ public class Step08Java8FunctionTest extends PlainTestCase {
             }
         }
         String sea = oldfilteredNameList.toString();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => broadway, dockerside
+        // 答え：[broadway, dockside] []がつく
 
         List<String> filteredNameList = memberList.stream() //
                 .filter(mb -> mb.getWithdrawal().isPresent()) //
                 .map(mb -> mb.getMemberName()) //
                 .collect(Collectors.toList());
         String land = filteredNameList.toString();
-        log(land); // your answer? => 
+        log(land); // your answer? => broadway, dockerside
+        // 答え：[broadway, dockside] []がつく
     }
 
     /**
