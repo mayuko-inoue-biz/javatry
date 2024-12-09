@@ -160,10 +160,11 @@ public class Step08Java8FunctionTest extends PlainTestCase {
             return "lost river";
         });
         // [1on1でのフォロー] ソースコードの見やすさを調整する一つの道具になる話
-        // TODO mayukorin 宿題: IntelliJでblock/expressionを切り替えるショートカットは？ by jflute (2024/12/02)
+        // done mayukorin 宿題: IntelliJでblock/expressionを切り替えるショートカットは？ by jflute (2024/12/02)
         // 調査中です！なさそう？
-        // TODO mayukorin [ふぉろー] 片道切符 (expressionからblockに変換) っぽい？option+enter by jflute (2024/12/09)
+        // done mayukorin [ふぉろー] 片道切符 (expressionからblockに変換) っぽい？option+enter by jflute (2024/12/09)
         // https://x.com/jflute/status/1866024896456986728
+        // まあ、option+enterをとにかく覚えてもらえればと。他にも便利なものいっぱいなので。
     }
 
     private void helpCallbackSupplier(Supplier<String> oneArgLambda) {
@@ -171,6 +172,7 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         log(supplied);
     }
 
+    // TODO jflute 1on1で、Optionalの概念についてお聞きします(話します) (2024/12/09)
     // ===================================================================================
     //                                                                            Optional
     //                                                                            ========
@@ -266,9 +268,7 @@ public class Step08Java8FunctionTest extends PlainTestCase {
                 .orElse("*no reason: someone was not present");
 
         int defaultWithdrawalId = -1;
-        Integer miraco = facade.selectMember(2)
-                .flatMap(mb -> mb.getWithdrawal())
-                .map(wdl -> wdl.getWithdrawalId()) // ID here
+        Integer miraco = facade.selectMember(2).flatMap(mb -> mb.getWithdrawal()).map(wdl -> wdl.getWithdrawalId()) // ID here
                 .orElse(defaultWithdrawalId);
 
         log(sea); // your answer? => music
@@ -308,6 +308,7 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         // あってた
     }
 
+    // TODO jflute 1on1にてStream APIの概念の話、butすでに半分くらいしゃべった感じはある (2024/12/09)
     // ===================================================================================
     //                                                                          Stream API
     //                                                                          ==========
