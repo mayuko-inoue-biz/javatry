@@ -34,6 +34,8 @@ public class BarkingProcess {
     // ===================================================================================
     //                                                                       barkingMethod
     //                                                                       =============
+    // TODO mayukorin [いいね] callbackでdownHitPointを抽象化してるの素晴らしい、汎用性が増しました。 by jflute (2024/12/09)
+    // TODO mayukorin 一方で、Consumer で Animal を受け取る必要があるだろうか？callback生成側がAnimal本体なので... by jflute (2024/12/09)
     public BarkedSound execute(Consumer<Animal> downHitPointFunc) {
         this.breatheIn(downHitPointFunc);
         this.prepareAbdominalMuscle(downHitPointFunc);

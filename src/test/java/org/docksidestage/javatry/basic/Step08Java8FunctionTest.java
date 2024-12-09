@@ -162,6 +162,8 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         // [1on1でのフォロー] ソースコードの見やすさを調整する一つの道具になる話
         // TODO mayukorin 宿題: IntelliJでblock/expressionを切り替えるショートカットは？ by jflute (2024/12/02)
         // 調査中です！なさそう？
+        // TODO mayukorin [ふぉろー] 片道切符 (expressionからblockに変換) っぽい？option+enter by jflute (2024/12/09)
+        // https://x.com/jflute/status/1866024896456986728
     }
 
     private void helpCallbackSupplier(Supplier<String> oneArgLambda) {

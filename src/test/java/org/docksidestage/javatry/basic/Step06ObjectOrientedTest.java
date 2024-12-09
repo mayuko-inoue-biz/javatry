@@ -603,8 +603,11 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // "A" は、チェックは掛かるようになったけども、callerを意識する少々トリッキーな実装なので、
         // できれば完全解決したいところ。(隠蔽した上でBarkingProcessを満たす)
         // ただ、これはstep8をやってからチャレンジした方がわかりやすいかも。
+        // (by mayukorin)
         // Animalで、barkingProcess.execute実行時に、downHitPoint()をcallback関数として渡すことで実現できた
         // でも、呼吸の大まかな流れの処理を書いてるexecuteの中で、各処理で実行されるdownHitPoint()を引数として渡さないといけないのは、情報の抽象度が合ってない気がして微妙？
+        // TODO mayukorin callback素晴らしい。確かに引数チェーンになっちゃってるのはもうちょいどうにかしたいところですね。 by jflute (2024/12/09)
+        // コールバックを渡すタイミングを変えたら、引数毎度毎度パターンから抜け出せるかも？
     }
 
     // done mayukorin [読み物課題] プログラマーに求められるデザイン脳 by jflute (2024/10/29)

@@ -383,7 +383,7 @@ public class Step07ExceptionTest extends PlainTestCase {
             helpThrowIllegalState();
         } catch (IllegalStateException e) {
             // [1on1でのふぉろー] good
-            // TODO mayukorin 例外クラスにauthorをお願いします by jflute (2024/12/02)
+            // done mayukorin 例外クラスにauthorをお願いします by jflute (2024/12/02)
             throw new St7ConstructorChallengeException("Failed to do something.", e);
         }
     }
