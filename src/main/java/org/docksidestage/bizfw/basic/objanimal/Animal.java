@@ -56,7 +56,7 @@ public abstract class Animal implements Loudable {
     //                                                                              ======
     public BarkedSound bark() {
         BarkingProcess barkingProcess = createBarkingProcess();
-        return barkingProcess.execute();
+        return barkingProcess.execute(animal -> animal.downHitPoint());
     }
 
     // done mayukorin ちょっと状況違うけど、こちらの記事を参考に... by jflute (2024/10/29)

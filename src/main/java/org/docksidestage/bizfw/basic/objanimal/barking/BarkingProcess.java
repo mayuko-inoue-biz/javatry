@@ -1,5 +1,7 @@
 package org.docksidestage.bizfw.basic.objanimal.barking;
 
+import java.util.function.Consumer;
+
 import org.docksidestage.bizfw.basic.objanimal.Animal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,26 +34,26 @@ public class BarkingProcess {
     // ===================================================================================
     //                                                                       barkingMethod
     //                                                                       =============
-    public BarkedSound execute() {
-        this.breatheIn();
-        this.prepareAbdominalMuscle();
+    public BarkedSound execute(Consumer<Animal> downHitPointFunc) {
+        this.breatheIn(downHitPointFunc);
+        this.prepareAbdominalMuscle(downHitPointFunc);
         String barkWord = animal.callGetBarkWord("BarkingProcess");
-        BarkedSound barkedSound = this.doBark(barkWord);
+        BarkedSound barkedSound = this.doBark(barkWord, downHitPointFunc);
         return barkedSound;
     }
 
-    protected void breatheIn() { // actually depends on barking
+    protected void breatheIn(Consumer<Animal> downHitPointFunc) { // actually depends on barking
         logger.debug("...Breathing in for barking"); // dummy implementation
-        animal.callDownHitPoint("BarkingProcess");
+        downHitPointFunc.accept(animal);
     }
 
-    protected void prepareAbdominalMuscle() { // also actually depends on barking
+    protected void prepareAbdominalMuscle(Consumer<Animal> downHitPointFunc) { // also actually depends on barking
         logger.debug("...Using my abdominal muscle for barking"); // dummy implementation
-        animal.callDownHitPoint("BarkingProcess");
+        downHitPointFunc.accept(animal);
     }
 
-    protected BarkedSound doBark(String barkWord) {
-        animal.callDownHitPoint("BarkingProcess");
+    protected BarkedSound doBark(String barkWord, Consumer<Animal> downHitPointFunc) {
+        downHitPointFunc.accept(animal);
         BarkedSound barkedSound = new BarkedSound(barkWord);
         return barkedSound;
     }

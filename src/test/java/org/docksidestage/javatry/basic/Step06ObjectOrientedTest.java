@@ -563,11 +563,13 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         BarkedSound dogSound = dog.bark();
         String sea = dogSound.getBarkWord();
         log(sea); // wan になるはず
+        log(dog.getHitPoint()); // 7になるはず
         Animal zombie = new Zombie();
         BarkedSound zombieSound = zombie.bark();
         String land = zombieSound.getBarkWord();
         log(land); // uooo になるはず
         log(((Zombie)zombie).getZombieDiary().getBreatheInCount()); // 1 になるはず
+        log(zombie.getHitPoint()); // -1になるはず
         // なった
         // done m.inoue BarkingProcess を barking パッケージに移動すると、animal.breatheIn() にアクセスできない問題発生する (2024/10/05)
         // 解決策として、breatheIn() を protected から public にする方法しか思いつかないのでそうしたけど
@@ -601,6 +603,8 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // "A" は、チェックは掛かるようになったけども、callerを意識する少々トリッキーな実装なので、
         // できれば完全解決したいところ。(隠蔽した上でBarkingProcessを満たす)
         // ただ、これはstep8をやってからチャレンジした方がわかりやすいかも。
+        // Animalで、barkingProcess.execute実行時に、downHitPoint()をcallback関数として渡すことで実現できた
+        // でも、呼吸の大まかな流れの処理を書いてるexecuteの中で、各処理で実行されるdownHitPoint()を引数として渡さないといけないのは、情報の抽象度が合ってない気がして微妙？
     }
 
     // done mayukorin [読み物課題] プログラマーに求められるデザイン脳 by jflute (2024/10/29)
