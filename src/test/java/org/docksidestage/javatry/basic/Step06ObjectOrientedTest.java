@@ -606,7 +606,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // (by mayukorin)
         // Animalで、barkingProcess.execute実行時に、downHitPoint()をcallback関数として渡すことで実現できた
         // でも、呼吸の大まかな流れの処理を書いてるexecuteの中で、各処理で実行されるdownHitPoint()を引数として渡さないといけないのは、情報の抽象度が合ってない気がして微妙？
-        // TODO mayukorin callback素晴らしい。確かに引数チェーンになっちゃってるのはもうちょいどうにかしたいところですね。 by jflute (2024/12/09)
+        // TODO done mayukorin callback素晴らしい。確かに引数チェーンになっちゃってるのはもうちょいどうにかしたいところですね。 by jflute (2024/12/09)
         // コールバックを渡すタイミング(経路)を変えたら、引数毎度毎度パターンから抜け出せるかも？
         // [1on1でのふぉろー] 経路は見つけ出してもらいました。ライブコーディングでサンプル実装。
         // インスタンスに対してcallbackを渡すのか？ピンポイントでその処理にcallbackを渡すのか？

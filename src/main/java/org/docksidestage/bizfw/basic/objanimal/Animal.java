@@ -56,7 +56,7 @@ public abstract class Animal implements Loudable {
     //                                                                              ======
     public BarkedSound bark() {
         BarkingProcess barkingProcess = createBarkingProcess();
-        return barkingProcess.execute(animal -> animal.downHitPoint());
+        return barkingProcess.execute();
     }
 
     // done mayukorin ちょっと状況違うけど、こちらの記事を参考に... by jflute (2024/10/29)
@@ -71,7 +71,7 @@ public abstract class Animal implements Loudable {
     // 一方で、getBarkWord()はgetで良いでしょう。本当に単に取得してるだけなので。
     //
     protected BarkingProcess createBarkingProcess() {
-        return new BarkingProcess(this);
+        return new BarkingProcess(this, new DownHitPointerOfAnimal(this));
     }
 
     protected abstract String getBarkWord();

@@ -60,7 +60,7 @@ public class Zombie extends Animal {
     // 差し替えたいのはnewする対象だけで、execute()を呼び出すとかは共通的なので一箇所にしたい。
     @Override
     protected BarkingProcess createBarkingProcess() {
-        return new ZombieBarkingProcess(this);
+        return new ZombieBarkingProcess(this, new DownHitPointerOfAnimal(this));
     }
 
     @Override
