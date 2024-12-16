@@ -57,6 +57,33 @@ public abstract class Animal implements Loudable {
     public BarkedSound bark() {
         BarkingProcess barkingProcess = createBarkingProcess();
         return barkingProcess.execute();
+        // [1on1でのふぉろー] 具象クラスを使わず、LambdaのままAnimalへの依存を無くす方法: 
+        //
+        // return barkingProcess.execute(animal -> animal.downHitPoint());
+        //   animal変数は、結局コンストラクターで指定したthisのインスタンスが入ってそのdownHitPoint()...
+        //   なので、呼びたいのは this の downHitPoint() になるので...
+        //  ↓↓↓
+        // return barkingProcess.execute(animal -> this.downHitPoint());
+        //  ↓↓↓
+        // return barkingProcess.execute(() -> this.downHitPoint());
+        //  ↓↓↓
+        // return barkingProcess.execute(() -> downHitPoint());
+        //
+        // 文法的なフォロー: Lambda式の中では、外側(Lambdaを生成してるクラス)のリソースを使える。
+        // インスタンスメソッドを呼び出すこともできるし、インスタンス変数とかも使えちゃう。
+        // return barkingProcess.execute(() -> {
+        //     downHitPoint() // this.downHitPoint()を呼べる
+        //     ++hitPoint; // this.hitPointを参照できる
+        // });
+        // 
+        // まあ、文法を知らなくて思いつけなかったのしょうがない。
+        // その文法をないことを前提に書いた実装はとても良いと思う。(縛りプレーとしてはとても良い)
+        // (packageスコープに頼る部分を分離したことでうまく解決したというのは素晴らしい)
+        //
+        // DownHitPointerインターフェースを、Animal側に持たせるか？BarkingProcess側に持たせるか？
+        // ここは少々悩みどころで、どちらでも良い解釈ができる。
+        // 前者: Animal側が汎用的にヒットポイントを下げる方法を提供するニュアンス。// 今の実装
+        // 後者: BarkingProcess側が自分でヒットポイントを下げる方法を募集するニュアンス。
     }
 
     // done mayukorin ちょっと状況違うけど、こちらの記事を参考に... by jflute (2024/10/29)
@@ -71,6 +98,8 @@ public abstract class Animal implements Loudable {
     // 一方で、getBarkWord()はgetで良いでしょう。本当に単に取得してるだけなので。
     //
     protected BarkingProcess createBarkingProcess() {
+        // [1on1でのふぉろー] 改めて、Lambda式って何やってるのか？の学びになったかも？
+        // new DownHitPointerOfAnimal(this) と () -> downHitPoint() が同じ(等価)になるので。
         return new BarkingProcess(this, new DownHitPointerOfAnimal(this));
     }
 
@@ -105,10 +134,15 @@ public abstract class Animal implements Loudable {
     //                                                  Access Control to protected method
     //                                                                            ========
     // done mayukorin [いいね] 発想自体はとてもすごい！ by jflute (2024/10/28)
-    // TODO mayukorin [補足] ただ、ソースコード読んで文字列を知っていれば呼べちゃうというので厳密には隠せているわけではないけど... by jflute (2024/12/16)
+    // done mayukorin [補足] ただ、ソースコード読んで文字列を知っていれば呼べちゃうというので厳密には隠せているわけではないけど... by jflute (2024/12/16)
     // 気軽に呼んでしまうっての防げそうです。一方で、getBarkWord()はもっとシンプルに隠蔽して両立する方法はあります。
     // 二つ方法がありますね。一つはご自分で実際に実装してみた downHitPoint() の方のやり方。もう一つは...
-    // TODO jflute 1on1にてgetBarkWord()の二つ方法のフォロー予定 (2024/12/16)
+    // done jflute 1on1にてgetBarkWord()の二つ方法のフォロー予定 (2024/12/16)
+    // ご自身で、「ああ、渡しちゃえば」が出てきたので素晴らしい。
+    // BarkingProcessが欲しいのは、getする行為ではなくStringのbarkWordが欲しいだけ。
+    // (一方で、downHitPointの方は、downHitPointする行為を所定のタイミングで実行したい)
+    // 引数には大きく二つ、物を渡しているのか？処理(指示書)を渡しているのか？
+    // barkWordの方は物を渡すだけで解決できるので、コールバックを使う必要性がない。
     // TODO mayukorin 引数のCallerClassNameを先頭小文字に (javaの慣習) by jflute (2024/12/16)
     /**
      * クラスによりアクセス制御をして getBarkWord() を実行するメソッド.

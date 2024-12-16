@@ -21,6 +21,10 @@ public class BarkingProcess {
     // done mayukorin protectedの方が適切かなと (サブクラスは使っても良いということで) by jflute (2024/10/28)
     // (現状だと、ZombieBarkingProcessとBarkingProcessがパッケージ分かれるとまたコンパイルエラー)
     // done mayukorin そういえば、ここもfinalが欲しいところですね by jflute (2024/10/29)
+    // [1on1でのふぉろー] もし、getBarkWord()も依存解決すれば、animalへの依存を無くすことができる。
+    // そうすると、完璧に Animal に依存しない BarkingProcess ができあがる。
+    // Animalという概念には業務的な面で依存はしてるだろうけど、Animalの実装には依存しなくなる。
+    // (Animal以外の概念がBarkingProcessを使いたくなったら使えるようになる: 実際にそれが必要かどうかは別の話だけど)
     protected final Animal animal;
     private final DownHitPointer downHitPointer;
 
@@ -37,14 +41,15 @@ public class BarkingProcess {
     //                                                                       =============
     // done mayukorin [いいね] callbackでdownHitPointを抽象化してるの素晴らしい、汎用性が増しました。 by jflute (2024/12/09)
     // downHitPointを(タイミングよく)呼び出す人と、実際に実行する人を分離することができている。
-    // TODO done mayukorin 一方で、Consumer で Animal を受け取る必要があるだろうか？callback生成側がAnimal本体なので... by jflute (2024/12/09)
+    // done mayukorin 一方で、Consumer で Animal を受け取る必要があるだろうか？callback生成側がAnimal本体なので... by jflute (2024/12/09)
     // まず、Animalを属性にもち、引数なしでdownHitPointを実行するDownHitPointerOfAnimalクラスを作成
     // BarkingProcess生成側のAnimalで、DownHitPointerOfAnimalクラスのanimalに自分自身を代入するようにした
     // このようにすれば、BarkingProcess側でAnimalを代入する必要はなくなった
     // ただしそれだと、どのクラスからでもanimalをDownHitPointerOfAnimalクラスに代入すれば、downHitPointを呼び出せてしまう
     // そこで、DownHitPointerOfAnimalクラスはpackage内でしかアクセスできないようにして、その代わりにbarkingProcessのインターフェースDownHitPointerを作成
     // 他パッケージはDownHitPointerを介してdownHitPointを呼び出すようにした
-    // TODO jflute 1on1にてふぉろー予定 (2024/12/16)
+    // done jflute 1on1にてふぉろー予定 (2024/12/16)
+    // フォローした。別のところに色々とコメント書いた
     public BarkedSound execute() {
         // done mayukorin 統一性で言うと、TicketBoothとかでthis呼び出しはしてないので、付けなくてもいいかなと by jflute (2024/12/09)
         breatheIn();

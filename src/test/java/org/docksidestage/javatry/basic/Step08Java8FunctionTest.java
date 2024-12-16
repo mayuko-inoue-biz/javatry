@@ -173,6 +173,7 @@ public class Step08Java8FunctionTest extends PlainTestCase {
     }
 
     // TODO jflute 1on1で、Optionalの概念についてお聞きします(話します) (2024/12/09)
+    // DBFluteハンズオンのときに絡めて話をすることにする。
     // ===================================================================================
     //                                                                            Optional
     //                                                                            ========
@@ -308,7 +309,8 @@ public class Step08Java8FunctionTest extends PlainTestCase {
         // あってた
     }
 
-    // TODO jflute 1on1にてStream APIの概念の話、butすでに半分くらいしゃべった感じはある (2024/12/09)
+    // done jflute 1on1にてStream APIの概念の話、butすでに半分くらいしゃべった感じはある (2024/12/09)
+    // コールバックの話を絡めて、本質を説明。あと、Stream APIがない言語もあって、方向性は色々。
     // ===================================================================================
     //                                                                          Stream API
     //                                                                          ==========
