@@ -44,8 +44,9 @@ public class BarkingProcess {
     // ただしそれだと、どのクラスからでもanimalをDownHitPointerOfAnimalクラスに代入すれば、downHitPointを呼び出せてしまう
     // そこで、DownHitPointerOfAnimalクラスはpackage内でしかアクセスできないようにして、その代わりにbarkingProcessのインターフェースDownHitPointerを作成
     // 他パッケージはDownHitPointerを介してdownHitPointを呼び出すようにした
+    // TODO jflute 1on1にてふぉろー予定 (2024/12/16)
     public BarkedSound execute() {
-        // TODO done mayukorin 統一性で言うと、TicketBoothとかでthis呼び出しはしてないので、付けなくてもいいかなと by jflute (2024/12/09)
+        // done mayukorin 統一性で言うと、TicketBoothとかでthis呼び出しはしてないので、付けなくてもいいかなと by jflute (2024/12/09)
         breatheIn();
         prepareAbdominalMuscle();
         String barkWord = animal.callGetBarkWord("BarkingProcess");

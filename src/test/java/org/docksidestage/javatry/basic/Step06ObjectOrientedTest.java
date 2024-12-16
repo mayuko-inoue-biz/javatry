@@ -599,14 +599,14 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // Zombie オーバーライド問題は、ZombieBarkingProcessクラスを作ることで解決させた
         // ただ、downHitPoint を今 publicにして BarkingProcessからアクセスできてる問題があるのでそれもこれから解決する必要がある。
         //
-        // TODO mayukorin 修行++: "B" は自力でしっかり解決してもらいました... by jflute (2024/10/28)
+        // done mayukorin 修行++: "B" は自力でしっかり解決してもらいました... by jflute (2024/10/28)
         // "A" は、チェックは掛かるようになったけども、callerを意識する少々トリッキーな実装なので、
         // できれば完全解決したいところ。(隠蔽した上でBarkingProcessを満たす)
         // ただ、これはstep8をやってからチャレンジした方がわかりやすいかも。
         // (by mayukorin)
         // Animalで、barkingProcess.execute実行時に、downHitPoint()をcallback関数として渡すことで実現できた
         // でも、呼吸の大まかな流れの処理を書いてるexecuteの中で、各処理で実行されるdownHitPoint()を引数として渡さないといけないのは、情報の抽象度が合ってない気がして微妙？
-        // TODO done mayukorin callback素晴らしい。確かに引数チェーンになっちゃってるのはもうちょいどうにかしたいところですね。 by jflute (2024/12/09)
+        // done mayukorin callback素晴らしい。確かに引数チェーンになっちゃってるのはもうちょいどうにかしたいところですね。 by jflute (2024/12/09)
         // コールバックを渡すタイミング(経路)を変えたら、引数毎度毎度パターンから抜け出せるかも？
         // [1on1でのふぉろー] 経路は見つけ出してもらいました。ライブコーディングでサンプル実装。
         // インスタンスに対してcallbackを渡すのか？ピンポイントでその処理にcallbackを渡すのか？

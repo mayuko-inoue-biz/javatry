@@ -105,6 +105,11 @@ public abstract class Animal implements Loudable {
     //                                                  Access Control to protected method
     //                                                                            ========
     // done mayukorin [いいね] 発想自体はとてもすごい！ by jflute (2024/10/28)
+    // TODO mayukorin [補足] ただ、ソースコード読んで文字列を知っていれば呼べちゃうというので厳密には隠せているわけではないけど... by jflute (2024/12/16)
+    // 気軽に呼んでしまうっての防げそうです。一方で、getBarkWord()はもっとシンプルに隠蔽して両立する方法はあります。
+    // 二つ方法がありますね。一つはご自分で実際に実装してみた downHitPoint() の方のやり方。もう一つは...
+    // TODO jflute 1on1にてgetBarkWord()の二つ方法のフォロー予定 (2024/12/16)
+    // TODO mayukorin 引数のCallerClassNameを先頭小文字に (javaの慣習) by jflute (2024/12/16)
     /**
      * クラスによりアクセス制御をして getBarkWord() を実行するメソッド.
      * @param CallerClassName このメソッドの呼び出し元クラス名 (NotNull)
