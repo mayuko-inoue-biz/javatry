@@ -27,12 +27,14 @@ public class BarkingProcess {
     // (Animal以外の概念がBarkingProcessを使いたくなったら使えるようになる: 実際にそれが必要かどうかは別の話だけど)
     // [思い出] getBarkWord()の依存解決させました！
     // protected final Animal animal;
+    // TODO jflute 1on1にて、一杯考えて考えて最終的にすっきりとしたコードに仕上げてくれたことめちゃめちゃ褒める予定 (2024/12/26)
     private final DownHitPointer downHitPointer;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
     public BarkingProcess(DownHitPointer downHitPointer) {
+        // TODO mayukorin [ふぉろー] 思い出コメントアウトありがとう！勉強用なので進化の軌跡を残すとプロセスを振り返ることができますね by jflute (2024/12/26)
         // [思い出]
         // this.animal = animal;
         this.downHitPointer = downHitPointer;

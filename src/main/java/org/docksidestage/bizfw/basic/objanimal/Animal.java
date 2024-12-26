@@ -148,7 +148,7 @@ public abstract class Animal implements Loudable {
     // 引数には大きく二つ、物を渡しているのか？処理(指示書)を渡しているのか？
     // barkWordの方は物を渡すだけで解決できるので、コールバックを使う必要性がない。
     // barkWordの値をbarkingProcessに渡すようにしてみました！
-    // TODO done mayukorin 引数のCallerClassNameを先頭小文字に (javaの慣習) by jflute (2024/12/16)
+    // done mayukorin 引数のCallerClassNameを先頭小文字に (javaの慣習) by jflute (2024/12/16)
     /**
      * クラスによりアクセス制御をして getBarkWord() を実行するメソッド.
      * @param callerClassName このメソッドの呼び出し元クラス名 (NotNull)
