@@ -56,7 +56,9 @@ public abstract class Animal implements Loudable {
     //                                                                              ======
     public BarkedSound bark() {
         BarkingProcess barkingProcess = createBarkingProcess();
-        return barkingProcess.execute();
+        // [思い出]
+        // return barkingProcess.execute();
+        return barkingProcess.execute(getBarkWord());
         // [1on1でのふぉろー] 具象クラスを使わず、LambdaのままAnimalへの依存を無くす方法: 
         //
         // return barkingProcess.execute(animal -> animal.downHitPoint());
@@ -100,7 +102,9 @@ public abstract class Animal implements Loudable {
     protected BarkingProcess createBarkingProcess() {
         // [1on1でのふぉろー] 改めて、Lambda式って何やってるのか？の学びになったかも？
         // new DownHitPointerOfAnimal(this) と () -> downHitPoint() が同じ(等価)になるので。
-        return new BarkingProcess(this, new DownHitPointerOfAnimal(this));
+        // [思い出]
+        //  return new BarkingProcess(this, new DownHitPointerOfAnimal(this));
+        return new BarkingProcess(() -> downHitPoint());
     }
 
     protected abstract String getBarkWord();
@@ -143,25 +147,26 @@ public abstract class Animal implements Loudable {
     // (一方で、downHitPointの方は、downHitPointする行為を所定のタイミングで実行したい)
     // 引数には大きく二つ、物を渡しているのか？処理(指示書)を渡しているのか？
     // barkWordの方は物を渡すだけで解決できるので、コールバックを使う必要性がない。
-    // TODO mayukorin 引数のCallerClassNameを先頭小文字に (javaの慣習) by jflute (2024/12/16)
+    // barkWordの値をbarkingProcessに渡すようにしてみました！
+    // TODO done mayukorin 引数のCallerClassNameを先頭小文字に (javaの慣習) by jflute (2024/12/16)
     /**
      * クラスによりアクセス制御をして getBarkWord() を実行するメソッド.
-     * @param CallerClassName このメソッドの呼び出し元クラス名 (NotNull)
+     * @param callerClassName このメソッドの呼び出し元クラス名 (NotNull)
      * @return Animalの鳴き声 (NotNull)
      * @throws IllegalStateException getBarkWord()のアクセスが許可されていないクラスからcallGetBarkWord()が呼び出された場合
      */
-    public String callGetBarkWord(String CallerClassName) {
-        assertCanAccessClass(CallerClassName);
+    public String callGetBarkWord(String callerClassName) {
+        assertCanAccessClass(callerClassName);
         return getBarkWord();
     }
 
     /**
      * クラスによりアクセス制御をして downHitPoint() を実行するメソッド.
-     * @param CallerClassName このメソッドの呼び出し元クラス名 (NotNull)
+     * @param callerClassName このメソッドの呼び出し元クラス名 (NotNull)
      * @throws IllegalStateException downHitPoint()のアクセスが許可されていないクラスからcallDownHitPoint()が呼び出された場合
      */
-    public void callDownHitPoint(String CallerClassName) {
-        assertCanAccessClass(CallerClassName);
+    public void callDownHitPoint(String callerClassName) {
+        assertCanAccessClass(callerClassName);
         downHitPoint();
     }
 

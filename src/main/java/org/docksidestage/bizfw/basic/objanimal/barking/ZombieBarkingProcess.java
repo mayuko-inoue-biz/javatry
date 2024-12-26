@@ -19,7 +19,9 @@ public class ZombieBarkingProcess extends BarkingProcess {
     //                                                                         Constructor
     //                                                                         ===========
     public ZombieBarkingProcess(Zombie zombie, DownHitPointer downHitPointer) {
-        super(zombie, downHitPointer);
+        // [思い出]
+        // super(zombie, downHitPointer);
+        super(downHitPointer);
         this.zombie = zombie;
     }
 
@@ -31,6 +33,8 @@ public class ZombieBarkingProcess extends BarkingProcess {
         super.breatheIn();
         // done mayukorin [いいね] コメントは素晴らしい、どうしようもないときはコメントを by jflute (2024/10/28)
         // done mayukorin 一方で、ConstructorでZombieのまま保持してもいいかと by jflute (2024/10/28)
+        // 一旦ここは、コールバックで渡さずにzombieから実行する形とした
+        // ZombieBarkingProcessという名前からして、zombieに依存してても問題ないと考えた
         zombie.getZombieDiary().countBreatheIn();
     }
 }

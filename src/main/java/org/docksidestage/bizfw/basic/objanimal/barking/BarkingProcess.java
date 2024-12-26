@@ -25,14 +25,16 @@ public class BarkingProcess {
     // そうすると、完璧に Animal に依存しない BarkingProcess ができあがる。
     // Animalという概念には業務的な面で依存はしてるだろうけど、Animalの実装には依存しなくなる。
     // (Animal以外の概念がBarkingProcessを使いたくなったら使えるようになる: 実際にそれが必要かどうかは別の話だけど)
-    protected final Animal animal;
+    // [思い出] getBarkWord()の依存解決させました！
+    // protected final Animal animal;
     private final DownHitPointer downHitPointer;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public BarkingProcess(Animal animal, DownHitPointer downHitPointer) {
-        this.animal = animal;
+    public BarkingProcess(DownHitPointer downHitPointer) {
+        // [思い出]
+        // this.animal = animal;
         this.downHitPointer = downHitPointer;
     }
 
@@ -50,11 +52,12 @@ public class BarkingProcess {
     // 他パッケージはDownHitPointerを介してdownHitPointを呼び出すようにした
     // done jflute 1on1にてふぉろー予定 (2024/12/16)
     // フォローした。別のところに色々とコメント書いた
-    public BarkedSound execute() {
+    public BarkedSound execute(String barkWord) {
         // done mayukorin 統一性で言うと、TicketBoothとかでthis呼び出しはしてないので、付けなくてもいいかなと by jflute (2024/12/09)
         breatheIn();
         prepareAbdominalMuscle();
-        String barkWord = animal.callGetBarkWord("BarkingProcess");
+        // [思い出]
+        // String barkWord = animal.callGetBarkWord("BarkingProcess");
         BarkedSound barkedSound = doBark(barkWord);
         return barkedSound;
     }
