@@ -34,7 +34,7 @@ public class BarkingProcess {
     //                                                                         Constructor
     //                                                                         ===========
     public BarkingProcess(DownHitPointer downHitPointer) {
-        // TODO mayukorin [ふぉろー] 思い出コメントアウトありがとう！勉強用なので進化の軌跡を残すとプロセスを振り返ることができますね by jflute (2024/12/26)
+        // TODO done mayukorin [ふぉろー] 思い出コメントアウトありがとう！勉強用なので進化の軌跡を残すとプロセスを振り返ることができますね by jflute (2024/12/26)
         // [思い出]
         // this.animal = animal;
         this.downHitPointer = downHitPointer;

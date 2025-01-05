@@ -35,7 +35,7 @@ public class ZombieBarkingProcess extends BarkingProcess {
         // done mayukorin 一方で、ConstructorでZombieのまま保持してもいいかと by jflute (2024/10/28)
         // 一旦ここは、コールバックで渡さずにzombieから実行する形とした
         // ZombieBarkingProcessという名前からして、zombieに依存してても問題ないと考えた
-        // TODO mayukorin [ふぉろー] ↑yes, Zombieって言っちゃってるから、ぼくもそれで良いと思います。 by jflute (2024/12/26)
+        // TODO done mayukorin [ふぉろー] ↑yes, Zombieって言っちゃってるから、ぼくもそれで良いと思います。 by jflute (2024/12/26)
         zombie.getZombieDiary().countBreatheIn();
     }
 }
